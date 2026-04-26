@@ -4,7 +4,7 @@ This repository contains the artifact for **CrossLink**, a passive cross-protoco
 
 CrossLink models an adversary that receives identifier observations from distributed sniffers. Each observation contains a protocol identifier, timestamp, sniffer location, and an imprecise distance estimate. The backend constructs feasible inter-protocol and intra-protocol links under localization error and mobility constraints, refines those links using cross-protocol consistency, and reconstructs device traces to measure privacy leakage.
 
-![Attack pipeline](design/design_arch.png)
+![Attack pipeline](design/approach.png)
 
 ## Repository layout
 
