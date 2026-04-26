@@ -3,7 +3,7 @@ import math
 import numpy as np
 from collections import defaultdict
 import csv
-output_csv = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_lte_sumo_512.csv"
+output_csv = ""
 
 def calculate_with_generic_dynamic_threshold(csv_filename, base_threshold, Vmax):
     data_by_timestep = defaultdict(list)
