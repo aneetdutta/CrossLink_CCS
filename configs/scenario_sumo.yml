@@ -1,0 +1,25 @@
+# General simulation settings
+# variables:
+#   &user_timesteps 18400
+
+general:
+  USER_TIMESTEPS: 25200               # Number of user timesteps
+  DATA_USECASE: "sumo"
+  
+user_threshold:
+  TOTAL_NUMBER_OF_USERS: 512          # Create only same set of users for different run
+  ENABLE_USER_THRESHOLD: true        # Enable user threshold
+
+# Movement Parameters
+movement_parameters:
+  POLYGON_COORDS:                     # Polygon coordinates
+    - [3499.77, 1500.07]
+    - [5798.43, 3799.93]
+    - [6452.11, 3150.56]
+    - [5401.44, 2099.71]
+    - [5751.91, 1749.63]
+    - [4500.10, 498.92]
+
+# Mobility settings
+mobility:
+  MAX_MOBILITY_FACTOR: 1.5       # Mobility factor in m/s
