@@ -2,7 +2,7 @@
 
 This repository contains the artifact for **CrossLink**, a passive cross-protocol tracking framework that links temporary identifiers emitted by the same device over LTE, WiFi, and BLE. The artifact supports the simulation, tracing, reconstruction, and plotting pipeline used in the paper.
 
-CrossLink models an adversary that receives identifier observations from distributed sniffers. Each observation contains a protocol identifier, timestamp, sniffer location, and an imprecise distance estimate. The backend then constructs feasible inter-protocol and intra-protocol links under localization error and mobility constraints, refines those links using cross-protocol consistency, and reconstructs device traces to measure privacy leakage.
+CrossLink models an adversary that receives identifier observations from distributed sniffers. Each observation contains a protocol identifier, timestamp, sniffer location, and an imprecise distance estimate. The backend constructs feasible inter-protocol and intra-protocol links under localization error and mobility constraints, refines those links using cross-protocol consistency, and reconstructs device traces to measure privacy leakage.
 
 ![Attack pipeline](design/design_arch.png)
 
@@ -18,8 +18,9 @@ CrossLink models an adversary that receives identifier observations from distrib
 ├── reconstruction/          # Single- and multi-protocol trace reconstruction
 ├── scenario/                # SUMO scenario files
 ├── simulation/              # SUMO and synthetic graph mobility generation
-├── tracing_algorithm/       # Inter-map, intra-map, refinement, and filtering logic
-├── main.py                  # Entry point for running pipeline stages
+├── tracing_algorithm/       # Aggregation, refinement, and filtering logic
+├── Cargo.toml / src/        # Rust implementation for sniffer-data, inter-map, and intra-map stages
+├── main.py                  # Entry point for Python pipeline stages
 └── pipeline.py              # Stage definitions used by main.py
 ```
 
@@ -40,8 +41,8 @@ The full 512-user experiments are memory intensive. We recommend:
 
 - Python 3
 - Poetry for Python dependency management
+- Rust and Cargo for the optimized sniffer and mapping stages
 - SUMO, if running the SUMO mobility pipeline
-- Rust/Cargo, if running the optimized sniffer or mapping stages used by the artifact
 
 Install Python dependencies from the repository root:
 
@@ -51,18 +52,25 @@ poetry install
 poetry shell
 ```
 
-Alternatively, prefix commands with `poetry run` instead of entering a Poetry shell.
+Alternatively, prefix Python commands with `poetry run` instead of entering a Poetry shell.
+
+Build/check the Rust implementation from the directory that contains `Cargo.toml`:
+
+```bash
+cargo build --release
+```
 
 ## Quick start
 
-All pipeline commands should be run from the code directory that contains `main.py`.
+Run Python stages from the code directory that contains `main.py`. Run Rust stages from the directory that contains `Cargo.toml` (in many checkouts, this is the same directory).
 
 ```bash
 cd code
 CONFIG=scenario_result_512_sumo_all.yml
+SCENARIO=$(basename "$CONFIG" .yml)
 ```
 
-List available pipeline targets:
+List available Python pipeline targets:
 
 ```bash
 python3 main.py -c "$CONFIG" -t help
@@ -82,7 +90,7 @@ python3 main.py -c "$CONFIG" -t clean
 
 ## Running the pipeline
 
-The artifact is organized as a sequence of stages. The same pattern applies to other scenario files: replace `scenario_result_512_sumo_all.yml` with the desired configuration.
+The artifact is organized as a sequence of stages. The same pattern applies to other scenario files: replace `scenario_result_512_sumo_all.yml` with the desired configuration and set `SCENARIO` to the filename without the `.yml` suffix.
 
 ### 1. Generate mobility traces
 
@@ -132,7 +140,7 @@ Expected output:
 data/<scenario_name>/user_data_<scenario_name>.csv
 ```
 
-### 3. Generate sniffer observations
+### 3. Generate sniffer observations with Rust
 
 Before generating observations, choose sniffer locations. The repository includes example placement files in `data/`, including full-coverage BLE/WiFi placements and partial-coverage placements. New placements can be generated or modified through:
 
@@ -149,19 +157,17 @@ ENABLE_PARTIAL_COVERAGE
 SNIFFER_PROCESSING_BATCH_SIZE
 ```
 
-Then run:
+Generate sniffer observations using the Rust implementation:
 
 ```bash
-python3 main.py -c "$CONFIG" -t generate_sniffer_data
+cargo run --release -- "$SCENARIO" -- generate_sniffer_data
 ```
 
 Expected output:
 
 ```text
-data/<scenario_name>/sniffed_data_<scenario_name>.*
+data/<scenario_name>/sniffed_data_<scenario_name>.bin
 ```
-
-The exact extension depends on the selected implementation path.
 
 ### 4. Aggregate observations
 
@@ -188,19 +194,30 @@ WIFI_LOCALIZATION_ERROR
 LTE_LOCALIZATION_ERROR
 ```
 
-Then run the tracing stages:
+Construct the initial inter-protocol and intra-protocol maps using Rust:
 
 ```bash
-python3 main.py -c "$CONFIG" -t intermap_new
-python3 main.py -c "$CONFIG" -t intramap_new
-python3 main.py -c "$CONFIG" -t generate_mappings
+cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map
+cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map
+```
+
+The Rust stages construct candidate inter-protocol links and candidate intra-protocol links across identifier rotations. The Python stages convert these outputs, refine them using cross-protocol consistency, and filter ambiguous mappings.
+
+Expected initial Rust outputs:
+
+```text
+data/<scenario_name>/intermap_<scenario_name>.pickle
+data/<scenario_name>/intramap_<scenario_name>.pickle
+```
+
+Then run the Python conversion, refinement, and filtering stages:
+
+```bash
+
 python3 main.py -c "$CONFIG" -t refine_intramap
 python3 main.py -c "$CONFIG" -t intra_filter
 ```
-
-These stages construct candidate inter-protocol links, construct candidate intra-protocol links across identifier rotations, refine both sets using cross-protocol consistency, and filter ambiguous intra-protocol mappings.
-
-Expected multi-protocol outputs:
+Expected refined outputs:
 
 ```text
 data/<scenario_name>/refined_intermap_<scenario_name>.npy
@@ -276,15 +293,25 @@ Important configuration groups:
 ```bash
 cd code
 CONFIG=scenario_result_512_sumo_all.yml
+SCENARIO=$(basename "$CONFIG" .yml)
 
+# Python stages
 python3 main.py -c "$CONFIG" -t clean_all
 python3 main.py -c "$CONFIG" -t sumo
 python3 main.py -c "$CONFIG" -t generate_user_data
-python3 main.py -c "$CONFIG" -t generate_sniffer_data
+
+# Rust sniffer-data stage
+cargo run --release -- "$SCENARIO"
+
+# Python aggregation
 python3 main.py -c "$CONFIG" -t aggregate
-python3 main.py -c "$CONFIG" -t intermap_new
-python3 main.py -c "$CONFIG" -t intramap_new
-python3 main.py -c "$CONFIG" -t generate_mappings
+
+# Rust mapping stages
+cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map
+cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map
+
+# Python refinement, reconstruction, and plotting
+
 python3 main.py -c "$CONFIG" -t refine_intramap
 python3 main.py -c "$CONFIG" -t intra_filter
 python3 main.py -c "$CONFIG" -t reconstruction
@@ -293,12 +320,14 @@ python3 main.py -c "$CONFIG" -t plot
 
 ## Troubleshooting
 
-- Run commands from the directory containing `main.py`; otherwise relative paths may not resolve.
-- Use `python3 main.py -c <config> -t help` to verify available stage names in the current checkout.
+- Run Python commands from the directory containing `main.py`; otherwise relative paths may not resolve.
+- Run Cargo commands from the directory containing `Cargo.toml`; otherwise Cargo will not find the Rust crate.
+- Rust stages expect the scenario name without the `.yml` suffix, for example `scenario_result_512_sumo_all`, not `scenario_result_512_sumo_all.yml`.
+- Use `python3 main.py -c <config> -t help` to verify available Python stage names in the current checkout.
 - If generated files are missing, check that the scenario name in the configuration matches the data directory name used by later stages.
 - The SUMO stage is memory intensive. Reduce the number of users or timesteps for a small smoke test.
 - If a stage fails after a previous run, use `clean_all` to remove stale intermediate files.
-- If Poetry is not activated, run commands as `poetry run python3 main.py ...`.
+- If Poetry is not activated, run Python stages as `poetry run python3 main.py ...`.
 
 ## Research and ethics note
 
