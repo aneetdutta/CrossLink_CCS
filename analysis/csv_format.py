@@ -1,8 +1,8 @@
 import csv
 
 # File paths (adjust these paths as needed)
-neighbor_file = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_ble_sumo_512.csv"
-scores_file = "/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_exponential_512_sumo_LB/multi_protocol_scenario_exponential_512_sumo_LB.csv"
+neighbor_file = ""$path to neighbor durations file
+scores_file = ""# path to multiscore file
 output_file = "mixedzone_duration_lte.csv"
 
 # Step 1: Read scores_file into a dictionary keyed by user_id
