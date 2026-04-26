@@ -9,7 +9,7 @@ from itertools import combinations
 # =========================
 # HARD-CODED SETTINGS
 # =========================
-CSV_FILE = "/home/aneet_wisec/usenix_2025/path-leakage/data/synchronized_low_ti/user_data_synchronized_low_ti.csv"
+CSV_FILE = "/path-leakage/data/synchronized_low_ti/user_data_synchronized_low_ti.csv"
 # or your uploaded file:
 # CSV_FILE = "/mnt/data/user_data_scenario_result_512_sumo_all1.csv"
 
