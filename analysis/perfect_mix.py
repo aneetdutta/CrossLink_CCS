@@ -106,9 +106,9 @@ def upper_bound_wifi(lambda_r,T):
     print(upper_bound)
     return upper_bound
 
-neighbor_file1 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_ble_sumo_512.csv"
-neighbor_file2 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_lte_sumo_512.csv"
-neighbor_file3 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_WiFi_sumo_512.csv"
+neighbor_file1 = "/path-leakage/analysis/mix_zone/neighbor_durations_ble_sumo_512.csv"
+neighbor_file2 = "/path-leakage/analysis/mix_zone/neighbor_durations_lte_sumo_512.csv"
+neighbor_file3 = "/path-leakage/analysis/mix_zone/neighbor_durations_WiFi_sumo_512.csv"
 
 scores_file = "/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all5/multi_protocol_scenario_result_512_sumo_all5.csv"
 
