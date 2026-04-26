@@ -1,6 +1,6 @@
 import pandas as pd
 
-file_a = "/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all1/multi_protocol_scenario_result_512_sumo_all1.csv"   # CSV that you want to select user_id FROM
+file_a = ""   # CSV that you want to select user_id FROM
 file_b = "largest_A_ids.csv"   # CSV that contains the reference user_id column
 out_file = "matched_user_ids_baseline.csv"
 
