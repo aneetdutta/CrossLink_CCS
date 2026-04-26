@@ -13,11 +13,11 @@ from pathlib import Path
 # ──────────────────────────────────────────────────────────
 # 1.  File locations  (EDIT THESE)
 # ──────────────────────────────────────────────────────────
-NEIGHBOR_BLE = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/neighbor_durations_ble_sumo_512.csv"
+NEIGHBOR_BLE = "/path-leakage/analysis/neighbor_durations_ble_sumo_512.csv"
 
-NEIGHBOR_LTE = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/neighbor_durations_lte_sumo_512.csv"
+NEIGHBOR_LTE = "/path-leakage/analysis/neighbor_durations_lte_sumo_512.csv"
 
-SCORES_FILE  = "/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_exponential_512_sumo_LW/multi_protocol_scenario_exponential_512_sumo_LW.csv"  # only for user list
+SCORES_FILE  = "/path-leakage/output/data/scenario_exponential_512_sumo_LW/multi_protocol_scenario_exponential_512_sumo_LW.csv"  # only for user list
 
 # ──────────────────────────────────────────────────────────
 # 2.  Model parameters
