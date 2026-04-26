@@ -5,10 +5,9 @@ import numpy as np
 
 
 
-neighbor_file1 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_ble_sumo_1536.csv"
-#neighbor_file2 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mixedzone_duration_lte.csv"
-scores_file = "/home/aneet_wisec/usenix_2025/path-leakage/plot/q4_density_data/multi_protocol_scenario_exponential_1536_sumo_LB.csv"
-output_csv = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_ble_sumo_1536_mix_plot.csv"
+neighbor_file1 = ""
+scores_file = ""
+output_csv = ""
 
 
 df_scores=pd.read_csv(scores_file)
