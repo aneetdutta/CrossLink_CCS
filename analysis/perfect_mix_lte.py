@@ -22,9 +22,9 @@ def upper_bound(lambda_r,lambda_t,T):
     
     return upper_bound
 
-neighbor_file1 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/neighbor_durations_ble_lte.csv"
-neighbor_file2 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/neighbor_durations_ble_lte.csv"
-scores_file = "/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_exponential_512_sumo_LB/multi_protocol_scenario_exponential_512_sumo_LB.csv"
+neighbor_file1 = "/path-leakage/analysis/neighbor_durations_ble_lte.csv"
+neighbor_file2 = "/path-leakage/analysis/neighbor_durations_ble_lte.csv"
+scores_file = "/path-leakage/output/data/scenario_exponential_512_sumo_LB/multi_protocol_scenario_exponential_512_sumo_LB.csv"
 
 ''' Parameters for BLE'''
 lambdar_r_ble=0.00166666666 #(600 seconds)
