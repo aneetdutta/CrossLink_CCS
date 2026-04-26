@@ -12,7 +12,7 @@ velocity_max = 3.0     # in meters/second
 
 # Step 1: Read CSV and collect all records
 all_records = defaultdict(list)  # List of tuples: (timestamp, user_id, lat, lon)
-with open('/home/aneet_wisec/usenix_2025/path-leakage/data/scenario_exponential_512_sumo_all5/user_data_scenario_exponential_512_sumo_all5.csv', mode='r') as csv_file:
+with open('', mode='r') as csv_file:
     reader = csv.DictReader(csv_file)
     for row in reader:
         timestamp = float(row['timestep'])  # assuming timestamp is convertible to float
