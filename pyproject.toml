@@ -2,7 +2,7 @@
 name = "privacy_analysis"
 version = "0.1.0"
 description = ""
-authors = ["mihirraj dixit <dixitmn6@gmail.com>"]
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
