@@ -52,11 +52,11 @@ def upper_bound_wifi(lambda_r,T):
     print(upper_bound)
     return upper_bound
 
-neighbor_file1 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_ble_sumo_512.csv"
-neighbor_file2 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_lte_sumo_512.csv"
-neighbor_file3 = "/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/neighbor_durations_WiFi_sumo_512.csv"
-output_csv = '/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/users_mixing_probabilities.csv'
-scores_file = "/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all5/multi_protocol_scenario_result_512_sumo_all5.csv"
+neighbor_file1 = ""
+neighbor_file2 = ""
+neighbor_file3 = ""
+output_csv = ''
+scores_file = ""
 
 ''' Parameters for BLE'''
 lambdar_r_ble=0.00303030303 #(600 seconds)
