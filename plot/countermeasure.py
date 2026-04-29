@@ -31,7 +31,7 @@ STYLE = {
     "naive_lte":  dict(color="#e377c2", marker="*"),  # star
 }
 
-multi_protocol_df = pd.read_csv(f'/home/aneet_wisec/usenix_2025/path-leakage/output/data/synchronized_low_ti/multi_protocol_synchronized_low_ti.csv')
+multi_protocol_df = pd.read_csv(f'/output/data/{BASE_SCENARIO_NAME}_synchronized_low_ti/multi_protocol_{BASE_SCENARIO_NAME}_synchronized_low_ti.csv')
 multi_protocol_scores = multi_protocol_df['privacy_score'].values
 multi_protocol_scores_sorted = np.sort(multi_protocol_scores)
 multi_protocol_users = np.arange(1, len(multi_protocol_scores_sorted) + 1)
@@ -60,7 +60,7 @@ print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.9: {count
 print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.8: {count_users_privacy_4} - Percentage: {count_users_privacy_4/NUM_USERS}")
 plt.plot(multi_protocol_users, multi_protocol_scores_sorted,label='No-synchronization (Baseline)', alpha=0.7, linewidth=1,markevery=marker_interval, markersize=2, **STYLE["baseline"])
 
-multi_protocol_df = pd.read_csv(f'/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_synced_randomization_512_all/multi_protocol_scenario_synced_randomization_512_all.csv')
+multi_protocol_df = pd.read_csv(f'/output/data/scenario_synced_randomization_512_all/multi_protocol_scenario_synced_randomization_512_all.csv')
 multi_protocol_scores = multi_protocol_df['privacy_score'].values
 multi_protocol_scores_sorted = np.sort(multi_protocol_scores)
 multi_protocol_users = np.arange(1, len(multi_protocol_scores_sorted) + 1)
@@ -75,7 +75,7 @@ print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.8: {count
 plt.plot(multi_protocol_users, multi_protocol_scores_sorted,label='Local Synchronization (600 s)', alpha=0.7, linewidth=1,markevery=marker_interval, markersize=2, **STYLE["sync_600"])
 
 
-multi_protocol_df = pd.read_csv(f'/home/aneet_wisec/usenix_2025/path-leakage/output/data/synchronized_high_ti/multi_protocol_synchronized_high_ti.csv')
+multi_protocol_df = pd.read_csv(f'/output/data/synchronized_high_ti/multi_protocol_synchronized_high_ti.csv')
 multi_protocol_scores = multi_protocol_df['privacy_score'].values
 multi_protocol_scores_sorted = np.sort(multi_protocol_scores)
 multi_protocol_users = np.arange(1, len(multi_protocol_scores_sorted) + 1)
@@ -89,7 +89,7 @@ print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.9: {count
 print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.8: {count_users_privacy_4} - Percentage: {count_users_privacy_4/NUM_USERS}")
 plt.plot(multi_protocol_users, multi_protocol_scores_sorted,label='Local Synchronization (180 s)', alpha=0.7, linewidth=1,markevery=marker_interval, markersize=2, **STYLE["sync_180"])
 
-multi_protocol_df = pd.read_csv(f'/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_proximity_512_sumo_new/multi_protocol_scenario_proximity_512_sumo_new.csv')
+multi_protocol_df = pd.read_csv(f'/output/data/scenario_proximity_512_sumo_new/multi_protocol_scenario_proximity_512_sumo_new.csv')
 multi_protocol_scores = multi_protocol_df['privacy_score'].values
 multi_protocol_scores_sorted = np.sort(multi_protocol_scores)
 multi_protocol_users = np.arange(1, len(multi_protocol_scores_sorted) + 1)
@@ -104,7 +104,7 @@ print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.8: {count
 plt.plot(multi_protocol_users, multi_protocol_scores_sorted,label='Perfect Mixing', alpha=0.7, linewidth=1,markevery=marker_interval, markersize=2, **STYLE["mixing"])
 
 
-single_protocol_df = pd.read_csv(f'/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_proximity_512_sumo_new/single_ble_scenario_proximity_512_sumo_new.csv')
+single_protocol_df = pd.read_csv(f'/output/data/scenario_proximity_512_sumo_new/single_ble_scenario_proximity_512_sumo_new.csv')
 single_protocol_scores = single_protocol_df['privacy_score'].values
 single_protocol_scores_sorted = np.sort(single_protocol_scores)
 single_protocol_users = np.arange(1, len(single_protocol_scores_sorted) + 1)
@@ -118,7 +118,7 @@ print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.9: {count
 print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.8: {count_users_privacy_4} - Percentage: {count_users_privacy_4/NUM_USERS}")
 plt.plot(single_protocol_users, single_protocol_scores_sorted, label='Single Protocol (BLE)', alpha=0.7, linewidth=1, color="#a6d854", marker='D', markevery=marker_interval,markersize=2)
 
-single_protocol_df = pd.read_csv(f'/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_proximity_512_sumo_new/single_wifi_scenario_proximity_512_sumo_new.csv')
+single_protocol_df = pd.read_csv(f'/output/data/scenario_proximity_512_sumo_new/single_wifi_scenario_proximity_512_sumo_new.csv')
 single_protocol_scores = single_protocol_df['privacy_score'].values
 single_protocol_scores_sorted = np.sort(single_protocol_scores)
 single_protocol_users = np.arange(1, len(single_protocol_scores_sorted) + 1)
@@ -132,7 +132,7 @@ print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.9: {count
 print(f"Total number of users for LTE-WIFI-BLE with privacy_score >= 0.8: {count_users_privacy_4} - Percentage: {count_users_privacy_4/NUM_USERS}")
 plt.plot(single_protocol_users, single_protocol_scores_sorted,label='Single Protocol (WiFi)', alpha=0.7, linewidth=1,markevery=marker_interval, markersize=2, **STYLE["naive_wifi"])
 
-single_protocol_df = pd.read_csv(f'/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_proximity_512_sumo_new/single_lte_scenario_proximity_512_sumo_new.csv')
+single_protocol_df = pd.read_csv(f'/output/data/scenario_proximity_512_sumo_new/single_lte_scenario_proximity_512_sumo_new.csv')
 single_protocol_scores = single_protocol_df['privacy_score'].values
 single_protocol_scores_sorted = np.sort(single_protocol_scores)
 single_protocol_users = np.arange(1, len(single_protocol_scores_sorted) + 1)
