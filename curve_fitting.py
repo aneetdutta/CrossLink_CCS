@@ -5,7 +5,7 @@ from scipy.stats import expon
 import matplotlib.pyplot as plt
 
 # Load JSON data
-with open('/home/aneet_wisec/usenix_2025/path-leakage/real_world/ti.json', 'r') as file:
+with open('/real_world/ti.json', 'r') as file:
     data = json.load(file)
 
 # Extract keys from JSON
@@ -32,11 +32,11 @@ df_results = pd.DataFrame(fitting_results).T.reset_index().rename(columns={'inde
 
 #import ace_tools as tools; tools.display_dataframe_to_user(name="Exponential Curve Fitting Results", dataframe=df_results)
 
-df_results.to_csv('/home/aneet_wisec/usenix_2025/path-leakage/real_world/scale.csv')
+df_results.to_csv('/real_world/scale.csv')
 
 # Generate separate plots for each key
 # Define directory to save plots
-output_dir = '/home/aneet_wisec/usenix_2025/path-leakage/real_world/'
+output_dir = '/real_world/'
 import os
 plt.figure(figsize=(3.3, 2.1))
 # Create directory if it doesn't exist
