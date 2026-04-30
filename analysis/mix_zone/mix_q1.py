@@ -166,7 +166,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 
 # Read CSV file into DataFrame (replace 'your_file.csv' with your CSV file path)
-df = pd.read_csv('/home/aneet_wisec/usenix_2025/path-leakage/analysis/mix_zone/users_mixing_probabilities.csv')
+df = pd.read_csv('/path-leakage/analysis/mix_zone/users_mixing_probabilities.csv')
 
 user_ranges = df.groupby('user_id')['mixing_probability'].agg(['min', 'max'])
 user_ranges['range'] = user_ranges['max'] - user_ranges['min']
