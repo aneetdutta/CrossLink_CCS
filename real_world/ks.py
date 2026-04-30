@@ -6,7 +6,7 @@ from scipy.stats import kstest, expon
 from scipy.optimize import curve_fit
 
 # Load the data
-with open('/home/aneet_wisec/usenix_2025/path-leakage/real_world/ti.json', 'r') as file:
+with open('/path-leakage/real_world/ti.json', 'r') as file:
     data_combined = json.load(file)
 
 # Combine all keys containing "ble", "wifi", and "lte"
