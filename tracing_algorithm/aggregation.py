@@ -17,34 +17,6 @@ ENABLE_WIFI = str_to_bool(os.getenv("ENABLE_WIFI"))
 ENABLE_LTE = str_to_bool(os.getenv("ENABLE_LTE"))
 
 
-# ============================================================
-# Rust .bin format written by save_observations_binary()
-#
-# Header:
-#   u64 count
-#
-# Per-record base format:
-#   u32 timestep
-#   u8  user_id_len
-#   [user_id bytes]
-#   f32 distance
-#   u16 sniffer_id
-#   f32 sniffer_x
-#   f32 sniffer_y
-#   f32 user_x
-#   f32 user_y
-#   u8  protocol    (0=BLE, 1=WIFI, 2=LTE)
-#   u8  device_id_len
-#   [device_id bytes]
-#
-# Newer extended tail (written for all records in updated Rust code):
-#   u8  serving_cell_id_len
-#   [serving_cell_id bytes]
-#   f32 bs_x
-#   f32 bs_y
-#   f32 dist_sniffer_to_bs
-#   f32 dist_user_to_bs
-# ============================================================
 
 PROTO_MAP = {
     0: "Bluetooth",
