@@ -92,6 +92,8 @@ python3 main.py -c "$CONFIG" -t clean
 
 The artifact is organized as a sequence of stages. The same pattern applies to other scenario files: replace `scenario_result_512_sumo_all.yml` with the desired configuration and set `SCENARIO` to the filename without the `.yml` suffix.
 
+We already provided the raw mobility traces in data folder, sumo can be ignored.
+
 ### 1. Generate mobility traces
 
 For SUMO-based mobility:
@@ -113,6 +115,7 @@ The SUMO stage uses the scenario files in `scenario/` and parameters such as `PO
 > Note: this stage can use substantial memory because the SUMO output is loaded and filtered in memory.
 
 ### 2. Generate protocol identifiers and transmissions
+For LTE rotation mode use:   LTE_RANDOMIZATION_MODE: "handover" (cell change based inter-enodeB handover) or "time" (memoryless exponential mode)
 
 ```bash
 python3 main.py -c "$CONFIG" -t generate_user_data
