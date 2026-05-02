@@ -1,22 +1,4 @@
-"""
-final_filter_plot_uniqueLoc_polygon_only.py
 
-Hardcoded script (no argparse) that:
-1) Reads your existing OpenCellID CSV: data/opencellid_cells_<SCENARIO_NAME>.csv
-2) Filters: radio=LTE, mcc=210, mnc=10
-3) Optionally filters points inside your SUMO polygon (XY -> lon/lat using SUMO net projection)
-4) Deduplicates: keep only ONE cell per "same location" (rounded lat/lon)
-5) Saves final CSV
-6) Creates an OpenStreetMap (Leaflet) HTML plot with:
-   - ONLY the GREEN polygon overlay (no bbox rectangles)
-   - cell point markers + range circles
-
-If your polygon conversion fails (SUMO net not geo-referenced), the map will still plot cells,
-but polygon won't be drawn.
-
-Prereq:
-  export SUMO_HOME=/usr/share/sumo   (or your SUMO install)
-"""
 
 import os
 import sys
@@ -49,8 +31,6 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 # Input CSV you already created earlier
 IN_CSV = DATA_DIR / f"demo/opencellid_cells_{SCENARIO_NAME}.csv"
 print(IN_CSV)
-#IN_CSV="/home/aneet_wisec/usenix_2025/path-leakage/data/demo/opencellid_cells_demo.csv"
-# Output
 OUT_CSV = DATA_DIR / f"opencellid_cells_{SCENARIO_NAME}_LTE_212_10_uniqueLoc_new.csv"
 OUT_HTML = DATA_DIR / f"opencellid_cells_{SCENARIO_NAME}_LTE_212_10_uniqueLoc_polygonOnly_new.html"
 
