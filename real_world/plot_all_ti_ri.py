@@ -22,7 +22,7 @@ def remove_outliers(values, percentile=90):
     upper_bound = Q3 + 1.5 * IQR
     return [x for x in values if lower_bound <= x <= upper_bound]
 
-with open(f"/home/aneet_wisec/usenix_2025/path-leakage/real_world/ti_updated_new.json", 'r') as f:
+with open(f"/path-leakage/real_world/ti_updated_new.json", 'r') as f:
     data = json.load(f)
 
 
