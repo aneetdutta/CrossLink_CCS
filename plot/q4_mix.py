@@ -17,8 +17,8 @@ def compute_ecdf(data):
     return x, ecdf
 
 # Path to directory containing CSV files (update as needed)
-csv_directory_mix = '/home/aneet_wisec/usenix_2025/path-leakage/plot/q4_mix1'
-csv_directory_score = '/home/aneet_wisec/usenix_2025/path-leakage/plot/q4_density_data'
+csv_directory_mix = '/path-leakage/plot/q4_mix1'
+csv_directory_score = '/path-leakage/plot/q4_density_data'
 # Pattern to match CSV files
 csv_pattern = os.path.join(csv_directory_mix, '*.csv')
 
