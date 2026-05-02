@@ -219,7 +219,7 @@ fig.legend(
 #plt.subplots_adjust(bottom=0.25)
 plt.rc('savefig', bbox='tight')
 plt.rc('savefig', pad_inches=0.02)
-filename = '/home/aneet_wisec/usenix_2025/path-leakage/real_world/lte_combined_active_inactive.pdf_new.pdf'
+filename = '/path-leakage/real_world/lte_combined_active_inactive.pdf_new.pdf'
 plt.savefig(filename)
 # plt.subplots_adjust(bottom=0.16)  # Adjust bottom to fit legend
 
@@ -308,7 +308,7 @@ plt.rc('savefig', pad_inches=0.02) # 0 and 0.01 crop the frame/axis labels
 # plt.subplots_adjust(bottom=0.14, left=0.05, right=0.95, top=0.9)
 #plt.subplots_adjust(bottom=0.16) 
 # Save the combined plot
-filename = '/home/aneet_wisec/usenix_2025/path-leakage/real_world/wifi_combined_disconnected_connected_new.pdf'
+filename = '/path-leakage/real_world/wifi_combined_disconnected_connected_new.pdf'
 plt.savefig(filename)
 #with PdfPages(filename) as pdf:
  #   pdf.savefig(dpi=600, bbox_inches='tight')
@@ -372,7 +372,7 @@ fig.legend(
 plt.subplots_adjust(bottom=0.2)
 plt.rc('savefig', bbox='tight')
 plt.rc('savefig', pad_inches=0.02)
-filename = '/home/aneet_wisec/usenix_2025/path-leakage/real_world/ble_combined_ti_ri_updated_new.pdf'
+filename = '/path-leakage/real_world/ble_combined_ti_ri_updated_new.pdf'
 plt.savefig(filename)
 
 #-----------------------------------------------------------------------------------------------------------------
@@ -549,7 +549,7 @@ legend = fig.legend(
 # -----------------------
 # Save
 # -----------------------
-filename = '/home/aneet_wisec/usenix_2025/path-leakage/real_world/ble_combined_ti_ri_final_ti_ylim_45.pdf'
+filename = '/path-leakage/real_world/ble_combined_ti_ri_final_ti_ylim_45.pdf'
 os.makedirs(os.path.dirname(filename), exist_ok=True)
 
 fig.savefig(
