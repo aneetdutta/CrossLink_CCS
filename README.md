@@ -168,6 +168,11 @@ Generate sniffer observations using the Rust implementation:
 ```bash
 cargo run --release -- "$SCENARIO" -- generate_sniffer_data
 ```
+Generate sniffer observations for mobile sniffer scenario:
+
+```bash
+cargo run --release -- "$SCENARIO" -- generate_sniffer_data_from_end_devices 30
+```
 
 Expected output:
 
