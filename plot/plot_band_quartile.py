@@ -43,9 +43,9 @@ sns.lineplot(x=x_common, y=mean_scores, color="#a6d854", linewidth=1.5,marker='D
 plt.fill_between(x_common, p25, p90, color="#c0e384", alpha=0.4)
 
 file_paths = [
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB/multi_protocol_scenario_result_512_sumo_LB.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB1/multi_protocol_scenario_result_512_sumo_LB1.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB3/multi_protocol_scenario_result_512_sumo_LB3.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_LB/multi_protocol_scenario_result_512_sumo_LB.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_LB1/multi_protocol_scenario_result_512_sumo_LB1.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_LB3/multi_protocol_scenario_result_512_sumo_LB3.csv',
 ]
 
 # Load and concatenate data
@@ -76,9 +76,9 @@ sns.lineplot(x=x_common, y=mean_scores, color='#1f77b4', linewidth=1.5,marker='^
 plt.fill_between(x_common, p25, p90, color="#aec7e8", alpha=0.4)
 
 file_paths = [
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_BW/multi_protocol_scenario_result_512_sumo_BW.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_BW1/multi_protocol_scenario_result_512_sumo_BW1.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_BW3/multi_protocol_scenario_result_512_sumo_BW3.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_BW/multi_protocol_scenario_result_512_sumo_BW.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_BW1/multi_protocol_scenario_result_512_sumo_BW1.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_BW3/multi_protocol_scenario_result_512_sumo_BW3.csv',
 ]
 
 # Load and concatenate data
@@ -111,9 +111,9 @@ plt.fill_between(x_common, p25, p90, color="#d9884f", alpha=0.4)
 
 
 file_paths = [
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all/multi_protocol_scenario_result_512_sumo_all.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all1/multi_protocol_scenario_result_512_sumo_all1.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all3/multi_protocol_scenario_result_512_sumo_all3.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all/multi_protocol_scenario_result_512_sumo_all.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all1/multi_protocol_scenario_result_512_sumo_all1.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all3/multi_protocol_scenario_result_512_sumo_all3.csv',
 ]
 
 # Load and concatenate data
@@ -145,9 +145,9 @@ sns.lineplot(x=x_common, y=mean_scores, color="#FFD700", linewidth=1.5,marker='*
 plt.fill_between(x_common, p25, p90, color="#FFF8B5", alpha=0.4)
 
 file_paths = [
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all/single_ble_scenario_result_512_sumo_all.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all1/single_ble_scenario_result_512_sumo_all1.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all3/single_ble_scenario_result_512_sumo_all3.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all/single_ble_scenario_result_512_sumo_all.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all1/single_ble_scenario_result_512_sumo_all1.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all3/single_ble_scenario_result_512_sumo_all3.csv',
 ]
 
 # Load and concatenate data
@@ -181,9 +181,9 @@ sns.lineplot(x=x_common, y=mean_scores, color="#8da0cb", linewidth=1.5,marker='s
 plt.fill_between(x_common, p25, p90, color="#bbc7e2", alpha=0.4)
 
 file_paths = [
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all/single_wifi_scenario_result_512_sumo_all.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all1/single_wifi_scenario_result_512_sumo_all1.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all3/single_wifi_scenario_result_512_sumo_all3.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all/single_wifi_scenario_result_512_sumo_all.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all1/single_wifi_scenario_result_512_sumo_all1.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all3/single_wifi_scenario_result_512_sumo_all3.csv',
 ]
 
 # Load and concatenate data
@@ -217,9 +217,9 @@ sns.lineplot(x=x_common, y=mean_scores, color="#66c2a5", linewidth=1.5,marker='o
 plt.fill_between(x_common, p25, p90, color="#9dd9c9", alpha=0.4)
 
 file_paths = [
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all/single_lte_scenario_result_512_sumo_all.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all1/single_lte_scenario_result_512_sumo_all1.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all3/single_lte_scenario_result_512_sumo_all3.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all/single_lte_scenario_result_512_sumo_all.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all1/single_lte_scenario_result_512_sumo_all1.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_all3/single_lte_scenario_result_512_sumo_all3.csv',
 ]
 
 # Load and concatenate data
