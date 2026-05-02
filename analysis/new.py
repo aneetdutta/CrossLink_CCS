@@ -150,7 +150,7 @@ def interpolate_and_check(stats, user_timesteps, user_data, base_threshold):
 
 # Main execution
 if __name__ == "__main__":
-    csv_file = "/home/aneet_wisec/usenix_2025/path-leakage/data/scenario_result_512_sumo_all/user_data_scenario_result_512_sumo_all.csv"
+    csv_file = "/path-leakage/data/scenario_result_512_sumo_all/user_data_scenario_result_512_sumo_all.csv"
     base_threshold = 20
     Vmax = 3
 
