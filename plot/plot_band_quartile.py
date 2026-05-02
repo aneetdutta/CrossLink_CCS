@@ -9,9 +9,9 @@ marker_interval = 50
 # Example file paths (update these with your actual paths)
 
 file_paths = [
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LW/multi_protocol_scenario_result_512_sumo_LW.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LW1/multi_protocol_scenario_result_512_sumo_LW1.csv',
-    '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LW3/multi_protocol_scenario_result_512_sumo_LW3.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_LW/multi_protocol_scenario_result_512_sumo_LW.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_LW1/multi_protocol_scenario_result_512_sumo_LW1.csv',
+    '/path-leakage/output/data/scenario_result_512_sumo_LW3/multi_protocol_scenario_result_512_sumo_LW3.csv',
 ]
 
 # Load and concatenate data
