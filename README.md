@@ -317,6 +317,13 @@ python3 main.py -c "$CONFIG" -t intra_filter
 python3 main.py -c "$CONFIG" -t reconstruction
 python3 main.py -c "$CONFIG" -t plot
 ```
+## Real World Device Validity
+```bash
+cd real_world
+python3 crosslink.py
+python3 evaluate.py
+python3 plot_results.py
+```
 
 ## Troubleshooting
 
