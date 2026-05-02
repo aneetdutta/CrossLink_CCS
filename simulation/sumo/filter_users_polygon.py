@@ -43,7 +43,7 @@ with open(INPUT_CSV_PATH, "r", encoding="utf-8") as input_csv, \
 
     # Process each row
     for i, row in enumerate(reader, start=1):
-        #print("Aneet")
+        
         if i % 10000 == 0:
             print(f"Processed {i} rows...")
 
