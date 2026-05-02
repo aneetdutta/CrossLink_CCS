@@ -80,7 +80,6 @@ for id, mapping in intra_data.items():
     else:
         intra_single[id] = ''
         #print(id)
-# print("Aneet")
 # print(c/total)
 # print(mix)
 # print(c_b/total_b)
