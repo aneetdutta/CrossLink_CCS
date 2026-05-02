@@ -334,6 +334,10 @@ The real world data are provided in two separate .csv files: lte_observations.cs
 ```bash
 cd real_world
 python3 crosslink.py
+```
+Expected output: inter_links.csv and intra_links.csv
+```
+```bash
 python3 evaluate.py
 python3 plot_results.py
 ```
