@@ -98,6 +98,8 @@ For SUMO-based mobility:
 
 ```bash
 python3 main.py -c "$CONFIG" -t sumo
+python3 main.py -c "$CONFIG" -t filter_users_polygon
+python3 main.py -c "$CONFIG" -t filter_users_RI_count
 ```
 
 This creates raw user mobility data under:
@@ -114,6 +116,12 @@ The SUMO stage uses the scenario files in `scenario/` and parameters such as `PO
 
 ```bash
 python3 main.py -c "$CONFIG" -t generate_user_data
+```
+
+### 3. For Countermeasure of perfect mixing:
+
+```bash
+python3 main.py -c ""$CONFIG" -t generate_users_proximity
 ```
 
 This converts mobility traces into per-device LTE, WiFi, and BLE identifier traces using the transmission and randomization parameters in the configuration. The main parameter groups are:
