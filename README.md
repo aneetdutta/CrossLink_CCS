@@ -328,7 +328,9 @@ python3 main.py -c "$CONFIG" -t intra_filter
 python3 main.py -c "$CONFIG" -t reconstruction
 python3 main.py -c "$CONFIG" -t plot
 ```
-## Real World Device Validity
+## Real World Device Validity:
+The real world data are provided in two separate .csv files: lte_observations.csv and ble_observations.csb for 12 commodity devices. The anchors and ground truths are provided in anchors.csv and ground_truth.csv respectively.
+
 ```bash
 cd real_world
 python3 crosslink.py
