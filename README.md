@@ -121,7 +121,7 @@ python3 main.py -c "$CONFIG" -t generate_user_data
 ### 3. For Countermeasure of perfect mixing:
 
 ```bash
-python3 main.py -c ""$CONFIG" -t generate_users_proximity
+python3 main.py -c ""$CONFIG" -t generate_user_data_proximity
 ```
 
 This converts mobility traces into per-device LTE, WiFi, and BLE identifier traces using the transmission and randomization parameters in the configuration. The main parameter groups are:
@@ -178,7 +178,7 @@ data/<scenario_name>/sniffed_data_<scenario_name>.bin
 ### 4. Aggregate observations
 
 ```bash
-python3 main.py -c "$CONFIG" -t aggregate
+python3 main.py -c "$CONFIG" -t aggregate_new
 ```
 
 This groups observations into the format consumed by the tracing algorithm.
@@ -307,10 +307,10 @@ python3 main.py -c "$CONFIG" -t sumo
 python3 main.py -c "$CONFIG" -t generate_user_data
 
 # Rust sniffer-data stage
-cargo run --release -- "$SCENARIO"
+cargo run --release -- "$SCENARIO" generate_sniffer_data
 
 # Python aggregation
-python3 main.py -c "$CONFIG" -t aggregate
+python3 main.py -c "$CONFIG" -t aggregate_new
 
 # Rust mapping stages
 cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map
