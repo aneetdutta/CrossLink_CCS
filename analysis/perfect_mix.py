@@ -110,7 +110,7 @@ neighbor_file1 = "/path-leakage/analysis/mix_zone/neighbor_durations_ble_sumo_51
 neighbor_file2 = "/path-leakage/analysis/mix_zone/neighbor_durations_lte_sumo_512.csv"
 neighbor_file3 = "/path-leakage/analysis/mix_zone/neighbor_durations_WiFi_sumo_512.csv"
 
-scores_file = "/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_all5/multi_protocol_scenario_result_512_sumo_all5.csv"
+scores_file = "/path-leakage/output/data/scenario_result_512_sumo_all5/multi_protocol_scenario_result_512_sumo_all5.csv"
 
 ''' Parameters for BLE'''
 lambdar_r_ble=0.00476190476 #(600 seconds)
