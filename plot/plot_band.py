@@ -3,11 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 plt.figure(figsize=(3.3,2.1))
 # Read data from CSV files
-file1 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB/multi_protocol_scenario_result_512_sumo_LB.csv'
-file2 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB1/multi_protocol_scenario_result_512_sumo_LB1.csv'
-file3 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB2/multi_protocol_scenario_result_512_sumo_LB2.csv'
-file4 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB3/multi_protocol_scenario_result_512_sumo_LB3.csv'
-file5 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB4/multi_protocol_scenario_result_512_sumo_LB4.csv'
+file1 = '/path-leakage/output/data/scenario_result_512_sumo_LB/multi_protocol_scenario_result_512_sumo_LB.csv'
+file2 = '/path-leakage/output/data/scenario_result_512_sumo_LB1/multi_protocol_scenario_result_512_sumo_LB1.csv'
+file3 = '/path-leakage/output/data/scenario_result_512_sumo_LB2/multi_protocol_scenario_result_512_sumo_LB2.csv'
+file4 = '/path-leakage/output/data/scenario_result_512_sumo_LB3/multi_protocol_scenario_result_512_sumo_LB3.csv'
+file5 = '/path-leakage/output/data/scenario_result_512_sumo_LB4/multi_protocol_scenario_result_512_sumo_LB4.csv'
 
 df1 = pd.read_csv(file1)
 df2 = pd.read_csv(file2)
@@ -48,11 +48,11 @@ privacy_max_multi = np.maximum.reduce([privacy1_interp, privacy2_interp,privacy3
 plt.fill_between(x_common, privacy_min_multi, privacy_max_multi, color="#000000", alpha=0.6, label='Multiprotocol (LTE,Bluetooth)')
 
 
-file1 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB/single_lte_scenario_result_512_sumo_LB.csv'
-file2 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB1/single_lte_scenario_result_512_sumo_LB1.csv'
-file3 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB2/single_lte_scenario_result_512_sumo_LB2.csv'
-file4 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB3/single_lte_scenario_result_512_sumo_LB3.csv'
-file5 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB4/single_lte_scenario_result_512_sumo_LB4.csv'
+file1 = '/path-leakage/output/data/scenario_result_512_sumo_LB/single_lte_scenario_result_512_sumo_LB.csv'
+file2 = '/path-leakage/output/data/scenario_result_512_sumo_LB1/single_lte_scenario_result_512_sumo_LB1.csv'
+file3 = '/path-leakage/output/data/scenario_result_512_sumo_LB2/single_lte_scenario_result_512_sumo_LB2.csv'
+file4 = '/path-leakage/output/data/scenario_result_512_sumo_LB3/single_lte_scenario_result_512_sumo_LB3.csv'
+file5 = '/path-leakage/output/data/scenario_result_512_sumo_LB4/single_lte_scenario_result_512_sumo_LB4.csv'
 
 
 df1 = pd.read_csv(file1)
@@ -94,11 +94,11 @@ privacy_max_lte = np.maximum.reduce([privacy1_interp, privacy2_interp,privacy3_i
 plt.fill_between(x_common, privacy_min_lte, privacy_max_lte, color="#fdc086", alpha=0.6, label='Single Protocol (LTE)')
 
 
-file1 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB/single_ble_scenario_result_512_sumo_LB.csv'
-file2 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB1/single_ble_scenario_result_512_sumo_LB1.csv'
-file3 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB2/single_ble_scenario_result_512_sumo_LB2.csv'
-file4 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB3/single_ble_scenario_result_512_sumo_LB3.csv'
-file5 = '/home/aneet_wisec/usenix_2025/path-leakage/output/data/scenario_result_512_sumo_LB4/single_ble_scenario_result_512_sumo_LB4.csv'
+file1 = '/path-leakage/output/data/scenario_result_512_sumo_LB/single_ble_scenario_result_512_sumo_LB.csv'
+file2 = '/path-leakage/output/data/scenario_result_512_sumo_LB1/single_ble_scenario_result_512_sumo_LB1.csv'
+file3 = '/path-leakage/output/data/scenario_result_512_sumo_LB2/single_ble_scenario_result_512_sumo_LB2.csv'
+file4 = '/path-leakage/output/data/scenario_result_512_sumo_LB3/single_ble_scenario_result_512_sumo_LB3.csv'
+file5 = '/path-leakage/output/data/scenario_result_512_sumo_LB4/single_ble_scenario_result_512_sumo_LB4.csv'
 
 
 df1 = pd.read_csv(file1)
