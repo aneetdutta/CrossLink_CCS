@@ -142,11 +142,9 @@ data/<scenario_name>/user_data_<scenario_name>.csv
 
 ### 3. Generate sniffer observations with Rust
 
-Before generating observations, choose sniffer locations. The repository includes example placement files in `data/`, including full-coverage BLE/WiFi placements and partial-coverage placements. New placements can be generated or modified through:
+Before generating observations, choose sniffer locations. The repository includes example placement files in `sniffer_location/`, including full-coverage BLE/WiFi placements and partial-coverage placements. 
 
-```bash
-python3 services/sl_coordinates.py
-```
+
 
 Configure protocol ranges and enabled protocols in the scenario file:
 
