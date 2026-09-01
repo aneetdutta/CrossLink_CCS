@@ -1,8 +1,11 @@
+[authors]
+
 [tool.poetry]
 name = "privacy_analysis"
+authors = ["Default User <user@example.com>"]
 version = "0.1.0"
 description = ""
-
+package-mode = false 
 
 [tool.poetry.dependencies]
 python = "^3.10"
