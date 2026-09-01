@@ -14,6 +14,34 @@ use std::str::FromStr;
 use std::time::Instant;
 use serde::Serialize;
 
+use rand::SeedableRng;
+use rand::rngs::StdRng;
+use rand::Rng;
+use rand_distr::{Distribution, LogNormal};
+
+
+// ── Localization-error experiment mode ──
+// false: multiplicative lognormal heavy-tail noise
+// true: bounded additive noise e_p in [-epsilon_p, +epsilon_p]
+const BOUNDED_ADDITIVE_NOISE: bool = false;
+
+// Original Eq. 1 localization-error bounds from the paper.
+const BLE_ERR_BOUND_M: f32 = 2.5;
+const WIFI_ERR_BOUND_M: f32 = 5.0;
+const LTE_ERR_BOUND_M: f32 = 10.0;
+
+// Heavy-tail parameters, used only when BOUNDED_ADDITIVE_NOISE=false.
+const BLE_SIGMA: f64 = 0.58;
+const WIFI_SIGMA: f64 = 0.326;
+const LTE_SIGMA: f64 = 0.061;
+
+const NOISE_SEED: u64 = 42;
+
+//const BLE_SIGMA: f64 = 0.40;
+//const WIFI_SIGMA: f64 = 0.30;
+//const LTE_SIGMA: f64 = 0.065; // light lognormal, P90 ≈ 6 m (LTrack)
+//const NOISE_SEED: u64 = 42;   // record this for the artifact
+
 pub trait GenerateSnifferObservations {
     fn generate_sniffer_data(&self);
     fn load_sniffer_observations_binary(&self) -> Vec<ObservationSample>;
@@ -24,6 +52,10 @@ pub trait GenerateSnifferObservations {
 impl<'a> GenerateSnifferObservations for RunConfig<'a> {
     fn generate_sniffer_data(&self) {
         println!("\n\n ==* running task: generate_sniffer_observations");
+        println!(
+            "   localization noise: BLE_SIGMA={}, WIFI_SIGMA={}, LTE_SIGMA={}, seed={}",
+            BLE_SIGMA, WIFI_SIGMA, LTE_SIGMA, NOISE_SEED
+        );
 
         let start = Instant::now();
         println!(
@@ -47,6 +79,10 @@ impl<'a> GenerateSnifferObservations for RunConfig<'a> {
             self.ble_range,
             self.wifi_range,
             self.lte_range,
+            BLE_SIGMA,
+            WIFI_SIGMA,
+            LTE_SIGMA,
+            NOISE_SEED,
         )
         .into_iter()
         .flatten()
@@ -88,8 +124,9 @@ impl<'a> GenerateSnifferObservations for RunConfig<'a> {
     fn sniffer_locations_filename(&self) -> PathBuf {
         self.root_dir
             .join("sniffer_location")
-            //.join("full_coverage_wifi_sniffer_location.json")
-            .join("handover_sniffer_location_r100_2.json")
+            .join("full_coverage_wifi_sniffer_location.json")
+            //.join("handover_sniffer_location_r100_2.json")
+            //.join("partial_coverage.json")
     }
 }
 
@@ -145,6 +182,10 @@ pub fn generate_observation_samples(
     ble_range: f32,
     wifi_range: f32,
     lte_range: f32,
+    ble_sigma: f64,
+    wifi_sigma: f64,
+    lte_sigma: f64,
+    seed: u64,
 ) -> Vec<Vec<ObservationSample>> {
     sniffers
         .par_iter()
@@ -155,6 +196,10 @@ pub fn generate_observation_samples(
                 ble_range,
                 wifi_range,
                 lte_range,
+                ble_sigma,
+                wifi_sigma,
+                lte_sigma,
+                seed,
             )
         })
         .collect()
@@ -166,6 +211,10 @@ pub fn generate_observation_samples_for_one(
     ble_range: f32,
     wifi_range: f32,
     lte_range: f32,
+    ble_sigma: f64,
+    wifi_sigma: f64,
+    lte_sigma: f64,
+    seed: u64,
 ) -> Vec<ObservationSample> {
     fn make_observation_sample(
         sniffer: &Sniffer,
@@ -178,41 +227,73 @@ pub fn generate_observation_samples_for_one(
             timestep: observed_user.timestep,
             user_id: observed_user.user_id.to_string(),
             device_id: observed_device_id.to_string(),
-            user_loc: observed_user.loc,
+            user_loc: observed_user.loc, // TRUE location — ground-truth ONLY, never read by tracker
             sniffer: *sniffer,
-            distance,
+            distance,                    // NOISED estimate (or true distance if sigma == 0)
             protocol: observed_proc,
         }
     }
 
+    // Per-sniffer RNG: each closure owns its own => correct under par_iter (no shared
+    // state) AND reproducible given (seed, sniffer.id). sniffer.id is u16, cast is safe.
+    let mut rng = StdRng::seed_from_u64(seed ^ sniffer.id as u64);
+
+    // d_meas = d_true * exp(sigma * Z). sigma == 0 => returns d_true unchanged (baseline).
+   // If BOUNDED_ADDITIVE_NOISE=true:
+//     d_meas = d_true + e_p, where e_p ∈ [-abs_bound, +abs_bound].
+// This is the sanity-check run: all induced errors stay inside the original Eq. 1 bounds.
+//
+// If BOUNDED_ADDITIVE_NOISE=false:
+//     d_meas = d_true * exp(sigma * Z), the heavy-tailed multiplicative model.
+let perturb = |d_true: f32, sigma: f64, abs_bound: f32, rng: &mut StdRng| -> f32 {
+    if BOUNDED_ADDITIVE_NOISE {
+        let err: f32 = rng.gen_range(-abs_bound..=abs_bound);
+        return (d_true + err).max(0.0);
+    }
+
+    if sigma <= 0.0 {
+        return d_true;
+    }
+
+    let mult = LogNormal::new(0.0, sigma).unwrap().sample(rng) as f32;
+    d_true * mult
+};
+
     let mut observation_samples = Vec::new();
     for sample in user_samples.iter() {
-        let distance = distance_squared_between(&sniffer.loc, &sample.loc).sqrt();
+        // Reception gated on TRUE distance; only the STORED estimate is noised.
+        let d_true = distance_squared_between(&sniffer.loc, &sample.loc).sqrt();
 
-        if sample.transmit_ble && distance < ble_range {
+        if sample.transmit_ble && d_true < ble_range {
+           // let d = perturb(d_true, ble_sigma, &mut rng);
+           let d = perturb(d_true, ble_sigma, BLE_ERR_BOUND_M, &mut rng);
             observation_samples.push(make_observation_sample(
                 &sniffer,
-                distance,
+                d,
                 sample,
                 ObservedProtocol::BLE,
                 sample.ble_id.as_str(),
             ))
         }
 
-        if sample.transmit_wifi && distance < wifi_range {
+        if sample.transmit_wifi && d_true < wifi_range {
+           // let d = perturb(d_true, wifi_sigma, &mut rng);
+           let d = perturb(d_true, wifi_sigma, WIFI_ERR_BOUND_M, &mut rng);
             observation_samples.push(make_observation_sample(
                 &sniffer,
-                distance,
+                d,
                 sample,
                 ObservedProtocol::WIFI,
                 sample.wifi_id.as_str(),
             ))
         }
 
-        if sample.transmit_lte && distance < lte_range {
+        if sample.transmit_lte && d_true < lte_range {
+           // let d = perturb(d_true, lte_sigma, &mut rng);
+           let d = perturb(d_true, lte_sigma, LTE_ERR_BOUND_M, &mut rng);
             observation_samples.push(make_observation_sample(
                 &sniffer,
-                distance,
+                d,
                 sample,
                 ObservedProtocol::LTE,
                 sample.lte_id.as_str(),
