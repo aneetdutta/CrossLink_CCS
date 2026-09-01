@@ -50,7 +50,7 @@ Install Python dependencies from the repository root:
 pip3 install poetry (or sudo apt install python3-poetry)  
 poetry --version #Tested with Poetry 1.8.2 version
 poetry install # Installs the pyproject.toml dependencies
-poetry shell 
+poetry shell # Activates the python shell
 ```
 
 Alternatively, prefix Python commands with `poetry run` instead of entering a Poetry shell.
@@ -59,6 +59,7 @@ Build/check the Rust implementation from the directory that contains `Cargo.toml
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # Installs Rustup and Rust Packages
+# Perform source ~/.bashrc to load the cargo package path or open a new terminal to the cargo commands
 cargo build --release # Installs dependencies
 ```
 
