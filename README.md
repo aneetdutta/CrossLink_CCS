@@ -101,7 +101,7 @@ For SUMO-based mobility:
 ```bash
 python3 main.py -c "$CONFIG" -t sumo
 python3 main.py -c "$CONFIG" -t filter_users_polygon
-python3 main.py -c "$CONFIG" -t filter_users_RI_count
+python3 main.py -c "$CONFIG" -t filter_users_RI_Count
 ```
 
 This creates raw user mobility data under:
