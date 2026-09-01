@@ -2,6 +2,14 @@
 # variables:
 #   &user_timesteps 18400
 
+accel_settings:
+  intra_map:
+    trim_threshold: 180
+    trim_grace_period: 180
+    time_delta_threshold: 85
+  inter_map:
+    trim_grace_period: 85
+
 general:
   USER_TIMESTEPS: 25200       # Number of user timesteps
   DATA_SOURCE: "scenario_sumo"

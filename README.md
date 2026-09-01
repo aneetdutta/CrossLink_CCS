@@ -54,6 +54,8 @@ poetry shell
 
 Alternatively, prefix Python commands with `poetry run` instead of entering a Poetry shell.
 
+If you wish to use `uv`, it should be relatively trivial to either migrate directly or via export to `requirements.txt` and running it through `uv`'s pip compatibility layer.
+
 Build/check the Rust implementation from the directory that contains `Cargo.toml`:
 
 ```bash
@@ -101,8 +103,10 @@ For SUMO-based mobility:
 ```bash
 python3 main.py -c "$CONFIG" -t sumo
 python3 main.py -c "$CONFIG" -t filter_users_polygon
-python3 main.py -c "$CONFIG" -t filter_users_RI_count
+python3 main.py -c "$CONFIG" -t filter_users_RI_Count
 ```
+
+Note that for the `filter_users_RI_count`, you may need to manually change the input filename as the task `filter_users_polygon` sometimes generate slightly off output filenames.
 
 This creates raw user mobility data under:
 
@@ -166,7 +170,7 @@ ENABLE_PARTIAL_COVERAGE
 SNIFFER_PROCESSING_BATCH_SIZE
 ```
 
-Generate sniffer observations using the Rust implementation:
+Generate sniffer observations using the Rust implementation. Note that you need to specify the root dir (e.g., the directory that contains the `configs` and `data` dir in `rust_code/config.yaml`).
 
 ```bash
 cargo run --release -- "$SCENARIO" -- generate_sniffer_data

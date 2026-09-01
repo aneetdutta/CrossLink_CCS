@@ -163,7 +163,8 @@ class User:
             duration = round(np.random.uniform(low=self.BLUETOOTH_MIN_REFRESH, high=self.BLUETOOTH_MAX_REFRESH))
         else:
             # Follow random
-            duration = randint(self.BLUETOOTH_MIN_REFRESH, self.BLUETOOTH_MAX_REFRESH)
+	    # randint cannot take float
+            duration = randint(int(self.BLUETOOTH_MIN_REFRESH), int(self.BLUETOOTH_MAX_REFRESH))
 
         self.next_bluetooth_refresh = self.identifier_counter + duration
 
@@ -176,7 +177,7 @@ class User:
             duration = round(np.random.uniform(low=self.PROTOCOL_MIN_REFRESH, high=self.PROTOCOL_MAX_REFRESH))
         else:
             # Follow random
-            duration = randint(self.PROTOCOL_MIN_REFRESH, self.PROTOCOL_MAX_REFRESH)
+            duration = randint(int(self.PROTOCOL_MIN_REFRESH), int(self.PROTOCOL_MAX_REFRESH))
             
         # rate_parameter = np.random.uniform(low=self.PROTOCOL_MIN_REFRESH, high=self.PROTOCOL_MAX_REFRESH, size=1)
         
@@ -192,7 +193,7 @@ class User:
             duration = round(np.random.uniform(low=self.WIFI_MIN_REFRESH, high=self.WIFI_MAX_REFRESH))
         else:
             # Follow random
-            duration = randint(self.WIFI_MIN_REFRESH, self.WIFI_MAX_REFRESH)
+            duration = randint(int(self.WIFI_MIN_REFRESH), int(self.WIFI_MAX_REFRESH))
             
         self.next_wifi_refresh = self.identifier_counter + duration
 
@@ -207,7 +208,7 @@ class User:
             #duration = round(np.random.uniform(low=self.LTE_MIN_REFRESH, high=self.LTE_MAX_REFRESH))
         else:
             # Follow random
-            duration = randint(self.LTE_MIN_REFRESH, self.LTE_MAX_REFRESH)
+            duration = randint(int(self.LTE_MIN_REFRESH), int(self.LTE_MAX_REFRESH))
             
         if self.ENABLE_LTE_RANDOMIZATION:
             self.next_lte_refresh = self.lte_counter + duration
