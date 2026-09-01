@@ -47,9 +47,10 @@ The full 512-user experiments are memory intensive. We recommend:
 Install Python dependencies from the repository root:
 
 ```bash
-pip3 install poetry (or sudo apt install python3-poetry)
-poetry install
-poetry env activate 
+pip3 install poetry (or sudo apt install python3-poetry)  
+poetry --version #Tested with Poetry 1.8.2 version
+poetry install # Installs the pyproject.toml dependencies
+poetry shell 
 ```
 
 Alternatively, prefix Python commands with `poetry run` instead of entering a Poetry shell.
