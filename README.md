@@ -19,7 +19,7 @@ CrossLink models an adversary that receives identifier observations from distrib
 ├── scenario/                # SUMO scenario files
 ├── simulation/              # SUMO and synthetic graph mobility generation
 ├── tracing_algorithm/       # Aggregation, refinement, and filtering logic
-├── Cargo.toml / src/        # Rust implementation for sniffer-data, inter-map, and intra-map stages
+├── rust_code/               # Rust implementation for sniffer-data, inter-map, and intra-map stages
 ├── main.py                  # Entry point for Python pipeline stages
 └── pipeline.py              # Stage definitions used by main.py
 ```
@@ -47,9 +47,10 @@ The full 512-user experiments are memory intensive. We recommend:
 Install Python dependencies from the repository root:
 
 ```bash
-pip3 install poetry
-poetry install
-poetry shell
+pip3 install poetry (or sudo apt install python3-poetry)  
+poetry --version #Tested with Poetry 1.8.2 version
+poetry install # Installs the pyproject.toml dependencies
+poetry shell # Activates the python shell
 ```
 
 Alternatively, prefix Python commands with `poetry run` instead of entering a Poetry shell.
@@ -59,7 +60,9 @@ If you wish to use `uv`, it should be relatively trivial to either migrate direc
 Build/check the Rust implementation from the directory that contains `Cargo.toml`:
 
 ```bash
-cargo build --release
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # Installs Rustup and Rust Packages
+# Perform source ~/.bashrc to load the cargo package path or open a new terminal to the cargo commands
+cargo build --release # Installs dependencies
 ```
 
 ## Quick start
