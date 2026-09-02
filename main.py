@@ -34,6 +34,10 @@ from pipeline import tasks
 if task_name:
     if task_name in tasks:
         tasks[task_name]()
+    elif task_name.lower() in ['help', 'h']:
+        print("Available tasks are:")
+        for task in tasks.keys():
+            print(f" - {task}")
     else:
         print(f"Error: Task '{task_name}' not found. Available tasks are:")
         for task in tasks.keys():

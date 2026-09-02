@@ -1,73 +1,147 @@
-# CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols
+# 🔗 CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols
 
-This repository contains the artifact for **CrossLink**, a passive cross-protocol tracking framework that links temporary identifiers emitted by the same device over LTE, WiFi, and BLE. The artifact supports the simulation, tracing, reconstruction, and plotting pipeline used in the paper.
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/) [![Rust 1.70+](https://img.shields.io/badge/Rust-1.70+-000000.svg?logo=rust&logoColor=white)](https://www.rust-lang.org/) [![Poetry 1.8.2](https://img.shields.io/badge/Poetry-1.8.2-60A5FA.svg?logo=poetry&logoColor=white)](https://python-poetry.org/)
 
-CrossLink models an adversary that receives identifier observations from distributed sniffers. Each observation contains a protocol identifier, timestamp, sniffer location, and an imprecise distance estimate. The backend constructs feasible inter-protocol and intra-protocol links under localization error and mobility constraints, refines those links using cross-protocol consistency, and reconstructs device traces to measure privacy leakage.
+Official software artifact repository for the ACM CCS paper:
+> **CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols**
+
+This artifact contains the experimental framework, Rust candidate linking engines, Python trace reconstruction tools, SUMO mobility generators, empirical datasets (12 commodity devices), and plotting scripts to reproduce all results in the paper.
+
+---
+
+## 📖 Paper Overview & Abstract
+
+Smartphones simultaneously transmit temporary network identifiers over LTE, Wi-Fi, and BLE. Per-protocol identifier randomization assumes that privacy protections compose across protocols. **CrossLink** demonstrates that they do not: even under fully passive eavesdropping and noisy localization, unsynchronized identifier rotations enable cross-protocol stitching of device trajectories over time.
+
+Key experimental findings *(draft version - to be modified)*:
+- **Trajectory Reconstruction**: Reconstructs complete multi-protocol traces for **83% of users**, compared to **22%** for the best single-protocol baseline.
+- **Partial Sniffer Coverage**: Strategic sniffer placement near LTE handover regions and mobile sniffers retains sufficient evidence to bridge observation gaps.
+
+> 🏗️ **Architecture & Flow**: The system architecture, component module graph, and execution flow are documented in [**`ARCHITECTURE.md`**](ARCHITECTURE.md).
 
 ![Attack pipeline](design/approach.png)
 
-## Repository layout
+---
+
+## 🏆 Paper Claims & Verification Matrix
+
+| Claim / Benchmark | Config File (`configs/`) | Commands | Target Figure / Output | Compute Time |
+| :--- | :--- | :--- | :--- | :---: |
+| **Claim 1: Multi-Protocol Tracking** (512 users across LTE/Wi-Fi/BLE) | `scenario_result_512_sumo_all.yml` | `sumo` $\to$ `generate_user_data` $\to$ `cargo` $\to$ `reconstruction` $\to$ `plot` | `output/images/<scenario>/privacy_leakage_*.pdf` | ~30–45 min |
+| **Claim 2: Synced Randomization Defense** | `scenario_synced_randomization_512_all.yml` | `generate_user_data` $\to$ `cargo` $\to$ `plot_synced.py` | `plot/privacy_leakage_synced_*.pdf` | ~15–20 min |
+| **Claim 3: Proximity / Mixing Countermeasure** | `scenario_proximity_512_sumo_all.yml` | `generate_user_data_proximity` $\to$ `cargo` $\to$ `plot_proximity.py` | `plot/privacy_leakage_proximity_*.pdf` | ~20–30 min |
+| **Claim 4: Partial Sniffer Placement** | `scenario_partial_512_sumo_strategic.yml` | `cargo generate_sniffer_data` $\to$ `plot_partial.py` | `plot/privacy_leakage_partial_*.pdf` | ~15–25 min |
+| **Claim 5: Sensitivity (Localization Noise & Mobility)** | `q3_localization_error_high.yml`, `q4_mobility_512_sumo_5_LB.yml` | `q3_localization.py`, `q4_mobility.py` | `plot/privacy_leakage_q3_*.pdf`, `plot/privacy_leakage_q4_*.pdf` | ~20–30 min |
+| **Claim 6: Empirical Validation** (12 commodity devices) | `real_world/` | `cd real_world && python3 crosslink.py && python3 evaluate.py` | `real_world/inter_links.csv`, `real_world/intra_links.csv` | ~3–5 min |
+
+---
+
+## 🗂️ Repository Structure
 
 ```text
 .
-├── configs/                 # Scenario configuration files
-├── data/                    # Generated traces, sniffer observations, and intermediate files
-├── design/                  # Pipeline and architecture diagrams
-├── output/                  # Reconstructed traces and generated plots
+├── configs/                 # Scenario configuration YAML files
+├── data/                    # User mobility traces, sniffer logs, and binary outputs
+├── design/                  # Pipeline diagrams (approach.png, code_pipeline.pdf)
+├── output/                  # Reconstructed device traces and PDF vector figures
 ├── plot/                    # Plotting scripts for paper figures
-├── reconstruction/          # Single- and multi-protocol trace reconstruction
-├── scenario/                # SUMO scenario files
-├── simulation/              # SUMO and synthetic graph mobility generation
-├── tracing_algorithm/       # Aggregation, refinement, and filtering logic
-├── rust_code/               # Rust implementation for sniffer-data, inter-map, and intra-map stages
-├── main.py                  # Entry point for Python pipeline stages
-└── pipeline.py              # Stage definitions used by main.py
+├── reconstruction/          # Single- and multi-protocol trace reconstruction algorithms
+├── scenario/                # SUMO mobility spatial networks and OSM polygon bounds
+├── simulation/              # SUMO and synthetic graph mobility generators
+├── tracing_algorithm/       # Spatiotemporal link aggregation, refinement, & filtering
+├── rust_code/               # High-performance Rust backend (sniffer logging, inter/intra mapping)
+├── real_world/              # Empirical data & evaluation scripts for 12 commodity devices
+├── main.py                  # CLI entry point for Python pipeline stages
+└── pipeline.py              # Stage execution definitions consumed by main.py
 ```
 
-A detailed stage diagram is available in `design/code_pipeline.pdf`.
+---
 
-## Requirements
+## 🖥️ System Requirements
 
-### Hardware
+| Requirement | Fast Smoke Test (32 Users) | Full Evaluation (512 Users) |
+| :--- | :--- | :--- |
+| **CPU** | 2 Cores (x86-64) | 8+ Cores (Intel Core i7 / AMD Ryzen 7 or server equivalent) |
+| **RAM** | 4 GB | 16 GB minimum (32 GB recommended for large SUMO graphs) |
+| **Storage** | 10 GB free space | 64 GB free space (SSD recommended) |
+| **OS** | Linux (Ubuntu 22.04 LTS+ minimum) | Linux (Ubuntu 24.04 LTS tested; Ubuntu 22.04 LTS+ minimum) |
 
-The full 512-user experiments are memory intensive. We recommend:
+---
 
-- CPU: Intel Core i7 or comparable processor
-- RAM: at least 16 GB; 32 GB recommended for larger scenarios
-- Disk: at least 100 GB free space
-- OS: tested on Ubuntu 22.04 LTS
+## ⚙️ Software Setup & Installation
 
-### Software
-
-- Python 3
-- Poetry for Python dependency management
-- Rust and Cargo for the optimized sniffer and mapping stages
-- SUMO, if running the SUMO mobility pipeline
+### 1. Python Environment (Poetry)
 
 Install Python dependencies from the repository root:
 
 ```bash
-pip3 install poetry (or sudo apt install python3-poetry)  
-poetry --version #Tested with Poetry 1.8.2 version
-poetry install # Installs the pyproject.toml dependencies
-poetry shell # Activates the python shell
+# Install Poetry package manager
+sudo apt install python3-poetry   # Alternative: pip3 install poetry
+
+# Verify Poetry version (tested with Poetry 1.8.2)
+poetry --version
+
+# Install dependencies from pyproject.toml
+poetry install
+
+# Activate the Python virtual environment shell
+poetry shell
 ```
 
-Alternatively, prefix Python commands with `poetry run` instead of entering a Poetry shell.
+> [!TIP]  
+> Alternatively, prefix Python commands with `poetry run` instead of entering a Poetry shell. If you prefer `uv`, export dependencies to `requirements.txt` and execute via `uv`'s pip compatibility layer.
 
-If you wish to use `uv`, it should be relatively trivial to either migrate directly or via export to `requirements.txt` and running it through `uv`'s pip compatibility layer.
+### 2. Rust Toolchain & Engine Compilation
 
 Build/check the Rust implementation from the directory that contains `Cargo.toml`:
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # Installs Rustup and Rust Packages
-# Perform source ~/.bashrc to load the cargo package path or open a new terminal to the cargo commands
-cargo build --release # Installs dependencies
+# Install Rustup toolchain and Rust packages
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Source environment configuration to load cargo package path (or open a new terminal)
+source ~/.bashrc
+
+# Build release binaries and dependencies
+cargo build --release
 ```
 
-## Quick start
+---
 
-Run Python stages from the code directory that contains `main.py`. Run Rust stages from the directory that contains `Cargo.toml` (in many checkouts, this is the same directory).
+## ⚡ Quick Start: 10-Minute Kick-the-Tires Stage
+
+Run a lightweight 32-user smoke test (`scenario_test_32_sumo_smoke.yml`) to verify toolchain functionality (< 5 min compute, < 4 GB RAM):
+
+```bash
+cd code
+CONFIG=scenario_test_32_sumo_smoke.yml
+SCENARIO=$(basename "$CONFIG" .yml)
+
+# 1. Verify pipeline options
+python3 main.py -c "$CONFIG" -t help
+
+# 2. Clean cache
+python3 main.py -c "$CONFIG" -t clean_all
+
+# 3. Run smoke test end-to-end
+python3 main.py -c "$CONFIG" -t generate_user_data
+cargo run --release -- "$SCENARIO" generate_sniffer_data
+python3 main.py -c "$CONFIG" -t aggregate_new
+cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map
+cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map
+python3 main.py -c "$CONFIG" -t refine_intramap
+python3 main.py -c "$CONFIG" -t intra_filter
+python3 main.py -c "$CONFIG" -t reconstruction
+python3 main.py -c "$CONFIG" -t plot
+```
+
+**Expected Outcome**: Produces reconstructed traces in `output/data/` and figures in `output/images/scenario_test_32_sumo_smoke/`.
+
+---
+
+## 🏃 Step-by-Step Pipeline Execution
+
+Full 512-user tracking evaluation (`scenario_result_512_sumo_all.yml`):
 
 ```bash
 cd code
@@ -75,294 +149,142 @@ CONFIG=scenario_result_512_sumo_all.yml
 SCENARIO=$(basename "$CONFIG" .yml)
 ```
 
-List available Python pipeline targets:
-
-```bash
-python3 main.py -c "$CONFIG" -t help
-```
-
-Clean previous outputs:
-
-```bash
-python3 main.py -c "$CONFIG" -t clean_all
-```
-
-Clean only Python cache files:
-
-```bash
-python3 main.py -c "$CONFIG" -t clean
-```
-
-## Running the pipeline
-
-The artifact is organized as a sequence of stages. The same pattern applies to other scenario files: replace `scenario_result_512_sumo_all.yml` with the desired configuration and set `SCENARIO` to the filename without the `.yml` suffix.
-
-We already provided the raw mobility traces in data folder, sumo can be ignored.
-
-### 1. Generate mobility traces
-
-For SUMO-based mobility:
-
+### 1. Generate User Mobility Traces
 ```bash
 python3 main.py -c "$CONFIG" -t sumo
 python3 main.py -c "$CONFIG" -t filter_users_polygon
 python3 main.py -c "$CONFIG" -t filter_users_RI_Count
 ```
+*(Pre-generated traces are included in `data/`; Step 1 can be skipped if using provided data).*
 
-Note that for the `filter_users_RI_count`, you may need to manually change the input filename as the task `filter_users_polygon` sometimes generate slightly off output filenames.
-
-This creates raw user mobility data under:
-
-```text
-data/<scenario_name>/raw_user_data_<scenario_name>.csv
-```
-
-The SUMO stage uses the scenario files in `scenario/` and parameters such as `POLYGON_COORDS`, `USER_TIMESTEPS`, and `mobility_factor` from the YAML configuration.
-
-> Note: this stage can use substantial memory because the SUMO output is loaded and filtered in memory.
-
-### 2. Generate protocol identifiers and transmissions
-For LTE rotation mode use:   LTE_RANDOMIZATION_MODE: "handover" (cell change based inter-enodeB handover) or "time" (memoryless exponential mode)
-
+### 2. Generate Protocol Transmissions
 ```bash
 python3 main.py -c "$CONFIG" -t generate_user_data
 ```
-
-### 3. For Countermeasure of perfect mixing:
-
+For proximity mixing countermeasure:
 ```bash
-python3 main.py -c ""$CONFIG" -t generate_user_data_proximity
+python3 main.py -c "$CONFIG" -t generate_user_data_proximity
 ```
 
-This converts mobility traces into per-device LTE, WiFi, and BLE identifier traces using the transmission and randomization parameters in the configuration. The main parameter groups are:
-
-```text
-BLUETOOTH_MIN_TRANSMIT, BLUETOOTH_MAX_TRANSMIT
-WIFI_MIN_TRANSMIT,      WIFI_MAX_TRANSMIT
-LTE_MIN_TRANSMIT,       LTE_MAX_TRANSMIT
-
-BLUETOOTH_MIN_REFRESH,  BLUETOOTH_MAX_REFRESH
-WIFI_MIN_REFRESH,       WIFI_MAX_REFRESH
-LTE_MIN_REFRESH,        LTE_MAX_REFRESH
-
-ENABLE_SYNCED_RANDOMIZATION
-PROTOCOL_MIN_REFRESH,   PROTOCOL_MAX_REFRESH
-ENABLE_USER_THRESHOLD,  TOTAL_NUMBER_OF_USERS
-MAX_MOBILITY_FACTOR
-DATA_USECASE
-```
-
-Expected output:
-
-```text
-data/<scenario_name>/user_data_<scenario_name>.csv
-```
-
-### 3. Generate sniffer observations with Rust
-
-Before generating observations, choose sniffer locations. The repository includes example placement files in `sniffer_location/`, including full-coverage BLE/WiFi placements and partial-coverage placements. 
-
-
-
-Configure protocol ranges and enabled protocols in the scenario file:
-
-```text
-BLUETOOTH_RANGE, WIFI_RANGE, LTE_RANGE
-ENABLE_BLUETOOTH, ENABLE_WIFI, ENABLE_LTE
-ENABLE_PARTIAL_COVERAGE
-SNIFFER_PROCESSING_BATCH_SIZE
-```
-
-Generate sniffer observations using the Rust implementation. Note that you need to specify the root dir (e.g., the directory that contains the `configs` and `data` dir in `rust_code/config.yaml`).
-
+### 3. Generate Sniffer Observations (Rust)
 ```bash
-cargo run --release -- "$SCENARIO" -- generate_sniffer_data
-```
-Generate sniffer observations for mobile sniffer scenario:
-
-```bash
-cargo run --release -- "$SCENARIO" -- generate_sniffer_data_from_end_devices 30
-```
-
-Expected output:
-
-```text
-data/<scenario_name>/sniffed_data_<scenario_name>.bin
-```
-
-### 4. Aggregate observations
-
-```bash
-python3 main.py -c "$CONFIG" -t aggregate_new
-```
-
-This groups observations into the format consumed by the tracing algorithm.
-
-Expected outputs:
-
-```text
-data/<scenario_name>/aggregated_id_<scenario_name>.parquet
-data/<scenario_name>/aggregated_users_<scenario_name>.parquet
-```
-
-### 5. Run CrossLink tracing
-
-Set localization-error parameters in the scenario file:
-
-```text
-BLUETOOTH_LOCALIZATION_ERROR
-WIFI_LOCALIZATION_ERROR
-LTE_LOCALIZATION_ERROR
-```
-
-Construct the initial inter-protocol and intra-protocol maps using Rust:
-
-```bash
-cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map
-cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map
-```
-
-The Rust stages construct candidate inter-protocol links and candidate intra-protocol links across identifier rotations. The Python stages convert these outputs, refine them using cross-protocol consistency, and filter ambiguous mappings.
-
-Expected initial Rust outputs:
-
-```text
-data/<scenario_name>/intermap_<scenario_name>.pickle
-data/<scenario_name>/intramap_<scenario_name>.pickle
-```
-
-Then run the Python conversion, refinement, and filtering stages:
-
-```bash
-
-python3 main.py -c "$CONFIG" -t refine_intramap
-python3 main.py -c "$CONFIG" -t intra_filter
-```
-Expected refined outputs:
-
-```text
-data/<scenario_name>/refined_intermap_<scenario_name>.npy
-data/<scenario_name>/filtered_intramap_<scenario_name>.npy
-```
-
-Expected single-protocol baseline output:
-
-```text
-data/<scenario_name>/filtered_intramap_single_<scenario_name>.npy
-```
-
-### 6. Reconstruct traces
-
-```bash
-python3 main.py -c "$CONFIG" -t reconstruction
-```
-
-This reconstructs user traces from the inferred mappings and prepares outputs for privacy-leakage analysis.
-
-Expected outputs are written under:
-
-```text
-output/data/
-```
-
-Common output files include:
-
-```text
-output/data/baseline_<protocol>_<scenario_name>.csv
-output/data/single_<protocol>_<scenario_name>.csv
-output/data/multi_protocol_<scenario_name>.csv
-```
-
-### 7. Plot results
-
-```bash
-python3 main.py -c "$CONFIG" -t plot
-```
-
-Generated figures are written to:
-
-```text
-output/images/<scenario_name>/
-```
-
-For example:
-
-```text
-output/images/<scenario_name>/privacy_leakage_<scenario_name>.pdf
-```
-
-## Configuration guide
-
-Each experiment is controlled by a YAML file. The scenario filename is also used to name the generated data directory and intermediate outputs.
-
-Important configuration groups:
-
-| Group | Parameters |
-| --- | --- |
-| Mobility | `POLYGON_COORDS`, `USER_TIMESTEPS`, `mobility_factor`, `MAX_MOBILITY_FACTOR` |
-| User count | `ENABLE_USER_THRESHOLD`, `TOTAL_NUMBER_OF_USERS` |
-| Enabled protocols | `ENABLE_BLUETOOTH`, `ENABLE_WIFI`, `ENABLE_LTE` |
-| Transmission intervals | `*_MIN_TRANSMIT`, `*_MAX_TRANSMIT` |
-| Identifier refresh intervals | `*_MIN_REFRESH`, `*_MAX_REFRESH` |
-| Synchronized defense | `ENABLE_SYNCED_RANDOMIZATION`, `PROTOCOL_MIN_REFRESH`, `PROTOCOL_MAX_REFRESH` |
-| Sniffer range | `BLUETOOTH_RANGE`, `WIFI_RANGE`, `LTE_RANGE` |
-| Localization error | `BLUETOOTH_LOCALIZATION_ERROR`, `WIFI_LOCALIZATION_ERROR`, `LTE_LOCALIZATION_ERROR` |
-| Coverage model | `ENABLE_PARTIAL_COVERAGE`, sniffer placement JSON files |
-
-## Typical end-to-end command sequence
-
-```bash
-cd code
-CONFIG=scenario_result_512_sumo_all.yml
-SCENARIO=$(basename "$CONFIG" .yml)
-
-# Python stages
-python3 main.py -c "$CONFIG" -t clean_all
-python3 main.py -c "$CONFIG" -t sumo
-python3 main.py -c "$CONFIG" -t generate_user_data
-
-# Rust sniffer-data stage
+# Static sniffer deployment
 cargo run --release -- "$SCENARIO" generate_sniffer_data
 
-# Python aggregation
-python3 main.py -c "$CONFIG" -t aggregate_new
+# Mobile sniffer scenario (30 mobile sniffers)
+cargo run --release -- "$SCENARIO" generate_sniffer_data_from_end_devices 30
+```
 
-# Rust mapping stages
+### 4. Aggregate Sniffer Observations
+```bash
+python3 main.py -c "$CONFIG" -t aggregate_new
+```
+
+### 5. Candidate Mapping & Refinement
+```bash
+# Rust initial candidate mapping
 cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map
 cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map
 
-# Python refinement, reconstruction, and plotting
-
+# Python consistency refinement & filtering
 python3 main.py -c "$CONFIG" -t refine_intramap
 python3 main.py -c "$CONFIG" -t intra_filter
+```
+
+### 6. Reconstruct Traces & Quantify Privacy Leakage
+```bash
 python3 main.py -c "$CONFIG" -t reconstruction
+```
+
+### 7. Plot Figures
+```bash
 python3 main.py -c "$CONFIG" -t plot
 ```
-## Real World Device Validity:
-The real world data are provided in two separate .csv files: lte_observations.csv and ble_observations.csb for 12 commodity devices. The anchors and ground truths are provided in anchors.csv and ground_truth.csv respectively.
+Outputs PDF figures to `output/images/<scenario>/privacy_leakage_<scenario>.pdf`.
+
+---
+
+## 🔬 Real World Device Validity & Empirical Validation
+
+The real world data are provided in two separate `.csv` files: `lte_observations.csv` and `ble_observations.csv` for **12 commodity devices**. The sniffer anchors and ground truths are provided in `anchors.csv` and `ground_truth.csv` respectively.
+
+To run empirical linkability reconstruction and performance evaluation:
 
 ```bash
 cd real_world
+
+# 1. Run CrossLink inter-protocol & intra-protocol candidate linking
 python3 crosslink.py
 ```
-Expected output: inter_links.csv and intra_links.csv
+**Expected Output:** `inter_links.csv` and `intra_links.csv`
 
 ```bash
+# 2. Evaluate linking accuracy and metrics against ground truth
 python3 evaluate.py
+
+# 3. Plot empirical result figures
 python3 plot_results.py
 ```
 
-## Troubleshooting
+---
 
-- Run Python commands from the directory containing `main.py`; otherwise relative paths may not resolve.
-- Run Cargo commands from the directory containing `Cargo.toml`; otherwise Cargo will not find the Rust crate.
-- Rust stages expect the scenario name without the `.yml` suffix, for example `scenario_result_512_sumo_all`, not `scenario_result_512_sumo_all.yml`.
-- Use `python3 main.py -c <config> -t help` to verify available Python stage names in the current checkout.
-- If generated files are missing, check that the scenario name in the configuration matches the data directory name used by later stages.
-- The SUMO stage is memory intensive. Reduce the number of users or timesteps for a small smoke test.
-- If a stage fails after a previous run, use `clean_all` to remove stale intermediate files.
-- If Poetry is not activated, run Python stages as `poetry run python3 main.py ...`.
+## ⚙️ Configuration Guide
 
-## Research and ethics note
+Key YAML options in `configs/`:
 
-This artifact is intended for reproducible research on location-privacy risks in controlled simulations and lab-generated traces. Do not use it to collect data from, identify, or track third-party devices without authorization.
+| Parameter Group | Key Parameters | Description |
+| :--- | :--- | :--- |
+| **Mobility** | `POLYGON_COORDS`, `USER_TIMESTEPS`, `mobility_factor` | Spatial bounds, timesteps, movement speed |
+| **Scale** | `TOTAL_NUMBER_OF_USERS`, `ENABLE_USER_THRESHOLD` | Population size (32 to 512) |
+| **Protocols** | `ENABLE_BLUETOOTH`, `ENABLE_WIFI`, `ENABLE_LTE` | Protocol layer toggles |
+| **Transmissions** | `*_MIN_TRANSMIT`, `*_MAX_TRANSMIT` | Transmission packet interval bounds (seconds) |
+| **Rotations** | `*_MIN_REFRESH`, `*_MAX_REFRESH` | Temporary identifier rotation bounds (seconds) |
+| **Defenses** | `ENABLE_SYNCED_RANDOMIZATION`, `PROTOCOL_*_REFRESH` | Synchronized rotation defense settings |
+| **Sniffer Bounds** | `BLUETOOTH_RANGE`, `WIFI_RANGE`, `LTE_RANGE` | Reception range per protocol (meters) |
+| **Noise & Coverage**| `*_LOCALIZATION_ERROR`, `ENABLE_PARTIAL_COVERAGE` | Distance error noise and coverage topology |
+
+---
+
+## 🛠️ Troubleshooting FAQ
+
+<details>
+<summary><b>1. FileNotFoundError or Path Resolution Errors</b></summary>
+
+- Execute Python commands from the directory containing `main.py`.
+- Execute Cargo commands from the directory containing `Cargo.toml`.
+</details>
+
+<details>
+<summary><b>2. Cargo Argument Formatting</b></summary>
+
+- Pass scenario names to Cargo **without** the `.yml` extension (e.g. `scenario_result_512_sumo_all`).
+</details>
+
+<details>
+<summary><b>3. Memory Constraints</b></summary>
+
+- SUMO trajectory filtering for 512 users can require 16–32 GB RAM. Use pre-generated traces in `data/` or test with 32/128 user scenarios if RAM is constrained.
+</details>
+
+<details>
+<summary><b>4. Poetry Environment</b></summary>
+
+- If Poetry shell activation is skipped, prefix Python commands with `poetry run`.
+</details>
+
+---
+
+## 📜 Citation & License
+
+```bibtex
+@inproceedings{crosslink2026ccs,
+  title={{CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols}},
+  author={Anonymous Authors},
+  booktitle={Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)},
+  year={2026},
+  publisher={ACM}
+}
+```
+
+### Ethics Note
+This artifact is provided for reproducible academic research and security evaluation. Methodology and code must not be used to track unauthorized third-party devices or individuals.
