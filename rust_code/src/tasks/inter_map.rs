@@ -347,14 +347,14 @@ fn convert_compatible_pairs_to_pickle_dict(
         let id1 = left_samples[index1].device_id;
         let id2 = right_samples[index2].device_id;
         let proc1 = match left_samples[index1].protocol {
-            BLE => "BLE",
-            WIFI => "Wifi",
-            LTE => "Lte",
+            BLE => "Bluetooth",
+            WIFI => "WiFi",
+            LTE => "LTE",
         };
         let proc2 = match right_samples[index2].protocol {
-            BLE => "BLE",
-            WIFI => "Wifi",
-            LTE => "Lte",
+            BLE => "Bluetooth",
+            WIFI => "WiFi",
+            LTE => "LTE",
         };
 
         inner(id1.to_string(), id2.to_string(), proc2, dest);

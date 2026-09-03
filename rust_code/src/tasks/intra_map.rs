@@ -196,7 +196,7 @@ impl<'a> Serialize for GroupedSample<'a> {
 pub fn apply_localisation_error(observations: &mut [ObservationSample]) {
     for observation in observations.iter_mut() {
         observation.distance += match observation.protocol {
-            ObservedProtocol::BLE => 1f32,
+            ObservedProtocol::BLE => 1.5f32,
             ObservedProtocol::WIFI => 5f32,
             ObservedProtocol::LTE => 10f32,
         }
