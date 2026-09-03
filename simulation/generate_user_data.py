@@ -20,8 +20,8 @@ ml = MyLogger(f"generate_user_data_{SCENARIO_NAME}")
 
 TOTAL_NUMBER_OF_USERS = int(os.getenv("TOTAL_NUMBER_OF_USERS"))
 USER_TIMESTEPS = int(os.getenv("USER_TIMESTEPS"))
-                     
-df = pd.read_csv(f"data/raw_user_data_{SCENARIO_NAME}.csv")
+num_users=TOTAL_NUMBER_OF_USERS
+df = pd.read_csv(f"data/raw_user_data_{SCENARIO_NAME}_{num_users}.csv")
 
 raw_user_data = df.to_dicts()
 
