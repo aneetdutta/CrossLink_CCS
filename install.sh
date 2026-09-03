@@ -72,7 +72,9 @@ if [ -f "$HOME/.cargo/env" ]; then
 fi
 
 log_info "Building optimized Rust backend release binaries..."
+cd rust_code
 cargo build --release
+cd ..
 log_success "Rust backend compiled successfully."
 
 # ------------------------------------------------------------------------------
