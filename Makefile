@@ -51,8 +51,6 @@ smoke_test:
 	@source .venv/bin/activate && python3 main.py -c $(SMOKE_CONFIG) -t plot
 	@echo "Smoke test completed successfully."
 
-smoke-test: smoke_test
-
 validate_real_world:
 	@echo "Running real-world device empirical validation..."
 	@source .venv/bin/activate && cd real_world && python3 crosslink.py && python3 evaluate.py
