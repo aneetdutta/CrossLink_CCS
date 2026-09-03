@@ -69,7 +69,7 @@ communication_range:
 
 # Localization errors
 localization_errors:
-  BLUETOOTH_LOCALIZATION_ERROR: 1.0    # Bluetooth localization error (in meters)
+  BLUETOOTH_LOCALIZATION_ERROR: 1.5    # Bluetooth localization error (in meters)
   WIFI_LOCALIZATION_ERROR: 5.0         # WiFi localization error (in meters)
   LTE_LOCALIZATION_ERROR: 10.0         # LTE localization error (in meters)
 
@@ -85,7 +85,7 @@ sniffer:
   ENABLE_PARTIAL_COVERAGE: false
   ENABLE_MULTILATERATION: false
   ENABLE_BLUETOOTH: true       # Enable Bluetooth
-  ENABLE_WIFI: false           # Enable Bluetooth
-  ENABLE_LTE: true             # Enable Bluetooth
+  ENABLE_WIFI: true           # Enable WiFi
+  ENABLE_LTE: true             # Enable LTE
   TRANSMIT_WHEN_RANDOMIZED: false
   SNIFFER_PROCESSING_BATCH_SIZE: 100 # Sniffer processing batch size
