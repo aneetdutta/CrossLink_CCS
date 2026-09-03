@@ -78,7 +78,7 @@ Install Python dependencies from the repository root:
 # Install Poetry package manager
 sudo apt install python3-poetry   # Alternative: pip3 install poetry
 
-# Verify Poetry version (tested with Poetry 1.8.2)
+# Verify Poetry version (tested with Poetry 1.8.2 and 1.1.12)
 poetry --version
 
 # Install dependencies from pyproject.toml
