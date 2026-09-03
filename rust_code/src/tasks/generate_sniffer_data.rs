@@ -23,10 +23,10 @@ use rand_distr::{Distribution, LogNormal};
 // ── Localization-error experiment mode ──
 // false: multiplicative lognormal heavy-tail noise
 // true: bounded additive noise e_p in [-epsilon_p, +epsilon_p]
-const BOUNDED_ADDITIVE_NOISE: bool = false;
+const BOUNDED_ADDITIVE_NOISE: bool = true;
 
 // Original Eq. 1 localization-error bounds from the paper.
-const BLE_ERR_BOUND_M: f32 = 2.5;
+const BLE_ERR_BOUND_M: f32 = 1.5;
 const WIFI_ERR_BOUND_M: f32 = 5.0;
 const LTE_ERR_BOUND_M: f32 = 10.0;
 
