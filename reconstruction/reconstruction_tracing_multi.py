@@ -666,7 +666,7 @@ from matplotlib.ticker import PercentFormatter
 # Configure paths
 # =========================
 
-SCENARIO_NAME = "scenario_result_512_sumo_all1"
+#SCENARIO_NAME = "scenario_result_512_sumo_all1"
 
 # Update these paths if needed
 
