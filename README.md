@@ -158,7 +158,7 @@ This matrix maps each figure and claim in the paper directly to its correspondin
 
 | Paper Reference | Evaluation Scenario | Configurations | Commands | Results | Compute Time |
 | :--- | :--- | :--- | :--- | :--- | :---: |
-| **Figure 3** | | | | | |
+| **Figure 3** | Ablation Study | baseline, nomloc,no_loc, nom | run ablation.sh | | |
 | **Figure 6 & 7** | | | | | |
 | **Figure 8** | | | | | |
 | **Figure 9** | | | | | |
