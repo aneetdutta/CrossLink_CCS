@@ -67,6 +67,9 @@ Run a lightweight **32-user test** (`scenario_test_32_sumo_smoke.yml`) to verify
 make smoke_test
 ```
 
+> 💡 **Resume Execution**: To restart from a specific failed task or stage, run `make smoke_test <task>` (e.g., `make smoke_test refine_intramap` or `make smoke_test 7`).  
+> Add `ONLY=1` to run only that single task without subsequent stages (e.g., `make smoke_test filter_users_RI_Count ONLY=1`).
+
 **Expected Outcome**: Successfully generates reconstructed traces in `output/data/` and plots verification figures in `output/images/scenario_test_32_sumo_smoke/`.
 
 ---
@@ -100,10 +103,10 @@ python3 main.py -c "$CONFIG" -t generate_user_data_proximity
 # ------------------------------------------------------------------------------
 # Stage 3: Sniffer Data Generation
 # ------------------------------------------------------------------------------
-cargo run --release -- "$SCENARIO" generate_sniffer_data
+(cd rust_code && cargo run --release -- "$SCENARIO" generate_sniffer_data && cd ..)
 
 # (Optional) Mobile sniffer scenario (e.g., 30 mobile sniffing nodes)
-cargo run --release -- "$SCENARIO" generate_sniffer_data_from_end_devices 30
+(cd rust_code && cargo run --release -- "$SCENARIO" generate_sniffer_data_from_end_devices 30 && cd ..)
 
 # ------------------------------------------------------------------------------
 # Stage 4: Aggregation
@@ -113,8 +116,8 @@ python3 main.py -c "$CONFIG" -t aggregate_new
 # ------------------------------------------------------------------------------
 # Stage 5: Inter/Intra Mapping & Refinement
 # ------------------------------------------------------------------------------
-cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map
-cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map
+(cd rust_code && cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map && cd ..)
+(cd rust_code && cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map && cd ..)
 
 python3 main.py -c "$CONFIG" -t refine_intramap
 python3 main.py -c "$CONFIG" -t intra_filter

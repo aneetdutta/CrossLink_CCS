@@ -50,19 +50,22 @@ def extend_paths(df, target_timestep):
     result = []
     
     # Group by user_id and process each group
-    for user_id, group in df.groupby("user_id"):
+    group_iter = df.group_by("user_id", maintain_order=True) if hasattr(df, "group_by") else df.groupby("user_id")
+    for _, group in group_iter:
         max_timestep = group["timestep"].max()
         
         if max_timestep < target_timestep:
             # Extract the original path without changes
             original_path = group.filter(pl.col("timestep") <= max_timestep)
             
-            forward_path = original_path[1:]
-            # Reverse path for extension, excluding the last element
-            reverse_path = original_path[:-1].reverse()
-            
-            # Combine forward and reverse paths
-            combined_path = pl.concat([reverse_path, forward_path], how="vertical")
+            if len(original_path) <= 1:
+                combined_path = original_path
+            else:
+                forward_path = original_path[1:]
+                # Reverse path for extension, excluding the last element
+                reverse_path = original_path[:-1].reverse()
+                # Combine forward and reverse paths
+                combined_path = pl.concat([reverse_path, forward_path], how="vertical")
             
             # Generate the extended path
             extended_path = []
@@ -82,7 +85,7 @@ def extend_paths(df, target_timestep):
                     current_timestep += 1
             
             # Convert the extended path to DataFrame and append to result
-            extended_path_df = pl.DataFrame(extended_path)
+            extended_path_df = pl.DataFrame(extended_path).select(original_path.columns)
             result.append(pl.concat([original_path, extended_path_df], how="vertical"))
         else:
             # Append the original group if timestep is already sufficient
