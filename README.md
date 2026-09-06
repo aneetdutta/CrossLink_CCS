@@ -156,7 +156,7 @@ make validate_real_world
 
 This matrix maps each figure and claim in the paper directly to its corresponding configuration, execution commands, target outputs, and estimated compute runtime:
 
-| Paper Figure | Evaluation Claim / Benchmark | Config File (`configs/`) | Commands / Execution Script | Target Output / PDF Figure | Compute Time |
+| Paper Reference | Evaluation Scenario | Configurations | Commands | Results | Compute Time |
 | :--- | :--- | :--- | :--- | :--- | :---: |
 | **Figure 3** | | | | | |
 | **Figure 6 & 7** | | | | | |
