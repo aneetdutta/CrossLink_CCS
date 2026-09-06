@@ -26,7 +26,12 @@ impl<'a> InterProtocolMap for RunConfig<'a> {
         println!("loaded {} sniffer observations", samples.len());
 
         // apply localization error
-        apply_localisation_error(&mut samples);
+        apply_localisation_error(
+            &mut samples,
+            self.ble_localization_error,
+            self.wifi_localization_error,
+            self.lte_localization_error,
+        );
         println!("applied localisation error\n");
 
         // then group samples by protocols

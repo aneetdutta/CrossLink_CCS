@@ -39,7 +39,12 @@ impl<'a> IntraProtocolMap for RunConfig<'a> {
             self.sniffer_observations_binary_filename()
         );
         let mut observations = self.load_sniffer_observations_binary();
-        apply_localisation_error(&mut observations);
+        apply_localisation_error(
+            &mut observations,
+            self.ble_localization_error,
+            self.wifi_localization_error,
+            self.lte_localization_error,
+        );
         println!("loaded {} observations", observations.len());
         println!("|| loading used {:?}\n", load_start.elapsed());
 
@@ -193,12 +198,17 @@ impl<'a> Serialize for GroupedSample<'a> {
     }
 }
 
-pub fn apply_localisation_error(observations: &mut [ObservationSample]) {
+pub fn apply_localisation_error(
+    observations: &mut [ObservationSample],
+    ble_error: f32,
+    wifi_error: f32,
+    lte_error: f32,
+) {
     for observation in observations.iter_mut() {
         observation.distance += match observation.protocol {
-            ObservedProtocol::BLE => 1.5f32,
-            ObservedProtocol::WIFI => 5f32,
-            ObservedProtocol::LTE => 10f32,
+            ObservedProtocol::BLE => ble_error,
+            ObservedProtocol::WIFI => wifi_error,
+            ObservedProtocol::LTE => lte_error,
         }
     }
 }

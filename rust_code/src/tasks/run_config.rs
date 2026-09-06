@@ -21,6 +21,10 @@ pub struct RunConfig<'a> {
     pub intra_map_time_delta_threshold: u32,
 
     pub inter_map_grace_period: u32,
+
+    pub ble_localization_error: f32,
+    pub wifi_localization_error: f32,
+    pub lte_localization_error: f32,
 }
 
 impl<'a> RunConfig<'a> {
@@ -60,6 +64,9 @@ impl<'a> RunConfig<'a> {
             intra_map_trim_grace_period: 0u32,
             intra_map_time_delta_threshold: 0u32,
             inter_map_grace_period: 0u32,
+            ble_localization_error: 1.5f32,
+            wifi_localization_error: 5f32,
+            lte_localization_error: 10f32,
         };
 
         let mut buf = String::new();
@@ -69,6 +76,29 @@ impl<'a> RunConfig<'a> {
             .unwrap();
         let yaml_owned = YamlLoader::load_from_str(&buf).unwrap();
         let yaml = &yaml_owned[0];
+
+        let parse_f32 = |val: &yaml_rust2::Yaml, default: f32| -> f32 {
+            if let Some(f) = val.as_f64() {
+                f as f32
+            } else if let Some(i) = val.as_i64() {
+                i as f32
+            } else {
+                default
+            }
+        };
+
+        config.ble_localization_error = parse_f32(
+            &yaml["localization_errors"]["BLUETOOTH_LOCALIZATION_ERROR"],
+            1.5f32,
+        );
+        config.wifi_localization_error = parse_f32(
+            &yaml["localization_errors"]["WIFI_LOCALIZATION_ERROR"],
+            5f32,
+        );
+        config.lte_localization_error = parse_f32(
+            &yaml["localization_errors"]["LTE_LOCALIZATION_ERROR"],
+            10f32,
+        );
 
         config.ble_range = yaml["communication_range"]["BLUETOOTH_RANGE"]
             .as_i64()
