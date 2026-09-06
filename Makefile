@@ -3,7 +3,8 @@
 SHELL := /usr/bin/env bash
 CONFIG ?= scenario_result_512_sumo_all.yml
 SMOKE_CONFIG ?= scenario_test_32_sumo_smoke.yml
-SMOKE_SCENARIO := scenario_test_32_sumo_smoke
+SMOKE_SCENARIO := $(basename $(notdir $(SMOKE_CONFIG)))
+CONFIG_SCENARIO := $(basename $(notdir $(CONFIG)))
 
 all: help
 
@@ -30,8 +31,8 @@ clean:
 	@rm -rf data/*.csv logs/*.log output/data/*.csv
 
 mobility_data:
-	@echo "Generating SUMO Mobility Data for config: $(CONFIG)..."
-	@source .venv/bin/activate && T1=$$(date +%s) && python3 main.py -c $(CONFIG) -t sumo && T2=$$(date +%s) && echo "⏱ Stage Time: $$(($$T2-$$T1))s"
+	@echo "Generating SUMO Mobility Data for config: $(SMOKE_CONFIG)..."
+	@source .venv/bin/activate && T1=$$(date +%s) && python3 main.py -c $(SMOKE_CONFIG) -t sumo && T2=$$(date +%s) && echo "⏱ Stage Time: $$(($$T2-$$T1))s"
 	@echo "SUMO Mobility Data generation completed."
 
 smoke_test:
@@ -39,6 +40,11 @@ smoke_test:
 	@echo "🚀 Starting End-to-End 32-User Smoke Test Verification Pipeline"
 	@echo "======================================================================"
 	@source .venv/bin/activate && python3 -c 'import time; open("/tmp/crosslink_start.txt","w").write(str(time.time()))'
+	@echo ""
+	@echo "----------------------------------------------------------------------"
+	@echo "▶ [Stage 0/10] Preparing Scenario Data"
+	@echo "Copying data/raw_user_data_$(CONFIG_SCENARIO).csv -> data/raw_user_data_$(SMOKE_SCENARIO).csv..."
+	@cp -f data/raw_user_data_$(CONFIG_SCENARIO).csv data/raw_user_data_$(SMOKE_SCENARIO).csv
 	@echo ""
 	@echo "----------------------------------------------------------------------"
 	@echo "▶ [Stage 1/10] Mobility Filtering"

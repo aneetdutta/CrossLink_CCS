@@ -156,17 +156,110 @@ make validate_real_world
 
 This matrix maps each figure and claim in the paper directly to its corresponding configuration, execution commands, target outputs, and estimated compute runtime:
 
-| Paper Reference | Evaluation Scenario | Configurations | Commands | Results | Compute Time |
-| :--- | :--- | :--- | :--- | :--- | :---: |
-| **Figure 3** | Ablation Study | baseline, nomloc,no_loc, nom | run ablation.sh | | |
-| **Figure 6 & 7** | | | | | |
-| **Figure 8** | | | | | |
-| **Figure 9** | | | | | |
-| **Figure 10** | | | | | |
-| **Figure 11(a)** | | | | | |
-| **Figure 11(b & c)** | | | | | |
-| **Figure 12** | | | | | |
-| **Figure 13** | | | | | |
+<table>
+  <thead>
+    <tr>
+      <th align="left">Paper Reference</th>
+      <th align="left">Evaluation Scenario</th>
+      <th align="left">Configurations</th>
+      <th colspan="2" align="left">Commands</th>
+      <th align="left">Results</th>
+      <th align="center">Compute Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Figure 3</b></td>
+      <td>Ablation Studies</td>
+      <td>• Baseline<br>• No_Loc<br>• Nom_Loc<br>• Nom</td>
+      <td colspan="2">make ablation</td>
+      <td></td>
+      <td align="center"></td>
+    </tr>
+    <tr>
+      <td><b>Figure 6 & 7</b></td>
+      <td>Q1</td>
+      <td>• Baseline<br>• LB1<br>• BW1<br>• LW1</td>
+      <td colspan="2">make q1</td>
+      <td></td>
+      <td align="center"></td>
+    </tr>
+    <tr>
+      <td rowspan="2"><b>Figure 8</b></td>
+      <td>Q2 a (Partial Coverage)</td>
+      <td rowspan="2">• Full Coverage (Baseline)<br>• PATCH<br>• MOB SPOT<br>• RAND</td>
+      <td>make q2a</td>
+      <td rowspan="2">make q2</td>
+      <td rowspan="2"></td>
+      <td rowspan="2" align="center"></td>
+    </tr>
+    <tr>
+      <td>Q2 b (Partial Coverage)</td>
+      <td>make q2b</td>
+    </tr>
+    <tr>
+      <td><b>Table 5</b></td>
+      <td>Effect of error-tolerance choices</td>
+      <td>• Bounded (Baseline)<br>• Heavy-tail (baseline error tolerance)<br>• Heavy-tail (increased error tolerance)</td>
+      <td colspan="2">make t5</td>
+      <td></td>
+      <td align="center"></td>
+    </tr>
+    <tr>
+      <td><b>Figure 9</b></td>
+      <td>Q2: Different bounded localization errors</td>
+      <td>• Low<br>• Baseline<br>• High</td>
+      <td colspan="2">make q2_loc</td>
+      <td></td>
+      <td align="center"></td>
+    </tr>
+    <tr>
+      <td><b>Figure 10</b></td>
+      <td>Q3: Difference RI and TI</td>
+      <td>• Low, Low<br>• Low, High<br>• High, Low<br>• High, High</td>
+      <td colspan="2">make q3</td>
+      <td></td>
+      <td align="center"></td>
+    </tr>
+    <tr>
+      <td><b>Figure 11(a)</b></td>
+      <td>Q4: Max User Velocity</td>
+      <td>• 1.6<br>• 3<br>• 5<br>• 10</td>
+      <td colspan="2">make q4a</td>
+      <td></td>
+      <td align="center"></td>
+    </tr>
+    <tr>
+      <td rowspan="2"><b>Figure 11(b & c)</b></td>
+      <td>Q4: User density</td>
+      <td rowspan="2">• N=512<br>• N=1024<br>• N=1536<br>• SUMO Synthetic</td>
+      <td>make q4_user_den</td>
+      <td rowspan="2">make_q4_b_c</td>
+      <td rowspan="2"></td>
+      <td rowspan="2" align="center"></td>
+    </tr>
+    <tr>
+      <td>Q4: Mix-zone duration</td>
+      <td>make q4_mix_dur</td>
+    </tr>
+    <tr>
+      <td><b>Figure 12</b></td>
+      <td>Example scenario: Tracking duration</td>
+      <td>• Full coverage<br>• MOB<br>• PATCH<br>• RAND</td>
+      <td colspan="2">make eg_scen</td>
+      <td></td>
+      <td align="center"></td>
+    </tr>
+    <tr>
+      <td><b>Figure 13</b></td>
+      <td>countermeasure</td>
+      <td>• No sync (baseline)<br>• Sync 180 s<br>• Sync 600 s<br>• Perfect mixing<br>• Sync</td>
+      <td colspan="2">make cm</td>
+      <td></td>
+      <td align="center"></td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
