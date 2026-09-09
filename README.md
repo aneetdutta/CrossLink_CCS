@@ -10,18 +10,18 @@ This repository contains the artifact for CrossLink, a passive cross-protocol tr
 
 ---
 
-## 📖 Paper Overview
+## Paper Overview
 
 Smartphones simultaneously transmit temporary network identifiers over LTE, Wi-Fi, and BLE to facilitate network association and service discovery. Per-protocol identifier randomization assumes that privacy protections compose independently across protocols. **CrossLink** demonstrates that they do not: even under fully passive eavesdropping and noisy spatiotemporal localization, unsynchronized identifier rotations enable cross-protocol stitching of device trajectories over time.
 
 
-> 🏗️ **Architecture & Configuration Guide**: The detailed modular architecture, repository structure, Rust/Python modules, and YAML configuration guide are documented in [**`ARCHITECTURE.md`**](ARCHITECTURE.md).
+> **Architecture & Configuration Guide**: The detailed modular architecture, repository structure, Rust/Python modules, and YAML configuration guide are documented in [**`ARCHITECTURE.md`**](ARCHITECTURE.md).
 
 ![Attack pipeline](design/approach.png)
 
 ---
 
-## 🖥️ System Requirements
+## System Requirements
 
 The artifact is designed to run on standard Linux hardware. Below are the recommended system configurations for quick testing vs. full evaluation.
 
@@ -35,7 +35,7 @@ The artifact is designed to run on standard Linux hardware. Below are the recomm
 
 ---
 
-## ⚙️ Software Setup & Installation
+## Software Setup & Installation
 
 ```bash
 # Software setup and installation
@@ -50,7 +50,7 @@ make clean
 
 ---
 
-## 🚗 Mobility Data Generation (20 compute minutes)
+## Mobility Data Generation (20 compute minutes)
 
 ```bash
 # Generate 512-user mobility traces (default)
@@ -59,9 +59,9 @@ make mobility_data
 
 ---
 
-## ⚡ Quick Start: Smoke Test (10 compute minutes)
+## Quick Start: Smoke Test (10 compute minutes)
 
-Run a lightweight **32-user test** (`scenario_test_32_sumo_smoke.yml`) to verify complete end-to-end toolchain functionality:
+Run a lightweight **32-user test** (`scenario_test_32_sumo_smoke.yml`) to verify complete end-to-end functionality of the repository:
 
 ```bash
 make smoke_test
@@ -120,7 +120,7 @@ cd rust_code && cargo run --release --features inter_map_disable_trim -- "$SCENA
 cd rust_code && cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map && cd ..
 
 # ------------------------------------------------------------------------------
-# Stage 6: Inter/Intra Mapping Refinement (2 compute minutes)
+# Stage 6: Inter/Intra Mapping Refinement (3 compute minutes)
 # ------------------------------------------------------------------------------
 
 python3 main.py -c "$CONFIG" -t refine_intramap
@@ -139,7 +139,7 @@ python3 main.py -c "$CONFIG" -t plot
 
 ---
 
-## 🔬 Real-World Device Validity & Empirical Validation
+## Real-World Device Validity & Empirical Validation
 
 To validate CrossLink's effectiveness on physical hardware, we evaluated the framework on **12 commodity devices** transmitting LTE and BLE packets in real-world environments.
 
