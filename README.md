@@ -50,7 +50,7 @@ make clean
 
 ---
 
-## 🚗 Mobility Data Generation
+## 🚗 Mobility Data Generation (20 compute minutes)
 
 ```bash
 # Generate 512-user mobility traces (default)
@@ -59,7 +59,7 @@ make mobility_data
 
 ---
 
-## ⚡ Quick Start: Smoke Test
+## ⚡ Quick Start: Smoke Test (10 compute minutes)
 
 Run a lightweight **32-user test** (`scenario_test_32_sumo_smoke.yml`) to verify complete end-to-end toolchain functionality:
 
@@ -67,10 +67,9 @@ Run a lightweight **32-user test** (`scenario_test_32_sumo_smoke.yml`) to verify
 make smoke_test
 ```
 
-> 💡 **Resume Execution**: To restart from a specific failed task or stage, run `make smoke_test <task>` (e.g., `make smoke_test refine_intramap` or `make smoke_test 7`).  
-> Add `ONLY=1` to run only that single task without subsequent stages (e.g., `make smoke_test filter_users_RI_Count ONLY=1`).
 
-**Expected Outcome**: Successfully generates reconstructed traces in `output/data/` and plots verification figures in `output/images/scenario_test_32_sumo_smoke/`.
+
+**Expected Outcome**: Successfully generates privacy score files in `output/data/scenario_test_32_smoke/` and plots verification figures in `output/images/privacy_leakage_scenario_test_32_sumo_smoke.pdf`.
 
 ---
 
@@ -83,17 +82,18 @@ To reproduce the main paper results across 512 users, execute the full pipeline 
 # Stage 0: Environment Setup
 # ------------------------------------------------------------------------------
 source .venv/bin/activate
-CONFIG=scenario_result_512_sumo_all.yml
+CONFIG=scenario_result_512_sumo_all1.yml
 SCENARIO=$(basename "$CONFIG" .yml)
 
 # ------------------------------------------------------------------------------
-# Stage 1: Mobility Trajectory Filtering
+# Stage 1: Mobility Trajectory Filtering (20 compute minutes)
 # ------------------------------------------------------------------------------
+python3 main.py -c "$CONFIG" -t sumo
 python3 main.py -c "$CONFIG" -t filter_users_polygon
 python3 main.py -c "$CONFIG" -t filter_users_RI_Count
 
 # ------------------------------------------------------------------------------
-# Stage 2: User Data Generation
+# Stage 2: User Data Generation (<1 compute minute)
 # ------------------------------------------------------------------------------
 python3 main.py -c "$CONFIG" -t generate_user_data
 
@@ -101,34 +101,38 @@ python3 main.py -c "$CONFIG" -t generate_user_data
 python3 main.py -c "$CONFIG" -t generate_user_data_proximity
 
 # ------------------------------------------------------------------------------
-# Stage 3: Sniffer Data Generation
+# Stage 3: Sniffer Data Generation (1 compute minute)
 # ------------------------------------------------------------------------------
-(cd rust_code && cargo run --release -- "$SCENARIO" generate_sniffer_data && cd ..)
+cd rust_code && cargo run --release -- "$SCENARIO" generate_sniffer_data && cd ..
 
 # (Optional) Mobile sniffer scenario (e.g., 30 mobile sniffing nodes)
-(cd rust_code && cargo run --release -- "$SCENARIO" generate_sniffer_data_from_end_devices 30 && cd ..)
+cd rust_code && cargo run --release -- "$SCENARIO" generate_sniffer_data_from_end_devices 30 && cd ..
 
 # ------------------------------------------------------------------------------
-# Stage 4: Aggregation
+# Stage 4: Aggregation (<1 compute minute)
 # ------------------------------------------------------------------------------
 python3 main.py -c "$CONFIG" -t aggregate_new
 
 # ------------------------------------------------------------------------------
-# Stage 5: Inter/Intra Mapping & Refinement
+# Stage 5: Inter/Intra Mapping Candidate Construction
 # ------------------------------------------------------------------------------
-(cd rust_code && cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map && cd ..)
-(cd rust_code && cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map && cd ..)
+cd rust_code && cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map && cd ..
+cd rust_code && cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map && cd ..
+
+# ------------------------------------------------------------------------------
+# Stage 6: Inter/Intra Mapping Refinement
+# ------------------------------------------------------------------------------
 
 python3 main.py -c "$CONFIG" -t refine_intramap
 python3 main.py -c "$CONFIG" -t intra_filter
 
 # ------------------------------------------------------------------------------
-# Stage 6: Trace Reconstruction
+# Stage 7: Trace Reconstruction
 # ------------------------------------------------------------------------------
 python3 main.py -c "$CONFIG" -t reconstruction
 
 # ------------------------------------------------------------------------------
-# Stage 7: Result Visualization
+# Stage 7: Result Visualization (<1 compute minute)
 # ------------------------------------------------------------------------------
 python3 main.py -c "$CONFIG" -t plot
 ```
