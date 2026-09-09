@@ -114,20 +114,20 @@ cd rust_code && cargo run --release -- "$SCENARIO" generate_sniffer_data_from_en
 python3 main.py -c "$CONFIG" -t aggregate_new
 
 # ------------------------------------------------------------------------------
-# Stage 5: Inter/Intra Mapping Candidate Construction
+# Stage 5: Inter/Intra Mapping Candidate Construction (2 compute minutes)
 # ------------------------------------------------------------------------------
 cd rust_code && cargo run --release --features inter_map_disable_trim -- "$SCENARIO" inter_map && cd ..
 cd rust_code && cargo run --release --features intra_map_disable_trim -- "$SCENARIO" intra_map && cd ..
 
 # ------------------------------------------------------------------------------
-# Stage 6: Inter/Intra Mapping Refinement
+# Stage 6: Inter/Intra Mapping Refinement (2 compute minutes)
 # ------------------------------------------------------------------------------
 
 python3 main.py -c "$CONFIG" -t refine_intramap
 python3 main.py -c "$CONFIG" -t intra_filter
 
 # ------------------------------------------------------------------------------
-# Stage 7: Trace Reconstruction
+# Stage 7: Trace Reconstruction (40 compute minutes)
 # ------------------------------------------------------------------------------
 python3 main.py -c "$CONFIG" -t reconstruction
 
@@ -146,7 +146,7 @@ To validate CrossLink's effectiveness on physical hardware, we evaluated the fra
 ### Dataset Files in `real_world/`:
 - `lte_observations.csv`: Passive LTE sniffer captures.
 - `ble_observations.csv`: Passive BLE advertisement captures.
-- `anchors.csv`: Physical sniffer location coordinates.
+- `anchors.csv`: Mix-zone entry/exit mappings.
 - `ground_truth.csv`: True device identity mappings.
 
 ### Execution Steps:
@@ -155,7 +155,7 @@ To validate CrossLink's effectiveness on physical hardware, we evaluated the fra
 make validate_real_world
 ```
 
-**Expected Output**: Produces `inter_links.csv` and `intra_links.csv` detailing predicted cross-protocol device associations, alongside evaluation metrics.
+**Expected Output**: Produces `inter_links.csv` and `intra_links.csv` containing the mappings produced by CrossLink algorithm. The resulting plot is in `output/images/accuracy_identifier_linkings_real_ccs.pdf` 
 
 
 
