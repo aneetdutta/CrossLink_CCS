@@ -97,16 +97,10 @@ python3 main.py -c "$CONFIG" -t filter_users_RI_Count
 # ------------------------------------------------------------------------------
 python3 main.py -c "$CONFIG" -t generate_user_data
 
-# (Optional) Proximity mixing countermeasure run
-python3 main.py -c "$CONFIG" -t generate_user_data_proximity
-
 # ------------------------------------------------------------------------------
 # Stage 3: Sniffer Data Generation (1 compute minute)
 # ------------------------------------------------------------------------------
 cd rust_code && cargo run --release -- "$SCENARIO" generate_sniffer_data && cd ..
-
-# (Optional) Mobile sniffer scenario (e.g., 30 mobile sniffing nodes)
-cd rust_code && cargo run --release -- "$SCENARIO" generate_sniffer_data_from_user_devices 30 && cd ..
 
 # ------------------------------------------------------------------------------
 # Stage 4: Aggregation (<1 compute minute)
