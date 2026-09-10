@@ -28,7 +28,7 @@ clean:
 	@echo "Cleaning Rust build artifacts..."
 	@(cd rust_code && cargo clean && cd ..) || true
 	@echo "Cleaning temporary logs and data files..."
-	@rm -rf data/*.csv logs/*.log output/data/*.csv
+	@rm -rf logs/*.log output/data/*.csv
 
 mobility_data:
 	@echo "Generating SUMO Mobility Data for config: $(SMOKE_CONFIG)..."
