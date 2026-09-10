@@ -19,7 +19,9 @@ USER_TIMESTEPS = int(os.getenv("USER_TIMESTEPS"))
 ml = MyLogger(f"generate_user_data_proximity_{SCENARIO_NAME}")
 num_users=TOTAL_NUMBER_OF_USERS
 
-df = pd.read_csv(f"data/raw_user_data_{DATA_SOURCE}_{TOTAL_NUMBER_OF_USERS}_{num_users}.csv")
+#df = pd.read_csv(f"data/raw_user_data_{DATA_SOURCE}_{TOTAL_NUMBER_OF_USERS}_{num_users}.csv")
+
+df = pd.read_csv(f"data/raw_user_data_{SCENARIO_NAME}_{num_users}.csv")
 df_sorted = df.sort('timestep')
 
 user_dict = dict()
