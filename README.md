@@ -59,7 +59,7 @@ make mobility_data
 
 ---
 
-## Quick Start: Smoke Test (10 compute minutes)
+## Quick Start: Smoke Test (2 compute minutes)
 
 Run a lightweight **32-user test** (`scenario_test_32_sumo_smoke.yml`) to verify complete end-to-end functionality of the repository:
 
