@@ -109,7 +109,7 @@ baseline:
 	@echo "======================================================================"
 	@echo "✅ Baseline Pipeline Finished"
 	@echo "Output saved in /output/data/scenario_result_512_sumo_all1/*.csv"
-	@echo "Plot saved in /output/images/privacy_leakage_scenario_result_512_sumo_all1.pdf
+	@echo "Plot saved in /output/images/privacy_leakage_scenario_result_512_sumo_all1.pdf"
 	@echo "======================================================================"
 	
 	

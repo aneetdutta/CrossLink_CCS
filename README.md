@@ -38,6 +38,9 @@ The artifact is designed to run on standard Linux hardware. Below are the recomm
 ## Software Setup & Installation
 
 ```bash
+# Enter the CrossLink Directory
+
+cd CrossLink_CCS
 # Software setup and installation
 make install
 
