@@ -70,11 +70,10 @@ smoke_test:
 	
 	python3 main.py -c $(SMOKE_CONFIG) -t reconstruction; 
 	
-	python3 main.py -c $(SMOKE_CONFIG) -t plot; \
+	python3 main.py -c $(SMOKE_CONFIG) -t plot; 
 	
-	@echo ""
 	@echo "======================================================================"
-	@source .venv/bin/activate && print(f"✅ Smoke Test Pipeline Finished")'
+	@echo "✅ Smoke Test Pipeline Finished"
 	@echo "Output saved in /output/data/$(SMOKE_SCENARIO)/*.csv"
 	@echo "Plot saved in /output/images/$(SMOKE_SCENARIO).pdf" 
 
