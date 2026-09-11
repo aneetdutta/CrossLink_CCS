@@ -46,6 +46,7 @@ if command -v apt-get &> /dev/null; then
         libsm6 \
         libx11-6 \
         libgl1 \
+        time \
         libfontconfig1 \
         sumo \
         sumo-tools || log_warn "Some apt packages could not be installed automatically. Continuing..."

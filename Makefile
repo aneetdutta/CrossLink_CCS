@@ -74,7 +74,7 @@ smoke_test:
 	
 	@echo ""
 	@echo "======================================================================"
-	@source .venv/bin/activate && python3 -c 'import time; t0=float(open("/tmp/crosslink_start.txt").read()); print(f"✅ Smoke Test Pipeline Finished in {time.time()-t0:.2f}s!")'
+	@source .venv/bin/activate && print(f"✅ Smoke Test Pipeline Finished")'
 	@echo "Output saved in /output/data/$(SMOKE_SCENARIO)/*.csv"
 	@echo "Plot saved in /output/images/$(SMOKE_SCENARIO).pdf" 
 
