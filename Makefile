@@ -52,7 +52,7 @@ START ?= $(SMOKE_START)
 smoke-test: smoke_test
 smoke_test:
 	@echo "======================================================================"
-	@echo "🚀 Starting End-to-End 32-User Smoke Test Verification Pipeline"
+	@echo "Starting End-to-End 32-User Smoke Test Verification Pipeline"
 	
 	python3 main.py -c $(SMOKE_CONFIG) -t generate_user_data; \
 	
@@ -75,7 +75,7 @@ smoke_test:
 	@echo "======================================================================"
 	@echo "✅ Smoke Test Pipeline Finished"
 	@echo "Output saved in /output/data/$(SMOKE_SCENARIO)/*.csv"
-	@echo "Plot saved in /output/images/$(SMOKE_SCENARIO).pdf" 
+	@echo "Plot saved in /output/images/privacy_leakage_$(SMOKE_SCENARIO).pdf" 
 
 	@echo "======================================================================"
 
@@ -83,6 +83,38 @@ validate_real_world:
 	@echo "Running real-world device empirical validation..."
 	@source .venv/bin/activate && cd real_world && python3 crosslink.py && python3 evaluate.py && python3 plot_results.py
 	@echo "Real-world empirical validation completed successfully."
+        
+baseline:
+	@echo "Running Baseline Scenario with 512 users in Full Coverage"
+	
+	python3 main.py -c scenario_result_512_sumo_all1.yml -t sumo; \
+	python3 main.py -c scenario_result_512_sumo_all1.yml -t filter_users_polygon; \
+	python3 main.py -c scenario_result_512_sumo_all1.yml -t filter_users_RI_Count; \
+	python3 main.py -c scenario_result_512_sumo_all1.yml -t generate_user_data; \
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_all1 generate_sniffer_data && cd .."; \
+	python3 main.py -c scenario_result_512_sumo_all1.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_all1  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_all1 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_all1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all1.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_all1.yml -t plot; \
+	
+	@echo "======================================================================"
+	@echo "✅ Baseline Pipeline Finished"
+	@echo "Output saved in /output/data/scenario_result_512_sumo_all1/*.csv"
+	@echo "Plot saved in /output/images/privacy_leakage_scenario_result_512_sumo_all1.pdf
+	@echo "======================================================================"
+	
+	
+	
+	
 	
 abalation_study:
 	@echo "Running abalation study..."
