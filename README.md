@@ -83,7 +83,7 @@ To reproduce the main paper basline result with 512 users and full coverage , ex
 ```bash
 make baseline
 ```
-**Expected Output**: output/data/scenario_result_512_sumo_all1/*.csv, output/images/privacy_leakage_scenario_result_512_sumo_all1.pdf and correct_linkings_by_mapping_protocol_scenario_result_512_sumo_all1.pdf (Figure 7)
+**Expected Output**: `output/data/scenario_result_512_sumo_all1/*.csv`, `output/images/privacy_leakage_scenario_result_512_sumo_all1.pdf` and `correct_linkings_by_mapping_protocol_scenario_result_512_sumo_all1.pdf` (Figure 7).
 
 The workflow consists of the following sequential stages:
 
@@ -159,7 +159,7 @@ To validate CrossLink's effectiveness on physical hardware, we evaluated the fra
 make validate_real_world
 ```
 
-**Expected Output**: Produces `inter_links.csv` and `intra_links.csv` containing the mappings produced by CrossLink algorithm. The resulting plot is in `output/images/accuracy_identifier_linkings_real_ccs.pdf` 
+**Expected Output**: Produces `inter_links.csv` and `intra_links.csv` containing the mappings produced by CrossLink algorithm. The resulting plot is in `output/images/accuracy_identifier_linkings_real_ccs.pdf` (Figure 5)
 
 
 
