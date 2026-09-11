@@ -177,13 +177,38 @@ q1:
 	@echo "======================================================================"
 	@echo "Q1 Finished"
 	@echo "Output saved in /output/data/"
-	@echo "Plot saved in /output/images/privacy_leakage_q1_512.pdf"
+	@echo "Plot saved in /output/images/privacy_leakage_q1_512_ccs_m.pdf"
 	@echo "Generated Figure 6 of the main paper"
 	@echo "======================================================================"
 				
 				
+q2_bounded_localization:
+	@echo "Bounded Localization Error"
+	
 	
 	
 abalation_study:
 	@echo "Running abalation study..."
+	
+	
+	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_noloc.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_noloc.yml -t reconstruction; \
+	
+	python3 plot/plot_abalation_m.py; \
+	
+	@echo "======================================================================"
+	@echo "Abalation study Finished"
+	@echo "Output saved in /output/data/"
+	@echo "Plot saved in /output/images/privacy_leakage_abalation_ccs_m.pdf"
+	@echo "Generated Figure 3 of the main paper"
+	@echo "======================================================================"
     
