@@ -113,7 +113,75 @@ baseline:
 	@echo "======================================================================"
 	
 	
+q1:
+	@echo "======================================================================"
+	@echo "Running the experiments to answer research question 1:"
 	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_LW1_512.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_LB1_512.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_BW1_512.csv"
+	
+	python3 main.py -c scenario_result_512_sumo_LW1.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_LW1 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_LW1.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_LW1  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_LW1 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_LW1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_LW1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_LW1.yml -t reconstruction; \
+	
+	
+	python3 main.py -c scenario_result_512_sumo_LB1.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_LB1 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_LB1.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_LB1  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_LB1 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_LB1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_LB1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_LB1.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_BW1.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_BW1 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_BW1.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_BW1  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_BW1 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_BW1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_BW1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_BW1.yml -t reconstruction; \
+	
+	python3 plot/plot_q1_m.py; \
+	
+	@echo "======================================================================"
+	@echo "Q1 Finished"
+	@echo "Output saved in /output/data/"
+	@echo "Plot saved in /output/images/privacy_leakage_q1_512.pdf"
+	@echo "Generated Figure 6 of the main paper"
+	@echo "======================================================================"
+				
+				
 	
 	
 abalation_study:
