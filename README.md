@@ -78,7 +78,14 @@ make smoke_test
 
 ## 512-User Execution Pipeline
 
-To reproduce the main paper results across 512 users, execute the full pipeline using `configs/scenario_result_512_sumo_all.yml`. The workflow consists of the following sequential stages:
+To reproduce the main paper basline result with 512 users and full coverage , execute the full pipeline using the `configs/scenario_result_512_sumo_all1.yml` using the following command:
+
+```bash
+make baseline
+```
+**Expected Output**: output/data/scenario_result_512_sumo_all1/*.csv, output/images/privacy_leakage_scenario_result_512_sumo_all1.pdf and correct_linkings_by_mapping_protocol_scenario_result_512_sumo_all1.pdf (Figure 7)
+
+The workflow consists of the following sequential stages:
 
 ```bash
 # ------------------------------------------------------------------------------
