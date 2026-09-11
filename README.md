@@ -38,9 +38,12 @@ The artifact is designed to run on standard Linux hardware. Below are the recomm
 ## Software Setup & Installation
 
 ```bash
-# Enter the CrossLink Directory
+#Clone the repository
+git clone https://github.com/aneetdutta/CrossLink_CCS.git
 
+# Enter the CrossLink Directory
 cd CrossLink_CCS
+
 # Software setup and installation
 make install
 
