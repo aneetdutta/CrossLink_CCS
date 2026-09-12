@@ -201,12 +201,7 @@ def plot_panel(
             panel_files[deployment]
         )
 
-        print_summary(
-            panel_name,
-            deployment,
-            scores,
-        )
-
+      
         user_rank = np.arange(
             1,
             len(scores) + 1,
