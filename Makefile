@@ -209,20 +209,39 @@ q2_bounded_localization:
 	
 	python3 main.py -c q3_localization_error_high.yml -t reconstruction; \
 	
+	python3 main.py -c q3_localization_error_low.yml -t aggregate_new; \
 	
+	python3 main.py -c q3_localization_error_low.yml -t refine_intramap; \
+	
+	python3 main.py -c q3_localization_error_low.yml -t intra_filter; \
+	
+	python3 main.py -c q3_localization_error_low.yml -t reconstruction; \
 	
 	
 abalation_study:
 	@echo "Running abalation study..."
 	
+	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t aggregate; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t refine_intramap; \
 	
 	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t intra_filter; \
 	
 	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t reconstruction; \
 	
+	
+	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t aggregate; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t refine_intramap; \
+	
 	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t intra_filter; \
 	
 	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t reconstruction; \
+	
+	
+	python3 main.py -c scenario_result_512_sumo_all_noloc.yml -t aggregate; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_noloc.yml -t refine_intramap; \
 	
 	python3 main.py -c scenario_result_512_sumo_all_noloc.yml -t intra_filter; \
 	

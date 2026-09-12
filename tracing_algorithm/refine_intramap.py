@@ -14,17 +14,37 @@ ENABLE_BLUETOOTH = str_to_bool(os.getenv("ENABLE_BLUETOOTH"))
 ENABLE_WIFI = str_to_bool(os.getenv("ENABLE_WIFI"))
 ENABLE_LTE = str_to_bool(os.getenv("ENABLE_LTE"))
 
+
+
+
+
+
+base = f'data/{SCENARIO_NAME}'
+
+if os.path.exists(f'{base}/intramap_{SCENARIO_NAME}.pickle'):
+    with open(f'{base}/intramap_{SCENARIO_NAME}.pickle', 'rb') as intra_source:
+        intramap = pickle.load(intra_source)
+else:
+    intramap = np.load(f'{base}/intramap_{SCENARIO_NAME}.npy', allow_pickle=True).item()
+
+if os.path.exists(f'{base}/intermap_{SCENARIO_NAME}.pickle'):
+    with open(f'{base}/intermap_{SCENARIO_NAME}.pickle', 'rb') as inter_source:
+        intermap = pickle.load(inter_source)
+else:
+    intermap = np.load(f'{base}/intermap_{SCENARIO_NAME}.npy', allow_pickle=True).item()
+
+
 #intramap=np.load(f'data/{SCENARIO_NAME}/intramap_{SCENARIO_NAME}.npy', allow_pickle=True).item()
 
 
 #print(intramap)
 #intermap=np.load(f'data/{SCENARIO_NAME}/intermap_{SCENARIO_NAME}.npy', allow_pickle=True).item()
 
-with open(f'data/{SCENARIO_NAME}/intramap_{SCENARIO_NAME}.pickle', mode='rb') as intra_source:
-    intramap = pickle.load(intra_source)
-with open(f'data/{SCENARIO_NAME}/intermap_{SCENARIO_NAME}.pickle', mode='rb') as inter_source:
-    intermap = pickle.load(inter_source)
-print(intermap)
+#with open(f'data/{SCENARIO_NAME}/intramap_{SCENARIO_NAME}.pickle', mode='rb') as intra_source:
+ #   intramap = pickle.load(intra_source)
+#with open(f'data/{SCENARIO_NAME}/intermap_{SCENARIO_NAME}.pickle', mode='rb') as inter_source:
+#   intermap = pickle.load(inter_source)
+#print(intermap)
 #for key in intermap.keys():
  #   if "_W_" not in key:
   #      print(key)
