@@ -230,9 +230,9 @@ abalation_study:
 	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t reconstruction; \
 	
 	
-	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t aggregate; \
+	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t aggregate; \
 	
-	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t refine_intramap; \
+	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t refine_intramap; \
 	
 	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t intra_filter; \
 	
