@@ -641,7 +641,7 @@ ax.grid(axis="y", linestyle="--", alpha=0.35)
 fig.tight_layout()
 fig.savefig(OUT_PNG, dpi=300, bbox_inches="tight")
 fig.savefig(OUT_PDF, bbox_inches="tight")
-plt.show()
+#plt.show()
 
 print(f"Saved: {OUT_PNG}")
 print(f"Saved: {OUT_PDF}")
