@@ -257,7 +257,36 @@ abalation_study:
 	@echo "Plot saved in /output/images/privacy_leakage_abalation_ccs_m.pdf"
 	@echo "Generated Figure 3 of the main paper"
 	@echo "======================================================================"
+
+
+q2_partial:
+	@echo "======================================================================"
+	@echo "Running the experiments to answer research question 2 in partial coverage setting:"
 	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_sumo_512_sumo_hoall_512.csv"
+	
+	python3 main.py -c scenario_sumo_512_sumo_hoall.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_sumo_512_sumo_hoall generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_hoall.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_sumo_512_sumo_hoall  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_sumo_512_sumo_hoall intra_map && cd .."; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_hoall.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_hoall.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_hoall.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_hoall.yml -t plot; \
+	 
+	
+	
+
+		
 	
 q1:
 	@echo "======================================================================"
