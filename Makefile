@@ -177,7 +177,7 @@ q3:
 	@echo "======================================================================"
 	@echo "Q1 Finished"
 	@echo "Output saved in /output/data/"
-	@echo "Plot saved in /output/images/privacy_leakage_q3_{NUM_USERS}_ccs.pdf"
+	@echo "Plot saved in /output/images/privacy_leakage_q3_512_ccs.pdf"
 	@echo "Generated Figure 10 of the main paper"
 	@echo "======================================================================"
 				
@@ -280,4 +280,77 @@ q1:
 	@echo "Plot saved in /output/images/privacy_leakage_q3_512_ccs_m.pdf"
 	@echo "Generated Figure 6 of the main paper"
 	@echo "======================================================================"
+	
+	
+q4_velocity:
+	@echo "======================================================================"
+	@echo "Running the experiments to answer research question 4 (velocity):"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_moving3.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_moving5.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_moving10.csv"
+	
+	python3 main.py -c scenario_result_512_sumo_moving3.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_moving3 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving3.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_moving3  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_moving3 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving3.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving3.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving3.yml -t reconstruction; \
+	
+	
+	python3 main.py -c scenario_result_512_sumo_moving5.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_moving5 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving5.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_moving5  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_moving5 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving5.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving5.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving5.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving10.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_moving10 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving10.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_moving10  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_moving10 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving10.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving10.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_moving10.yml -t reconstruction; \
+	
+	python3 plot/plot_q1_m.py; \
+	
+	@echo "======================================================================"
+	@echo "Q4 Velocity Finished"
+	@echo "Output saved in /output/data/"
+	@echo "Plot saved in /output/images/privacy_leakage_q4_mobility_ccs_m"
+	@echo "Generated Figure 11 (a) of the main paper"
+	@echo "======================================================================"
+
+
+
+
     
