@@ -282,6 +282,39 @@ q2_partial:
 	python3 main.py -c scenario_sumo_512_sumo_hoall.yml -t reconstruction; \
 	
 	python3 main.py -c scenario_sumo_512_sumo_hoall.yml -t plot; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_homob.yml -t aggregate_new; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_homob.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_homob.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_homob.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_partial_512_sumo_hostrategic.yml -t aggregate_new; \
+	
+	python3 main.py -c scenario_partial_512_sumo_hostrategic.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_partial_512_sumo_hostrategic.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_partial_512_sumo_hostrategic.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_hopatch.yml -t aggregate_new; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_hopatch.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_hopatch.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_hopatch.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_horand.yml -t aggregate_new; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_horand.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_horand.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_sumo_512_sumo_horand.yml -t reconstruction; \
+
 	 
 	
 	
