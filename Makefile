@@ -144,7 +144,7 @@ q3:
 	
 	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_all4 generate_sniffer_data && cd .."; \
 	
-	python3 main.py -c scenario_result_512_sumo_LB1.yml -t aggregate_new; \
+	python3 main.py -c scenario_result_512_sumo_all4.yml -t aggregate_new; \
 	
 	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_all4  inter_map && cd .."; \
 	
