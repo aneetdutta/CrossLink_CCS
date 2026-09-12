@@ -314,7 +314,32 @@ q2_partial:
 	python3 main.py -c scenario_sumo_512_sumo_horand.yml -t intra_filter; \
 	
 	python3 main.py -c scenario_sumo_512_sumo_horand.yml -t reconstruction; \
-
+	
+	python3 main.py -c scenario_partial_512_sumo_user1.yml -t aggregate_new; \
+	
+	python3 main.py -c scenario_partial_512_sumo_user1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_partial_512_sumo_user1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_partial_512_sumo_user1.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_partial_512_sumo_timestrategic.yml -t aggregate_new; \
+	
+	python3 main.py -c scenario_partial_512_sumo_timestrategic.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_partial_512_sumo_timestrategic.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_partial_512_sumo_timestrategic.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_partial.yml -t aggregate_new; \
+	
+	python3 main.py -c scenario_result_512_sumo_partial.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_partial.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_partial.yml -t reconstruction; \
+	
+	python3 plot/plot_partial_m.py
 	 
 	
 	
