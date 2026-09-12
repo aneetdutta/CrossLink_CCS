@@ -217,6 +217,8 @@ q2_bounded_localization:
 	
 	python3 main.py -c q3_localization_error_low.yml -t reconstruction; \
 	
+	python3 plot/q3_localization_m.py
+	
 	
 abalation_study:
 	@echo "Running abalation study..."
