@@ -113,6 +113,106 @@ baseline:
 	@echo "======================================================================"
 	
 	
+q3:
+	@echo "======================================================================"
+	@echo "Running the experiments to answer research question 3:"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_all_512.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_all4_512.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_all5_512.csv"
+	
+	python3 main.py -c scenario_result_512_sumo_all.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_all generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_all  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_all intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_all.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all.yml -t reconstruction; \
+	
+	
+	python3 main.py -c scenario_result_512_sumo_all4.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_all4 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_LB1.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_all4  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_all4 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all4.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_all4.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all4.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_all5.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_all5 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all5.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_all5  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_all5 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all5.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_all5.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all5.yml -t reconstruction; \
+	
+	python3 plot/q3_m.py; \
+	
+	@echo "======================================================================"
+	@echo "Q1 Finished"
+	@echo "Output saved in /output/data/"
+	@echo "Plot saved in /output/images/privacy_leakage_q3_{NUM_USERS}_ccs.pdf"
+	@echo "Generated Figure 10 of the main paper"
+	@echo "======================================================================"
+				
+				
+q2_bounded_localization:
+	@echo "Bounded Localization Error"
+	
+	
+	
+abalation_study:
+	@echo "Running abalation study..."
+	
+	
+	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_noloc.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_noloc.yml -t reconstruction; \
+	
+	python3 plot/plot_abalation_m.py; \
+	
+	@echo "======================================================================"
+	@echo "Abalation study Finished"
+	@echo "Output saved in /output/data/"
+	@echo "Plot saved in /output/images/privacy_leakage_abalation_ccs_m.pdf"
+	@echo "Generated Figure 3 of the main paper"
+	@echo "======================================================================"
+	
+	
 q1:
 	@echo "======================================================================"
 	@echo "Running the experiments to answer research question 1:"
@@ -175,40 +275,9 @@ q1:
 	python3 plot/plot_q1_m.py; \
 	
 	@echo "======================================================================"
-	@echo "Q1 Finished"
+	@echo "Q3 Finished"
 	@echo "Output saved in /output/data/"
-	@echo "Plot saved in /output/images/privacy_leakage_q1_512_ccs_m.pdf"
+	@echo "Plot saved in /output/images/privacy_leakage_q3_512_ccs_m.pdf"
 	@echo "Generated Figure 6 of the main paper"
-	@echo "======================================================================"
-				
-				
-q2_bounded_localization:
-	@echo "Bounded Localization Error"
-	
-	
-	
-abalation_study:
-	@echo "Running abalation study..."
-	
-	
-	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t intra_filter; \
-	
-	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t reconstruction; \
-	
-	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t intra_filter; \
-	
-	python3 main.py -c scenario_result_512_sumo_all_nomloc.yml -t reconstruction; \
-	
-	python3 main.py -c scenario_result_512_sumo_all_noloc.yml -t intra_filter; \
-	
-	python3 main.py -c scenario_result_512_sumo_all_noloc.yml -t reconstruction; \
-	
-	python3 plot/plot_abalation_m.py; \
-	
-	@echo "======================================================================"
-	@echo "Abalation study Finished"
-	@echo "Output saved in /output/data/"
-	@echo "Plot saved in /output/images/privacy_leakage_abalation_ccs_m.pdf"
-	@echo "Generated Figure 3 of the main paper"
 	@echo "======================================================================"
     
