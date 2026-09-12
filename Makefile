@@ -54,6 +54,10 @@ smoke_test:
 	@echo "======================================================================"
 	@echo "Starting End-to-End 32-User Smoke Test Verification Pipeline"
 	
+	bash -c "mkdir output"; \
+	
+	bash -c "mkdir output/images"; \
+	
 	python3 main.py -c $(SMOKE_CONFIG) -t generate_user_data; \
 	
 	bash -c "cd rust_code && cargo run --release -- $(SMOKE_SCENARIO) generate_sniffer_data && cd .."; \
@@ -183,7 +187,28 @@ q3:
 				
 				
 q2_bounded_localization:
-	@echo "Bounded Localization Error"
+	@echo "Q2. Bounded Localization Error"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_q3_localization_error_low_512.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_q3_localization_error_high_512.csv"
+	
+	python3 main.py -c q3_localization_error_high.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- q3_localization_error_high generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c q3_localization_error_high.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- q3_localization_error_high  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- q3_localization_error_high intra_map && cd .."; \
+	
+	python3 main.py -c q3_localization_error_high.yml -t refine_intramap; \
+	
+	python3 main.py -c q3_localization_error_high.yml -t intra_filter; \
+	
+	python3 main.py -c q3_localization_error_high.yml -t reconstruction; \
+	
 	
 	
 	
