@@ -85,7 +85,7 @@ sniffer:
   ENABLE_PARTIAL_COVERAGE: false
   ENABLE_MULTILATERATION: false
   ENABLE_BLUETOOTH: true       # Enable Bluetooth
-  ENABLE_WIFI: true           # Enable Bluetooth
+  ENABLE_WIFI: false           # Enable Bluetooth
   ENABLE_LTE: true             # Enable Bluetooth
   TRANSMIT_WHEN_RANDOMIZED: false
   SNIFFER_PROCESSING_BATCH_SIZE: 100 # Sniffer processing batch size
