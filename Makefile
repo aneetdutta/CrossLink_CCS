@@ -286,11 +286,11 @@ q4_velocity:
 	@echo "======================================================================"
 	@echo "Running the experiments to answer research question 4 (velocity):"
 	
-	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_moving3.csv"
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_moving3_512.csv"
 	
-	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_moving5.csv"
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_moving5_512.csv"
 	
-	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_moving10.csv"
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_moving10_512.csv"
 	
 	python3 main.py -c scenario_result_512_sumo_moving3.yml -t generate_user_data; \
 	
@@ -341,7 +341,7 @@ q4_velocity:
 	
 	python3 main.py -c scenario_result_512_sumo_moving10.yml -t reconstruction; \
 	
-	python3 plot/plot_q1_m.py; \
+	python3 plot/q4_mobility_m.py; \
 	
 	@echo "======================================================================"
 	@echo "Q4 Velocity Finished"
