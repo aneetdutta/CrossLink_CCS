@@ -119,12 +119,7 @@ LEGEND_ORDER = [
 # ============================================================
 
 def load_sorted_scores(csv_path: Path) -> np.ndarray:
-    """
-    Load and sort the privacy scores.
-
-    The function does not pad, truncate, or otherwise change the
-    number of users in the CSV.
-    """
+   
 
     if not csv_path.is_file():
         raise FileNotFoundError(
@@ -171,59 +166,12 @@ def load_sorted_scores(csv_path: Path) -> np.ndarray:
     # Correct only insignificant floating-point deviations.
     scores = np.clip(scores, 0.0, 1.0)
 
-    if len(scores) != NUM_USERS:
-        print(
-            f"Note: {csv_path.name} contains {len(scores)} rows. "
-            f"It will be plotted from rank 1 to rank {len(scores)} "
-            "without padding."
-        )
+   
 
     return np.sort(scores)
 
 
-# ============================================================
-# Print result statistics
-# ============================================================
 
-def print_summary(
-    panel_name: str,
-    deployment: str,
-    scores: np.ndarray,
-) -> None:
-    """
-    Percentages use the full simulated population of 512 users,
-    as in the original code.
-    """
-
-    count_full = int(
-        np.count_nonzero(
-            np.isclose(
-                scores,
-                1.0,
-                rtol=0.0,
-                atol=1e-9,
-            )
-        )
-    )
-
-    count_095 = int(np.count_nonzero(scores >= 0.95))
-    count_090 = int(np.count_nonzero(scores >= 0.90))
-    count_080 = int(np.count_nonzero(scores >= 0.80))
-    count_050 = int(np.count_nonzero(scores >= 0.50))
-
-    print(
-        f"[{panel_name}] {deployment}\n"
-        f"  LP_D = 1.00: {count_full}/{NUM_USERS} "
-        f"({100.0 * count_full / NUM_USERS:.2f}%)\n"
-        f"  LP_D >= 0.95: {count_095}/{NUM_USERS} "
-        f"({100.0 * count_095 / NUM_USERS:.2f}%)\n"
-        f"  LP_D >= 0.90: {count_090}/{NUM_USERS} "
-        f"({100.0 * count_090 / NUM_USERS:.2f}%)\n"
-        f"  LP_D >= 0.80: {count_080}/{NUM_USERS} "
-        f"({100.0 * count_080 / NUM_USERS:.2f}%)\n"
-        f"  LP_D >= 0.50: {count_050}/{NUM_USERS} "
-        f"({100.0 * count_050 / NUM_USERS:.2f}%)"
-    )
 
 
 # ============================================================
@@ -259,8 +207,6 @@ def plot_panel(
             scores,
         )
 
-        # Important: every curve starts at rank 1.
-        # Its final rank equals the number of rows in that CSV.
         user_rank = np.arange(
             1,
             len(scores) + 1,
@@ -291,9 +237,7 @@ def plot_panel(
         pad=3,
     )
 
-    # Each data curve begins at rank 1.
-    # The plot boundary extends slightly beyond the endpoint ranks,
-    # matching the visual layout used in Figure 6.
+  
     x_margin = 0.05 * (NUM_USERS - 1)
 
     ax.set_xlim(
@@ -402,7 +346,7 @@ handover_handles = plot_panel(
 )
 
 
-# Hide repeated y-axis numbers on the right panel.
+
 axes[1].tick_params(
     axis="y",
     labelleft=False,
@@ -489,9 +433,6 @@ fig.subplots_adjust(
 )
 
 
-# ============================================================
-# Save the combined PDF
-# ============================================================
 
 OUTPUT_FILE.parent.mkdir(
     parents=True,
