@@ -569,6 +569,133 @@ countermeasure:
 	python3 main.py -c synchronized_high_ti.yml -t reconstruction; \
 	
 		
+q4_density:
+	@echo "======================================================================"
+	@echo "Effect of density and mobility model"
+	
+	python3 main.py -c scenario_result_1024_sumo_all1.yml -t sumo; \
+	
+	python3 main.py -c scenario_result_1024_sumo_all1.yml -t filter_users_polygon; \
+	
+	python3 main.py -c scenario_result_1024_sumo_all1.yml -t filter_users_RI_Count; \
+	
+	python3 main.py -c scenario_result_1024_sumo_all1.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_1024_sumo_all1 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_1024_sumo_all1.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_1024_sumo_all1  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_1024_sumo_all1 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_1024_sumo_all1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_1024_sumo_all1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_1024_sumo_all1.yml -t reconstruction; \
+	
+	#python3 main.py -c scenario_result_1024_sumo_all1.yml -t plot; \
+	
+	python3 main.py -c scenario_result_1536_sumo_all1.yml -t sumo; \
+	
+	python3 main.py -c scenario_result_1536_sumo_all1.yml -t filter_users_polygon; \
+	
+	python3 main.py -c scenario_result_1536_sumo_all1.yml -t filter_users_RI_Count; \
+	
+	python3 main.py -c scenario_result_1536_sumo_all1.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_1536_sumo_all1 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_1536_sumo_all1.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_1536_sumo_all1  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_1536_sumo_all1 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_1536_sumo_all1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_1536_sumo_all1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_1536_sumo_all1.yml -t reconstruction; \
+	
+	#python3 main.py -c scenario_result_1536_sumo_all1.yml -t plot; \
+	#python3 main.py c scenario_result_512_graph_all1.yml -t graph_gen; \
+	
+	python3 main.py -c scenario_result_512_graph_all1.yml -t graph_gen; \
+	
+	python3 main.py -c scenario_result_512_graph_all1.yml -t walk; \
+	
+	python3 main.py -c scenario_result_512_graph_all1.yml -t graph_raw_data; \
+	
+	python3 main.py -c scenario_result_512_graph_all1.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_512_graph_all1 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_graph_all1.yml -t aggregate_new; \
+	
+	bash - c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_graph_all1 inter_map && cd .."; \
+	
+	bash - c"cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_graph_all1 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_graph_all1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_graph_all1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_graph_all1.yml -t reconstruction; \
+	
+	#python3 main.py c scenario_result_512_graph_all1.yml -t graph_gen; \
+	
+	python3 main.py -c scenario_result_1024_graph_all1.yml -t graph_gen; \
+	
+	python3 main.py -c scenario_result_1024_graph_all1.yml -t walk; \
+	
+	python3 main.py -c scenario_result_1024_graph_all1.yml -t graph_raw_data; \
+	
+	python3 main.py -c scenario_result_1024_graph_all1.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_1024_graph_all1 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_1024_graph_all1.yml -t aggregate_new; \
+	
+	bash - c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_1024_graph_all1 inter_map && cd .."; \
+	
+	bash - c"cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_1024_graph_all1 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_1024_graph_all1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_1024_graph_all1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_1024_graph_all1.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_1536_graph_all1.yml -t graph_gen; \
+	
+	python3 main.py -c scenario_result_1536_graph_all1.yml -t walk; \
+	
+	python3 main.py -c scenario_result_1536_graph_all1.yml -t graph_raw_data; \
+	
+	python3 main.py -c scenario_result_1536_graph_all1.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_result_1536_graph_all1 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_1536_graph_all1.yml -t aggregate_new; \
+	
+	bash - c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_1536_graph_all1 inter_map && cd .."; \
+	
+	bash - c"cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_1536_graph_all1 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_1536_graph_all1.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_1536_graph_all1.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_1536_graph_all1.yml -t reconstruction; \
+	
+	python3 plot/q4_denisty_m.py
+	
+	
+
+	
+	
 	
 
 
