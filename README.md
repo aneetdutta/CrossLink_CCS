@@ -166,36 +166,19 @@ make validate_real_world
 
 
 
-## 🛠️ Troubleshooting FAQ
+## Reproducing the paper's figures
 
-<details>
-<summary><b>1. FileNotFoundError or Module Import Errors</b></summary>
-
-- Always ensure Python commands are executed from the repository root or the folder containing `main.py`.
-- If using Poetry, verify virtualenv activation with `poetry shell` or prefix commands with `poetry run`.
-</details>
-
-<details>
-<summary><b>2. Cargo Execution & Argument Formatting</b></summary>
-
-- Pass scenario names to Cargo **without** the `.yml` file extension (e.g., `scenario_result_512_sumo_all`).
-- Execute Cargo commands from the directory containing `Cargo.toml`.
-</details>
-
-<details>
-<summary><b>3. Memory Limits & Out-Of-Memory (OOM) Errors</b></summary>
-
-- SUMO trajectory processing for 512 users can require 16–32 GB RAM.
-- If RAM is limited, use pre-generated traces in `data/` or evaluate with 32/128 user configurations (`scenario_test_32_sumo_smoke.yml`).
-</details>
-
-<details>
-<summary><b>4. Rust Compilation & Feature Flags</b></summary>
-
-- Cargo commands utilize feature flags such as `--features inter_map_disable_trim`. Ensure clean builds with `cargo clean` if toolchain flags are modified.
-</details>
-
----
+| Paper reference | Description | Command | Output |
+|---|---|---|---|
+| §4.2, Figure 3 | Ablation study | `make ablation_study` | `output/images/privacy_leakage_abalation_ccs_m.pdf` |
+| §8, Figure 5 | Lab-scale real-device deployment | `make validate_realworld` | `real_world/output/real_world/output/accuracy_identifier_linkings_real_ccs.pdf` |
+| §9.2, Figure 6 | Baseline: 512 users, full coverage, different multi-protocol settings | `make q1` | `output/images/privacy_leakage_q1_512_ccs_m.pdf` |
+| §9.2, Figure 7 | Baseline: 512 users, full coverage | `make baseline` | `output/images/correct_linkings_by_mapping_protocol_scenario_result_512_sumo_all1.pdf` |
+| §9.2, Figure 8 | Partial coverage, 512 users, different adversarial strategies | `make q2_partial` | `output/images/privacy_leakage_q3_512_partial_ccs.pdf` |
+| §9.2, Figure 9 | CrossLink under different bounded localization errors | `make q2_bounded_localization` | `output/images/privacy_leakage_q3_localization_cc_m.pdf` |
+| §9.2, Figure 10 | CrossLink under different randomization and transmission intervals | `make q3` | `output/images/privacy_leakage_q2_512_ccs.pdf` |
+| §9.2, Figure 11 | Effect of velocity on privacy | `make q4_velocity` | `output/images/q4_mobility_ccs_m.pdf` |
+| §9.2, Figure 13 | Countermeasures | `make countermeasure` | `output/images/privacy_leakage_countermeasure_m.pdf` |
 
 
 
