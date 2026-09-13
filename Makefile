@@ -323,7 +323,7 @@ q2_partial:
 	
 	python3 main.py -c scenario_partial_512_sumo_user1.yml -t reconstruction; \
 	
-	python3 main.py -c scenario_partial_512_sumo_timestrategic.yml -t aggregate_new; \
+	python3 main.py -c scenario_partial_512_sumo_timestrategic.yml -t aggregate; \
 	
 	python3 main.py -c scenario_partial_512_sumo_timestrategic.yml -t refine_intramap; \
 	
