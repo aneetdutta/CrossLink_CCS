@@ -36,33 +36,33 @@ OUTPUT_PNG: Final[Path] = OUTPUT_ROOT / "privacy_leakage_q4_density.png"
 SCENARIOS: Final[dict[tuple[int, str], Path]] = {
     (512, "SUMO"): (
         DATA_ROOT
-        / "scenario_exponential_512_sumo_LB"
-        / "multi_protocol_scenario_exponential_512_sumo_LB.csv"
+        / "scenario_result_512_sumo_all1"
+        / "multi_protocol_scenario_result_512_sumo_all1.csv"
     ),
     (1024, "SUMO"): (
         DATA_ROOT
-        / "scenario_exponential_1024_sumo_LB"
-        / "multi_protocol_scenario_exponential_1024_sumo_LB.csv"
+        / "scenario_result_1024_sumo_all1"
+        / "multi_protocol_scenario_result_1024_sumo_all1.csv"
     ),
     (1536, "SUMO"): (
         DATA_ROOT
-        / "scenario_exponential_1536_sumo_LB"
-        / "multi_protocol_scenario_exponential_1536_sumo_LB.csv"
+        / "scenario_result_1536_sumo_all1"
+        / "multi_protocol_scenario_result_1536_sumo_all1.csv"
     ),
     (512, "Synthetic"): (
         DATA_ROOT
-        / "scenario_exponential_512_graph_LB"
-        / "multi_protocol_scenario_exponential_512_graph_LB.csv"
+        / "scenario_result_512_graph_all1"
+        / "multi_protocol_scenario_result_512_graph_all1.csv"
     ),
     (1024, "Synthetic"): (
         DATA_ROOT
-        / "scenario_exponential_1024_graph_LB"
-        / "multi_protocol_scenario_exponential_1024_graph_LB.csv"
+        / "scenario_result_1024_graph_all1"
+        / "multi_protocol_scenario_result_512_graph_all1.csv"
     ),
     (1536, "Synthetic"): (
         DATA_ROOT
-        / "scenario_exponential_1536_graph_LB"
-        / "multi_protocol_scenario_exponential_1536_graph_LB.csv"
+        / "scenario_result_512_graph_all1"
+        / "multi_protocol_scenario_result_512_graph_all1.csv"
     ),
 }
 
