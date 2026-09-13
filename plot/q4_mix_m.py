@@ -30,27 +30,25 @@ from figure11_style import (
 # Configuration
 # -----------------------------------------------------------------------------
 
-# Directory used by the original q4_mix.py script.
+DATA_ROOT: Final[Path] = Path("output/data")
+
 MIXZONE_CSV_DIR: Final[Path] = Path(
-    "/home/aneet_wisec/usenix_2025/path-leakage/plot/q4_mix1"
+    DATA_ROOT/"q4_mix1"
 )
 
 OUTPUT_ROOT: Final[Path] = Path("output/images")
 OUTPUT_PDF: Final[Path] = OUTPUT_ROOT / "privacy_leakage_q4_mix_m.pdf"
 OUTPUT_PNG: Final[Path] = OUTPUT_ROOT / "privacy_leakage_q4_mix.png"
 
-# The supplied CSVs use this column.
+
 DURATION_COLUMN: Final[str] = "duration_seconds"
 
 POPULATIONS: Final[tuple[int, ...]] = (512, 1024, 1536)
 SOURCES: Final[tuple[str, ...]] = ("SUMO", "Synthetic")
 
-# Show the two compact legend rows below panel (c):
-#   row 1: population sizes in ascending order;
-#   row 2: SUMO versus Synthetic encoding.
 SHOW_LEGEND: Final[bool] = True
 
-# Draw dashed synthetic curves first, then solid SUMO curves.
+
 PLOT_ORDER: Final[list[tuple[int, str]]] = [
     (512, "Synthetic"),
     (1024, "Synthetic"),
@@ -66,15 +64,7 @@ PLOT_ORDER: Final[list[tuple[int, str]]] = [
 # -----------------------------------------------------------------------------
 
 def parse_csv_identity(path: Path) -> tuple[int, str]:
-    """
-    Infer population and mobility source from a filename.
-
-    Accepted source tokens:
-      - "sumo" -> SUMO
-      - "graph" or "synthetic" -> Synthetic
-
-    The filename must also contain exactly one of 512, 1024, or 1536.
-    """
+    
     stem = path.stem.lower()
 
     if "sumo" in stem:
@@ -101,7 +91,7 @@ def parse_csv_identity(path: Path) -> tuple[int, str]:
 
 
 def discover_csv_files() -> dict[tuple[int, str], Path]:
-    """Discover the six q4 mix-zone CSV files."""
+
     if not MIXZONE_CSV_DIR.is_dir():
         raise FileNotFoundError(
             f"Mix-zone CSV directory does not exist: {MIXZONE_CSV_DIR}"
@@ -146,7 +136,7 @@ def discover_csv_files() -> dict[tuple[int, str], Path]:
 
 
 def load_durations(path: Path) -> np.ndarray:
-    """Load, validate, and prepare mix-zone durations for a log-scale plot."""
+
     frame = pd.read_csv(path)
 
     if DURATION_COLUMN not in frame.columns:
@@ -168,8 +158,7 @@ def load_durations(path: Path) -> np.ndarray:
     if np.any(values < 0):
         raise ValueError(f"Negative mix-zone duration found in {path}")
 
-    # A logarithmic axis cannot display zero. Preserve zero-duration samples at
-    # the bottom by replacing them with half the smallest positive duration.
+    
     positive = values[values > 0]
 
     if positive.size == 0:
@@ -188,16 +177,12 @@ def load_durations(path: Path) -> np.ndarray:
 
 
 def percentile_axis(size: int) -> np.ndarray:
-    """
-    Return the empirical percentile rank used by the original plot.
-
-    This is 100 times the ECDF value: 1/n, 2/n, ..., 1.
-    """
+   
     return 100.0 * np.arange(1, size + 1, dtype=float) / size
 
 
 def marker_schedule(size: int, source: str) -> tuple[int, int]:
-    """Use approximately five sparse markers and stagger the two sources."""
+
     step = max(1, size // 5)
     start_fraction = 0.15 if source == "SUMO" else 0.58
     start = min(size - 1, int(step * start_fraction))
@@ -205,7 +190,7 @@ def marker_schedule(size: int, source: str) -> tuple[int, int]:
 
 
 def configure_log_ticks(ax: plt.Axes, all_values: np.ndarray) -> None:
-    """Use at most a few readable decade ticks on the narrow CCS panel."""
+
     min_value = float(np.min(all_values))
     max_value = float(np.max(all_values))
 
@@ -227,7 +212,7 @@ def configure_log_ticks(ax: plt.Axes, all_values: np.ndarray) -> None:
     if not exponents:
         exponents = [min_exp, max_exp]
     else:
-        # Keep the number of labels small in a 2.16-inch-wide panel.
+
         while len(exponents) > 4:
             exponents = exponents[::2]
 
@@ -237,9 +222,6 @@ def configure_log_ticks(ax: plt.Axes, all_values: np.ndarray) -> None:
     ax.yaxis.set_minor_formatter(NullFormatter())
 
 
-# -----------------------------------------------------------------------------
-# Plot
-# -----------------------------------------------------------------------------
 
 def main() -> None:
     apply_ccs_style()
@@ -305,9 +287,7 @@ def main() -> None:
 
     style_axis(ax)
 
-    # Two compact semantic legends:
-    #   - population size is encoded by color and marker shape;
-    #   - mobility source is encoded by line style and marker fill.
+    
     if SHOW_LEGEND:
         from matplotlib.lines import Line2D
 
@@ -373,7 +353,7 @@ def main() -> None:
             numpoints=1,
         )
 
-    # Identical canvas and margins to the mobility and density panels.
+
     set_panel_margins(fig)
     save_panel(fig, OUTPUT_PDF, OUTPUT_PNG)
 
