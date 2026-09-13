@@ -485,5 +485,92 @@ q4_velocity:
 
 
 
+countermeasure:
+	@echo "======================================================================"
+	@echo "Countermeasure:"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_proximity_512_sumo_new_512.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_synced_randomization_512_all_512.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_synchronized_high_ti_512.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_synchronized_low_ti_512.csv"
+	
+	
+	
+	python3 main.py -c scenario_proximity_512_sumo_new.yml -t generate_user_data_proximity; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_proximity_512_sumo_new generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_proximity_512_sumo_new.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_proximity_512_sumo_new  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_proximity_512_sumo_new intra_map && cd .."; \
+	
+	python3 main.py -c scenario_proximity_512_sumo_new.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_proximity_512_sumo_new.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_proximity_512_sumo_new.yml -t reconstruction; \
+	
+	
+	python3 main.py -c scenario_synced_randomization_512_all.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- scenario_synced_randomization_512_all generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_synced_randomization_512_all.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_synced_randomization_512_all  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_synced_randomization_512_all intra_map && cd .."; \
+	
+	python3 main.py -c scenario_synced_randomization_512_all.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_synced_randomization_512_all.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_synced_randomization_512_all.yml -t reconstruction; \
+	
+	
+	python3 main.py -c synchronized_high_ti.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- synchronized_high_ti generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c synchronized_high_ti.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- synchronized_high_ti  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- synchronized_high_ti intra_map && cd .."; \
+	
+	python3 main.py -c synchronized_high_ti.yml -t refine_intramap; \
+	
+	python3 main.py -c synchronized_high_ti.yml -t intra_filter; \
+	
+	python3 main.py -c synchronized_high_ti.yml -t reconstruction; \
+	
+	
+	python3 main.py -c synchronized_low_ti.yml -t generate_user_data; \
+	
+	bash -c "cd rust_code && cargo run --release -- synchronized_low_ti generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c synchronized_low_ti.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- synchronized_low_ti  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- synchronized_low_ti intra_map && cd .."; \
+	
+	python3 main.py -c synchronized_low_ti.yml -t refine_intramap; \
+	
+	python3 main.py -c synchronized_low_ti.yml -t intra_filter; \
+	
+	python3 plot/countermeasure_m.py; \
+	
+	python3 main.py -c synchronized_high_ti.yml -t reconstruction; \
+	
+		
+	
+
+
 
     
