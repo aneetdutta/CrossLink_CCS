@@ -177,7 +177,8 @@ make validate_real_world
 | §9.2, Figure 8 | Partial coverage, 512 users, different adversarial strategies | `make q2_partial` | `output/images/privacy_leakage_q3_512_partial_ccs.pdf` |
 | §9.2, Figure 9 | CrossLink under different bounded localization errors | `make q2_bounded_localization` | `output/images/privacy_leakage_q3_localization_cc_m.pdf` |
 | §9.2, Figure 10 | CrossLink under different randomization and transmission intervals | `make q3` | `output/images/privacy_leakage_q2_512_ccs.pdf` |
-| §9.2, Figure 11 | Effect of velocity on privacy | `make q4_velocity` | `output/images/q4_mobility_ccs_m.pdf` |
+| §9.2, Figure 11 (a) | Effect of velocity on privacy | `make q4_velocity` | `output/images/q4_mobility_ccs_m.pdf` |
+| §9.2, Figure 11 (b) | Effect of density and mobility model on privacy | `make q4_density` | `output/images/q4_density_ccs_m.pdf` |
 | §9.2, Figure 13 | Countermeasures | `make countermeasure` | `output/images/privacy_leakage_countermeasure_m.pdf` |
 
 
