@@ -32,11 +32,11 @@ clean:
 
 mobility_data:
 	@echo "Generating SUMO Mobility Data for config: $(SMOKE_CONFIG)..."
-	@source .venv/bin/activate && T1=$$(date +%s) && python3 main.py -c $(SMOKE_CONFIG) -t sumo && T2=$$(date +%s) && echo "Time elapsed: $$(($$T2-$$T1))s"
+	T1=$$(date +%s) && python3 main.py -c $(SMOKE_CONFIG) -t sumo && T2=$$(date +%s) && echo "Time elapsed: $$(($$T2-$$T1))s"
 	@echo "SUMO Mobility Data generation completed."
-	@source .venv/bin/activate && T1=$$(date +%s) && python3 main.py -c $(SMOKE_CONFIG) -t filter_users_polygon && T2=$$(date +%s) && echo "Time elapsed: $$(($$T2-$$T1))s"
+	T1=$$(date +%s) && python3 main.py -c $(SMOKE_CONFIG) -t filter_users_polygon && T2=$$(date +%s) && echo "Time elapsed: $$(($$T2-$$T1))s"
 	@echo "SUMO Mobility Data filtered inside polygon."
-	@source .venv/bin/activate && T1=$$(date +%s) && python3 main.py -c $(SMOKE_CONFIG) -t filter_users_RI_Count && T2=$$(date +%s) && echo "Time elapsed: $$(($$T2-$$T1))s"
+	T1=$$(date +%s) && python3 main.py -c $(SMOKE_CONFIG) -t filter_users_RI_Count && T2=$$(date +%s) && echo "Time elapsed: $$(($$T2-$$T1))s"
 	@echo "SUMO Mobility Data Generation Completed."
 
 # Allow restarting smoke_test from a specific task/stage: make smoke_test <task>
