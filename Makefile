@@ -10,15 +10,15 @@ all: help
 
 help:
 	@echo "CrossLink Makefile Targets:"
-	@echo "  make install             - Run install.sh to setup environment, Rust binaries, and Python virtual environment"
+#	@echo "  make install             - Run install.sh to setup environment, Rust binaries, and Python virtual environment"
 	@echo "  make clean               - Clean Python bytecode, caches, Rust target binaries, and output logs"
 	@echo "  make mobility_data       - Generate SUMO mobility traces (default CONFIG=$(CONFIG))"
 	@echo "  make smoke_test [<task>] - Run smoke test (optionally resuming from <task> or stage number)"
 	@echo "  make validate_real_world - Run empirical evaluation on 12 commodity real-world devices"
 
-install:
-	@chmod +x install.sh
-	@./install.sh
+#install:
+#	@chmod +x install.sh
+#	@./install.sh
 
 clean:
 	@echo "Cleaning Python bytecode and cache files..."
@@ -54,9 +54,9 @@ smoke_test:
 	@echo "======================================================================"
 	@echo "Starting End-to-End 32-User Smoke Test Verification Pipeline"
 	
-	bash -c "mkdir output"; \
+	bash -c "mkdir -p output"; \
 	
-	bash -c "mkdir output/images"; \
+	bash -c "mkdir -p output/images"; \
 	
 	python3 main.py -c $(SMOKE_CONFIG) -t generate_user_data; \
 	
@@ -85,7 +85,7 @@ smoke_test:
 
 validate_real_world:
 	@echo "Running real-world device empirical validation..."
-	@source .venv/bin/activate && cd real_world && python3 crosslink.py && python3 evaluate.py && python3 plot_results.py
+	bash -c "cd real_world && python3 crosslink.py && python3 evaluate.py && python3 plot_results.py"
 	@echo "Real-world empirical validation completed successfully."
         
 baseline:
