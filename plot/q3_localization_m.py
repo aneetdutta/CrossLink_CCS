@@ -16,6 +16,7 @@ import pandas as pd
 
 NUM_USERS: Final[int] = 512
 SCENARIO_NAME: Final[str] = f"scenario_result_{NUM_USERS}_sumo"
+SCENARIO_NAME1: Final[str] = f"q3_localization_error"
 
 DATA_ROOT: Final[Path] = Path("output/data")
 OUTPUT_ROOT: Final[Path] = Path("output/images")
@@ -35,8 +36,8 @@ SERIES: dict[str, dict[str, object]] = {
     "High": {
         "path": (
             DATA_ROOT
-            / f"{SCENARIO_NAME}_high"
-            / f"multi_protocol_{SCENARIO_NAME}_high.csv"
+            / f"{SCENARIO_NAME1}_high"
+            / f"multi_protocol_{SCENARIO_NAME1}_high.csv"
         ),
         # BLE / WiFi / LTE, in meters
         "legend_label": "High\n5/10/78 m",
@@ -64,8 +65,8 @@ SERIES: dict[str, dict[str, object]] = {
     "Low": {
         "path": (
             DATA_ROOT
-            / f"{SCENARIO_NAME}_low"
-            / f"multi_protocol_{SCENARIO_NAME}_low.csv"
+            / f"{SCENARIO_NAME1}_low"
+            / f"multi_protocol_{SCENARIO_NAME1}_low.csv"
         ),
         "legend_label": "Low\n1/1/1 m",
         "color": "#009E73",
