@@ -57,12 +57,12 @@ SCENARIOS: Final[dict[tuple[int, str], Path]] = {
     (1024, "Synthetic"): (
         DATA_ROOT
         / "scenario_result_1024_graph_all1"
-        / "multi_protocol_scenario_result_512_graph_all1.csv"
+        / "multi_protocol_scenario_result_1024_graph_all1.csv"
     ),
     (1536, "Synthetic"): (
         DATA_ROOT
-        / "scenario_result_512_graph_all1"
-        / "multi_protocol_scenario_result_512_graph_all1.csv"
+        / "scenario_result_1536_graph_all1"
+        / "multi_protocol_scenario_result_1536_graph_all1.csv"
     ),
 }
 
