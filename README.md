@@ -1,34 +1,45 @@
 # 🔗 CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols
 
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/) [![Rust 1.70+](https://img.shields.io/badge/Rust-1.70+-000000.svg?logo=rust&logoColor=white)](https://www.rust-lang.org/) 
-
-
-Official software artifact repository for the ACM CCS paper:
-> **CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols**
-
-This repository contains the artifact for CrossLink, a passive cross-protocol tracking framework that links temporary identifiers emitted by the same device over LTE, WiFi, and BLE. The artifact supports the simulation, tracing, reconstruction, and plotting pipeline used in the paper.
+This repository contains the artifact for the ACM CCS paper **CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols**. CrossLink is a passive cross-protocol tracking framework that links temporary identifiers emitted by the same device over LTE, WiFi, and BLE. The artifact supports the simulation, tracing, reconstruction, and plotting pipeline used in the paper.
 
 
 ## Paper Overview
 
-Smartphones simultaneously transmit temporary network identifiers over LTE, Wi-Fi, and BLE to facilitate network association and service discovery. Per-protocol identifier randomization assumes that privacy protections compose independently across protocols. **CrossLink** demonstrates that they do not: even under fully passive eavesdropping and noisy spatiotemporal localization, unsynchronized identifier rotations enable cross-protocol stitching of device trajectories over time.
+Smartphones simultaneously transmit temporary network identifiers over LTE, Wi-Fi, and BLE to facilitate network association and service discovery. Per-protocol identifier randomization assumes that privacy protections compose independently across protocols. CrossLink demonstrates that they do not: even under fully passive eavesdropping and noisy spatiotemporal localization, unsynchronized identifier rotations enable cross-protocol stitching of device trajectories over time.
 
-
-> **Architecture & Configuration Guide**: The detailed modular architecture, repository structure, Rust/Python modules, and YAML configuration guide are documented in [**`ARCHITECTURE.md`**](design/ARCHITECTURE.md).
 
 ![Attack pipeline](design/approach.png)
 
 
-
 ## Implementation overview
 
-Our **CrossLink** implementation is centered around the _pipeline_, which is essentially a set of _tasks_ that execute sequentially, such as SUMO simulation, trace generation, sniffer observation generation, intra-protocol mapping, graph generation, etc. The pipeline accepts a _config_ as input, which points to a config file describing the information required for individual tasks, such as input filenames, algorithm parameters, user count, etc. See [**`ARCHITECTURE.md`**](design/ARCHITECTURE.md) for config file format and content reference.
+Our **CrossLink** implementation is centered around the _pipeline_, which is essentially a set of _tasks_ that execute sequentially, such as SUMO simulation, trace generation, sniffer observation generation, intra-protocol mapping, graph generation, etc. The pipeline accepts a _config_ as input, which points to a config file describing the information required for individual tasks, such as input filenames, algorithm parameters, user count, etc.
 
 Concretely, a task can be either a SUMO run, a Python script or a Rust program. To avoid typing all the commands for each task, we have provided a `Makefile` that contains targets which run the entire pipeline with specific configs. This should be the main entry point for whoever looking to try out CrossLink or to replicate results.
 
+Detail on config format can be found at [**`CONFIG.md`**](CONFIG.md).
+
+### Repo structure
+
+```text
+.
+├── configs/                 # config files
+├── data/                    # mobility traces, sniffer logs, ground truth, and other intermediary results
+├── design/                  # pipeline diagrams
+├── output/                  # output reconstructed device traces and plots
+├── plot/                    # plotting scripts
+├── real_world/              # real-world dataset and evaluation scripts
+├── reconstruction/          # final reconstruction scripts
+├── rust_code/               # rust implementation for sniffer sample generation and intra-/inter-protocol mapping
+├── simulation/              # SUMO simulation runner
+├── sniffer_location/        # sniffer location data
+├── tracing_algorithm/       # Python implementation of intra-/inter-protocol mapping, aggregating, and refining
+├── main.py & pipeline.py    # program/pipeline entry point
+```
+
 ## Preparing for a run
 
-We implemented CrossLink part in Python and part in Rust. We tested the pipeline against **Python 3.10** and **Rust 1.85.0** on **Debian 13** (`6.12.107+deb13-amd64`) with **SUMO 1.18.0**. In theory, CrossLink can also run on Windows and macOS, but SUMO installation will need to be taken care of manually.
+We implemented CrossLink part in Python and part in Rust. We tested the pipeline against **Python 3.10** and **Rust 1.85.1** on **Debian 13** (`6.12.107+deb13-amd64`) with **SUMO 1.18.0**. In theory, CrossLink can also run on Windows and macOS, but SUMO installation will need to be taken care of manually.
 
 Additionally, you also need to install the `time` package (for Debian, name might differ for other distro, same hereafter) for measuring run time; `build-essential` and relevant packages for building Python wheels.
 
