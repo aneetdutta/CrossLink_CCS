@@ -659,7 +659,7 @@ q4_density:
 	
 	bash - c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_1024_graph_all1 inter_map && cd .."; \
 	
-	bash - c"cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_1024_graph_all1 intra_map && cd .."; \
+	bash - c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_1024_graph_all1 intra_map && cd .."; \
 	
 	python3 main.py -c scenario_result_1024_graph_all1.yml -t refine_intramap; \
 	
