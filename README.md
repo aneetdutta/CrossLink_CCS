@@ -178,7 +178,7 @@ make validate_real_world
 | §9.2, Figure 9 | CrossLink under different bounded localization errors | `make q2_bounded_localization` | `output/images/privacy_leakage_q3_localization_cc_m.pdf` |
 | §9.2, Figure 10 | CrossLink under different randomization and transmission intervals | `make q3` | `output/images/privacy_leakage_q2_512_ccs.pdf` |
 | §9.2, Figure 11 (a) | Effect of velocity on privacy | `make q4_velocity` | `output/images/q4_mobility_ccs_m.pdf` |
-| §9.2, Figure 11 (b) and (c) | Effect of density and mobility model on privacy | `make q4_density` | `output/images/q4_density_ccs_m.pdf` |
+| §9.2, Figure 11 (b) and (c) | Effect of density and mobility model on privacy | `make q4_density` | `output/images/q4_density_ccs_m.pdf` and `output/images/q4_mix_ccs_m.pdf` |
 | §9.2, Figure 13 | Countermeasures | `make countermeasure` | `output/images/privacy_leakage_countermeasure_m.pdf` |
 
 
