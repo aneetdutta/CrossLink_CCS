@@ -82,7 +82,8 @@ docker exec -it ${CONTAINER_NAME} bash
 # enter the repo dir and generate the mobility data
 cd /data
 
-# run the rest of the pipeline
+# run the pipeline
+make mobility_data
 make smoke_test
 ```
 
