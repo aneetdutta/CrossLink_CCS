@@ -23,9 +23,13 @@ Detail on config format can be found at [**`CONFIG.md`**](CONFIG.md).
 
 ```text
 .
+├── analysis/                # linking result analysis scripts
 ├── configs/                 # config files
 ├── data/                    # mobility traces, sniffer logs, ground truth, and other intermediary results
 ├── design/                  # pipeline diagrams
+├── evaluation/              # one-click makefiles for running the pipelines and generating graphs in the paper
+├── logs/                    # runtime logs
+├── modules/                 # util scripts
 ├── output/                  # output reconstructed device traces and plots
 ├── plot/                    # plotting scripts
 ├── real_world/              # real-world dataset and evaluation scripts
