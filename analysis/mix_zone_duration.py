@@ -6,7 +6,7 @@ import csv
 from pathlib import Path
 from typing import Final
 
-OUTPUT_ROOT: Final[Path] = Path("./output/q4_mix")
+OUTPUT_ROOT: Final[Path] = Path("./output/data/q4_mix")
 
 OUTPUT_SOURCE = {"SUMO": "sumo", "Synthetic": "graph"}
 
