@@ -54,9 +54,9 @@ smoke_test:
 	@echo "======================================================================"
 	@echo "Starting End-to-End 32-User Smoke Test Verification Pipeline"
 	
-	bash -c "mkdir output"; \
+	#bash -c "mkdir output"; \
 	
-	bash -c "mkdir output/images"; \
+	#bash -c "mkdir output/images"; \
 	
 	python3 main.py -c $(SMOKE_CONFIG) -t generate_user_data; \
 	
@@ -619,8 +619,7 @@ q4_density:
 	
 	python3 main.py -c scenario_result_1536_sumo_all1.yml -t reconstruction; \
 	
-	#python3 main.py -c scenario_result_1536_sumo_all1.yml -t plot; \
-	#python3 main.py c scenario_result_512_graph_all1.yml -t graph_gen; \
+	
 	
 	python3 main.py -c scenario_result_512_graph_all1.yml -t graph_gen; \
 	
@@ -690,7 +689,11 @@ q4_density:
 	
 	python3 main.py -c scenario_result_1536_graph_all1.yml -t reconstruction; \
 	
-	python3 plot/q4_denisty_m.py
+	python3 analysis/mix_zone_duration.py; \
+	
+	python3 plot/q4_denisty_m.py; \
+	
+	python3 plot/q4_mix_m.py; \
 	
 	
 
