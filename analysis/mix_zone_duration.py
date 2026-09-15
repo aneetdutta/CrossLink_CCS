@@ -3,7 +3,50 @@ import math
 import numpy as np
 from collections import defaultdict
 import csv
-output_csv = ""
+from pathlib import Path
+from typing import Final
+
+OUTPUT_ROOT: Final[Path] = Path("./output/data/q4_mix")
+
+OUTPUT_SOURCE = {"SUMO": "sumo", "Synthetic": "graph"}
+
+DATA_ROOT: Final[Path] = Path("./data")
+
+SCENARIOS: Final[dict[tuple[int, str], Path]] = {
+    (512, "SUMO"): (
+        DATA_ROOT
+        / "scenario_result_512_sumo_all1"
+        / "user_data_scenario_result_512_sumo_all1.csv"
+    ),
+    (1024, "SUMO"): (
+        DATA_ROOT
+        / "scenario_result_1024_sumo_all1"
+        / "user_data_scenario_result_1024_sumo_all1.csv"
+    ),
+    (1536, "SUMO"): (
+        DATA_ROOT
+        / "scenario_result_1536_sumo_all1"
+        / "user_data_scenario_result_1536_sumo_all1.csv"
+    ),
+    (512, "Synthetic"): (
+        DATA_ROOT
+        / "scenario_result_512_graph_all1"
+        / "user_data_scenario_result_512_graph_all1.csv"
+    ),
+    (1024, "Synthetic"): (
+        DATA_ROOT
+        / "scenario_result_1024_graph_all1"
+        / "user_data_scenario_result_1024_graph_all1.csv"
+    ),
+    (1536, "Synthetic"): (
+        DATA_ROOT
+        / "scenario_result_1536_graph_all1"
+        / "user_data_scenario_result_1536_graph_all1.csv"
+    ),
+}
+
+
+
 
 def calculate_with_generic_dynamic_threshold(csv_filename, base_threshold, Vmax):
     data_by_timestep = defaultdict(list)
@@ -150,40 +193,42 @@ def interpolate_and_check(stats, user_timesteps, user_data, base_threshold):
 
 # Main execution
 if __name__ == "__main__":
-    csv_file = "/path-leakage/data/scenario_result_512_sumo_all/user_data_scenario_result_512_sumo_all.csv"
-    base_threshold = 20
-    Vmax = 3
+
+    for (n_users,source), csv_file in SCENARIOS.items():
+
+        base_threshold =3
+        Vmax = 3
 
     
-    stats, user_timesteps = calculate_with_generic_dynamic_threshold(csv_file, base_threshold, Vmax)
-    # Load user.csv data again into a lookup for positions for interpolation
-    user_data = {}
-    with open(csv_file, 'r', newline='', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            row['timestep'] = int(float(row['timestep']))
-            key = (row['user_id'], row['timestep'])
-            user_data[key] = row
+        stats, user_timesteps = calculate_with_generic_dynamic_threshold(csv_file, base_threshold, Vmax)
+        # Load user.csv data again into a lookup for positions for interpolation
+        user_data = {}
+        with open(csv_file, 'r', newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                row['timestep'] = int(float(row['timestep']))
+                key = (row['user_id'], row['timestep'])
+                user_data[key] = row
  
-    neighbor_duration = interpolate_and_check(stats, user_timesteps, user_data, base_threshold)
+        neighbor_duration = interpolate_and_check(stats, user_timesteps, user_data, base_threshold)
 
-    # Print results
-    for (user, neighbor), duration in neighbor_duration.items():
-        print(f"Neighbor pair ({user}, {neighbor}) matched condition for {duration:.2f} seconds.")
+        # Print results
+        for (user, neighbor), duration in neighbor_duration.items():
+            print(f"Neighbor pair ({user}, {neighbor}) matched condition for {duration:.2f} seconds.")
         
         
    
 
 
-
-    with open(output_csv, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
+        output_csv= OUTPUT_ROOT/f"neighbor_durations_{OUTPUT_SOURCE[source]}_{n_users}.csv"
+        with open(output_csv, mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
      #Write headers
-        writer.writerow(["user_id", "neighbor_id", "duration_seconds"])
+            writer.writerow(["user_id", "neighbor_id", "duration_seconds"])
     
     # Write rows for each neighbor pair
-        for (user_id, neighbor_id), duration in neighbor_duration.items():
-            writer.writerow([user_id, neighbor_id, duration])
+            for (user_id, neighbor_id), duration in neighbor_duration.items():
+                writer.writerow([user_id, neighbor_id, duration])
      
     
 

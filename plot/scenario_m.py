@@ -11,9 +11,6 @@ import numpy as np
 import pandas as pd
 
 
-# -----------------------------------------------------------------------------
-# Configuration
-# -----------------------------------------------------------------------------
 
 NUM_TARGETS: Final[int] = 113
 TOTAL_DURATION_SEC: Final[int] = 7200
@@ -22,7 +19,7 @@ MAX_DURATION_MIN: Final[float] = (
     TOTAL_DURATION_SEC / SECONDS_PER_MINUTE
 )
 
-DATA_ROOT: Final[Path] = Path("output/data")
+DATA_ROOT: Final[Path] = Path("output/data/example_scenario")
 OUTPUT_ROOT: Final[Path] = Path("output/images")
 SCORE_COLUMN: Final[str] = "privacy_score"
 
@@ -34,19 +31,14 @@ OUTPUT_PNG: Final[Path] = (
 )
 
 FILES: dict[str, Path] = {
-    "PATCH": DATA_ROOT / "matched_user_ids_patch.csv",
-    "MOB": DATA_ROOT / "matched_user_ids_mob.csv",
-    "RAND": DATA_ROOT / "matched_user_ids_rand.csv",
-    "Full coverage": DATA_ROOT / "matched_user_ids_baseline.csv",
+    "PATCH": DATA_ROOT / "matched_user_ids_PATCH.csv",
+    "MOB": DATA_ROOT / "matched_user_ids_MOB.csv",
+    "RAND": DATA_ROOT / "matched_user_ids_RAND.csv",
+    "Full coverage": DATA_ROOT / "matched_user_ids_Baseline.csv",
 }
 
 
-# -----------------------------------------------------------------------------
-# Camera-ready style: same hierarchy as standardized Figure 6
-# -----------------------------------------------------------------------------
 
-# Generate directly at the final CCS single-column width.
-# The height reserves room for the two-row bottom legend.
 FIGURE_SIZE: Final[tuple[float, float]] = (3.35, 2.1)
 
 mpl.rcParams.update(
