@@ -635,7 +635,7 @@ q4_density:
 	
 	bash - c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_graph_all1 inter_map && cd .."; \
 	
-	bash - c"cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_graph_all1 intra_map && cd .."; \
+	bash - c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_graph_all1 intra_map && cd .."; \
 	
 	python3 main.py -c scenario_result_512_graph_all1.yml -t refine_intramap; \
 	
@@ -681,7 +681,7 @@ q4_density:
 	
 	bash - c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_1536_graph_all1 inter_map && cd .."; \
 	
-	bash - c"cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_1536_graph_all1 intra_map && cd .."; \
+	bash - c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_1536_graph_all1 intra_map && cd .."; \
 	
 	python3 main.py -c scenario_result_1536_graph_all1.yml -t refine_intramap; \
 	
@@ -695,7 +695,10 @@ q4_density:
 	
 	python3 plot/q4_mix_m.py; \
 	
-	
+example_scenario:
+	@echo "======================================================================"
+	@echo "Example Scenario"
+
 
 	
 	
