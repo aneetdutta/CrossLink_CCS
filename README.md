@@ -74,8 +74,13 @@ We provide a minimal config ("smoke test") with 32 users for prototyping and qui
 # clone the repository
 git clone https://github.com/aneetdutta/CrossLink_CCS.git crosslink
 
+# pull up the docker container and enter it
+cd crosslink
+docker compose up -d
+docker exec -it ${CONTAINER_NAME} bash
+
 # enter the repo dir and generate the mobility data
-cd crosslink && make mobility_data
+cd /data
 
 # run the rest of the pipeline
 make smoke_test
