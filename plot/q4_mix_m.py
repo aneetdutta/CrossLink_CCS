@@ -30,10 +30,10 @@ from figure11_style import (
 # Configuration
 # -----------------------------------------------------------------------------
 
-DATA_ROOT: Final[Path] = Path("output/data")
+DATA_ROOT: Final[Path] = Path("./output/data")
 
 MIXZONE_CSV_DIR: Final[Path] = Path(
-    DATA_ROOT/"q4_mix1"
+    DATA_ROOT/"q4_mix"
 )
 
 OUTPUT_ROOT: Final[Path] = Path("output/images")
