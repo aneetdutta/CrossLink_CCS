@@ -13,11 +13,11 @@ help:
 
 q4_b_c:
 	@echo "==> Running Figure 11(b & c) evaluation pipeline from root repository..."
-	@cd $(ROOT_DIR) && source .venv/bin/activate 2>/dev/null || true; python3 plot/q4_density_graph.py && python3 plot/q4_mix.py
+	@cd $(ROOT_DIR) && python3 plot/q4_density_graph.py && python3 plot/q4_mix.py
 
 plot:
 	@echo "==> Generating evaluation plot figure..."
-	@cd $(ROOT_DIR) && source .venv/bin/activate 2>/dev/null || true; python3 plot/q4_density_graph.py && python3 plot/q4_mix.py
+	@cd $(ROOT_DIR) && python3 plot/q4_density_graph.py && python3 plot/q4_mix.py
 
 clean:
 	@echo "==> Cleaning local temporary files..."

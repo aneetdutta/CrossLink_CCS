@@ -13,11 +13,11 @@ help:
 
 t5:
 	@echo "==> Running Table 5 evaluation pipeline from root repository..."
-	@cd $(ROOT_DIR) && source .venv/bin/activate 2>/dev/null || true; python3 target_privacy_scores.py
+	@cd $(ROOT_DIR) && python3 target_privacy_scores.py
 
 plot:
 	@echo "==> Generating evaluation plot figure..."
-	@cd $(ROOT_DIR) && source .venv/bin/activate 2>/dev/null || true; python3 target_privacy_scores.py
+	@cd $(ROOT_DIR) && python3 target_privacy_scores.py
 
 clean:
 	@echo "==> Cleaning local temporary files..."

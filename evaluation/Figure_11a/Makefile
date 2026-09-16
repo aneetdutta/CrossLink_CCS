@@ -13,11 +13,11 @@ help:
 
 q4a:
 	@echo "==> Running Figure 11(a) evaluation pipeline from root repository..."
-	@cd $(ROOT_DIR) && source .venv/bin/activate 2>/dev/null || true; python3 plot/q4_mobility.py
+	@cd $(ROOT_DIR) && python3 plot/q4_mobility.py
 
 plot:
 	@echo "==> Generating evaluation plot figure..."
-	@cd $(ROOT_DIR) && source .venv/bin/activate 2>/dev/null || true; python3 plot/q4_mobility.py
+	@cd $(ROOT_DIR) && python3 plot/q4_mobility.py
 
 clean:
 	@echo "==> Cleaning local temporary files..."

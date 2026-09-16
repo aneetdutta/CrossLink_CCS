@@ -13,11 +13,11 @@ help:
 
 cm:
 	@echo "==> Running Figure 13 evaluation pipeline from root repository..."
-	@cd $(ROOT_DIR) && source .venv/bin/activate 2>/dev/null || true; python3 plot/countermeasure.py
+	@cd $(ROOT_DIR) && python3 plot/countermeasure.py
 
 plot:
 	@echo "==> Generating evaluation plot figure..."
-	@cd $(ROOT_DIR) && source .venv/bin/activate 2>/dev/null || true; python3 plot/countermeasure.py
+	@cd $(ROOT_DIR) && python3 plot/countermeasure.py
 
 clean:
 	@echo "==> Cleaning local temporary files..."
