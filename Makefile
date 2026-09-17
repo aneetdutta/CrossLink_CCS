@@ -564,9 +564,13 @@ countermeasure:
 	
 	python3 main.py -c synchronized_low_ti.yml -t intra_filter; \
 	
+	python3 main.py -c synchronized_low_ti.yml -t reconstruction; \
+	
+	
+	
 	python3 plot/countermeasure_m.py; \
 	
-	python3 main.py -c synchronized_high_ti.yml -t reconstruction; \
+
 	
 		
 q4_density:
