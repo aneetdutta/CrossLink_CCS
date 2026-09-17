@@ -220,7 +220,7 @@ q2_bounded_localization:
 	python3 plot/q3_localization_m.py
 	
 	
-abalation_study:
+ablation_study:
 	@echo "Running abalation study..."
 	
 	python3 main.py -c scenario_result_512_sumo_all_nom.yml -t aggregate; \
@@ -705,6 +705,51 @@ example_scenario:
 	python3 analysis/filter_protest.py; \
 	python3 plot/scenario_m.py; \
 
+heavy_tail:
+	@echo "======================================================================"
+	@echo "Running the experiments on heavy tail error"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_all_tail_512.csv"
+	
+	bash -c "cp ./data/raw_user_data_scenario_result_512_sumo_all1_512.csv ./data/raw_user_data_scenario_result_512_sumo_all_tail2_512.csv"
+	
+	
+	#python3 main.py -c scenario_result_512_sumo_all_tail.yml -t generate_user_data; \
+	
+	#bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_all_tail generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_all_tail  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_all_tail intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail.yml -t reconstruction; \
+	
+	#python3 main.py -c scenario_result_512_sumo_all_tail2.yml -t generate_user_data; \
+	
+	#bash -c "cd rust_code && cargo run --release -- scenario_result_512_sumo_all_tail2 generate_sniffer_data && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail2.yml -t aggregate_new; \
+	
+	bash -c "cd rust_code && cargo run --release --features inter_map_disable_trim -- scenario_result_512_sumo_all_tail2  inter_map && cd .."; \
+	
+	bash -c "cd rust_code && cargo run --release --features intra_map_disable_trim -- scenario_result_512_sumo_all_tail2 intra_map && cd .."; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail2.yml -t refine_intramap; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail2.yml -t intra_filter; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail2.yml -t reconstruction; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail.yml -t plot; \
+	
+	python3 main.py -c scenario_result_512_sumo_all_tail2.yml -t plot; \
+	
 
 	
 	
