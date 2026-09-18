@@ -23,10 +23,10 @@ OUTPUT_ROOT: Final[Path] = Path("output/images")
 SCORE_COLUMN: Final[str] = "privacy_score"
 
 OUTPUT_PDF: Final[Path] = (
-    OUTPUT_ROOT / "privacy_leakage_q3_localization_ccs_m.pdf"
+    OUTPUT_ROOT / "privacy_leakage_q2_localization_ccs_m.pdf"
 )
 OUTPUT_PNG: Final[Path] = (
-    OUTPUT_ROOT / "privacy_leakage_q3_localization_ccs_m.png"
+    OUTPUT_ROOT / "privacy_leakage_q2_localization_ccs_m.png"
 )
 
 LP_SYMBOL: Final[str] = r"$LP_D$"

@@ -74,22 +74,22 @@ randomization_intervals:
   WIFI_MIN_REFRESH: 1
   WIFI_MAX_REFRESH: 60
 
-  # LTE refresh range uniform (in seconds)
+  # LTE refresh range exponential (in seconds)
   LTE_MIN_REFRESH: 420
-  LTE_MAX_REFRESH: 720
+
 
 #Transmission Intervals
 transmission_intervals:
-  # Bluetooth IDs transmit range uniform (in seconds)
-  BLUETOOTH_MIN_TRANSMIT: 1
+  # Bluetooth IDs transmit range exponential (in seconds)
+
   BLUETOOTH_MAX_TRANSMIT: 5
 
   # WiFi ID transmit range uniform (in seconds)
   WIFI_MIN_TRANSMIT: 1
   WIFI_MAX_TRANSMIT: 60
 
-  # LTE transmit range uniform (in seconds)
-  LTE_MIN_TRANSMIT: 1
+  # LTE transmit range exponential (in seconds)
+  
   LTE_MAX_TRANSMIT: 3
 ```
 
@@ -101,7 +101,7 @@ Controls the assumption we use when pairing traces on how far each protocol can 
 # Range for communication protocols
 communication_range:
   BLUETOOTH_RANGE: 30                # Bluetooth range (in meters)
-  WIFI_RANGE: 60                     # WiFi range (in meters)
+  WIFI_RANGE: 50                     # WiFi range (in meters)
   LTE_RANGE: 100                     # LTE range (in meters)
 
 # Localization errors
@@ -129,8 +129,8 @@ sniffer:
   ENABLE_PARTIAL_COVERAGE: false
   ENABLE_MULTILATERATION: false
   ENABLE_BLUETOOTH: true       # Enable Bluetooth
-  ENABLE_WIFI: true           # Enable Bluetooth
-  ENABLE_LTE: true             # Enable Bluetooth
+  ENABLE_WIFI: true           # Enable WiFi
+  ENABLE_LTE: true             # Enable LTE
   TRANSMIT_WHEN_RANDOMIZED: false
   SNIFFER_PROCESSING_BATCH_SIZE: 100 # Sniffer processing batch size
 ```

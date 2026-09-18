@@ -14,7 +14,7 @@ MARKER_INTERVAL = 50
 BASE_SCENARIO_NAME = f"scenario_result_{NUM_USERS}_sumo"
 
 OUTPUT_FILE = Path(
-    f"output/images/privacy_leakage_q2_{NUM_USERS}_ccs.pdf"
+    f"output/images/privacy_leakage_q3_{NUM_USERS}_ccs.pdf"
 )
 
 
