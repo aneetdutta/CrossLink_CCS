@@ -183,20 +183,20 @@ You should see message reporting successful completion. Results are stored also 
 
 There are also a set of other configs that we ran, evaluated, and generated figured from for the paper. The simulation includes randomness in user mobility, device transmissions, identifier rotations, and localization noise added to sniffer observations. Regenerating these inputs may result in slight variations from the figures produced in the paper. However, this variations does not change the main claims produced in the paper. They are listed below:
 
-| Paper reference | Description | Command | Output |
+| Paper reference | Description | Command | Output | Compute time |
 |---|---|---|---|
-| §4.2, Figure 3 | Ablation study | `make ablation_study` | `output/images/privacy_leakage_abalation_ccs_m.pdf` |
-| §8, Figure 5 | Lab-scale real-device deployment | `make validate_real_ world` | `real_world/output/images/accuracy_identifier_linkings_real_ccs.pdf` |
-| §9.2, Figure 6 | Baseline: 512 users, full coverage, different multi-protocol settings | `make q1` | `output/images/privacy_leakage_q1_512_ccs_m.pdf` |
-| §9.2, Figure 7 | Baseline: 512 users, full coverage | `make baseline` | `correct_linkings_by_mapping_protocol_scenario_result_512_sumo_all1.pdf` |
-| §9.2, Figure 8 | Partial coverage, 512 users, different adversarial strategies | `make q2_partial` | `output/images/privacy_leakage_q2_512_partial_ccs.pdf` |
-| §9.2, Table 5 | CrossLink under heavy tail localization errors | `make heavy_tail` | `output/data/scenario_result_512_sumo_all_tail/multi_protocol_scenario_result_512_sumo_all_tail.csv` and `output/data/scenario_result_512_sumo_all_tail2/multi_protocol_scenario_result_512_sumo_all_tail2.csv`|
-| §9.2, Figure 9 | CrossLink under different bounded localization errors | `make q2_bounded_localization` | `output/images/privacy_leakage_q2_localization_cc_m.pdf` |
-| §9.2, Figure 10 | CrossLink under different randomization and transmission intervals | `make q3` | `output/images/privacy_leakage_q2_512_ccs.pdf` |
-| §9.2, Figure 11 (a) | Effect of velocity on privacy | `make q4_velocity` | `output/images/q4_mobility_ccs_m.pdf` |
-| §9.2, Figure 11 (b) and (c) | Effect of density and mobility model on privacy | `make q4_density` | `output/images/q4_density_ccs_m.pdf` and `output/images/q4_mix_ccs_m.pdf` |
-| §9.2, Figure 12 | Example Scenario | `make example_scenario` | `output/images/privacy_leakage_duration_sf_m.pdf` |
-| §9.2, Figure 13 | Countermeasures | `make countermeasure` | `output/images/privacy_leakage_countermeasure_m.pdf` |
+| §4.2, Figure 3 | Ablation study | `make ablation_study` | `output/images/privacy_leakage_abalation_ccs_m.pdf` | ~5 minutes |
+| §8, Figure 5 | Lab-scale real-device deployment | `make validate_real_ world` | `real_world/output/images/accuracy_identifier_linkings_real_ccs.pdf` | ~ 1 minute |
+| §9.2, Figure 6 | Baseline: 512 users, full coverage, different multi-protocol settings | `make q1` | `output/images/privacy_leakage_q1_512_ccs_m.pdf` | ~ 2 hours |
+| §9.2, Figure 7 | Baseline: 512 users, full coverage | `make baseline` | `correct_linkings_by_mapping_protocol_scenario_result_512_sumo_all1.pdf` | 55 minutes |
+| §9.2, Figure 8 | Partial coverage, 512 users, different adversarial strategies | `make q2_partial` | `output/images/privacy_leakage_q2_512_partial_ccs.pdf` | 30 minues |
+| §9.2, Table 5 | CrossLink under heavy tail localization errors | `make heavy_tail` | `output/data/scenario_result_512_sumo_all_tail/multi_protocol_scenario_result_512_sumo_all_tail.csv` and `output/data/scenario_result_512_sumo_all_tail2/multi_protocol_scenario_result_512_sumo_all_tail2.csv`| 30 minutes |
+| §9.2, Figure 9 | CrossLink under different bounded localization errors | `make q2_bounded_localization` | `output/images/privacy_leakage_q2_localization_cc_m.pdf` | 85 minutes |
+| §9.2, Figure 10 | CrossLink under different randomization and transmission intervals | `make q3` | `output/images/privacy_leakage_q2_512_ccs.pdf` | 20 minutes |
+| §9.2, Figure 11 (a) | Effect of velocity on privacy | `make q4_velocity` | `output/images/q4_mobility_ccs_m.pdf` | 40 minutes |
+| §9.2, Figure 11 (b) and (c) | Effect of density and mobility model on privacy | `make q4_density` | `output/images/q4_density_ccs_m.pdf` and `output/images/q4_mix_ccs_m.pdf` | 3 hours |
+| §9.2, Figure 12 | Example Scenario | `make example_scenario` | `output/images/privacy_leakage_duration_sf_m.pdf` | 1 minute |
+| §9.2, Figure 13 | Countermeasures | `make countermeasure` | `output/images/privacy_leakage_countermeasure_m.pdf` | 12 hours |
 
 
 
