@@ -184,7 +184,7 @@ You should see message reporting successful completion. Results are stored also 
 There are also a set of other configs that we ran, evaluated, and generated figured from for the paper. The simulation includes randomness in user mobility, device transmissions, identifier rotations, and localization noise added to sniffer observations. Regenerating these inputs may result in slight variations from the figures produced in the paper. However, this variations does not change the main claims produced in the paper. They are listed below:
 
 | Paper reference | Description | Command | Output | Compute time |
-|---|---|---|---|
+|---|---|---|---|---|
 | §4.2, Figure 3 | Ablation study | `make ablation_study` | `output/images/privacy_leakage_abalation_ccs_m.pdf` | ~5 minutes |
 | §8, Figure 5 | Lab-scale real-device deployment | `make validate_real_ world` | `real_world/output/images/accuracy_identifier_linkings_real_ccs.pdf` | ~ 1 minute |
 | §9.2, Figure 6 | Baseline: 512 users, full coverage, different multi-protocol settings | `make q1` | `output/images/privacy_leakage_q1_512_ccs_m.pdf` | ~ 2 hours |
