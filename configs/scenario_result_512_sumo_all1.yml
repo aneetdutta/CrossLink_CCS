@@ -45,12 +45,12 @@ randomization_intervals:
 
   # LTE refresh range uniform (in seconds)
   LTE_MIN_REFRESH: 420
-  LTE_MAX_REFRESH: 720
+
 
 #Transmission Intervals
 transmission_intervals:
   # Bluetooth IDs transmit range uniform (in seconds)
-  BLUETOOTH_MIN_TRANSMIT: 1
+  
   BLUETOOTH_MAX_TRANSMIT: 5
 
   # WiFi ID transmit range uniform (in seconds)
@@ -58,13 +58,13 @@ transmission_intervals:
   WIFI_MAX_TRANSMIT: 60
 
   # LTE transmit range uniform (in seconds)
-  LTE_MIN_TRANSMIT: 1
+  
   LTE_MAX_TRANSMIT: 3
 
 # Range for communication protocols
 communication_range:
   BLUETOOTH_RANGE: 30                # Bluetooth range (in meters)
-  WIFI_RANGE: 60                     # WiFi range (in meters)
+  WIFI_RANGE: 50                     # WiFi range (in meters)
   LTE_RANGE: 100                     # LTE range (in meters)
 
 # Localization errors
