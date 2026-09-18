@@ -1,7 +1,8 @@
 services:
-  ccs-debian:
+  crosslink-debian:
     build: .
     volumes:
       - .:/data
     command: tail -f /dev/null
     stop_grace_period: 1s
+    container_name: crosslink-debian
