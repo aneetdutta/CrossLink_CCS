@@ -181,7 +181,7 @@ You should see message reporting successful completion. Results are stored also 
 
 ## Running other configs used in the paper
 
-There are also a set of other configs that we ran, evaluated, and generated figured from for the paper. They are listed below:
+There are also a set of other configs that we ran, evaluated, and generated figured from for the paper. The simulation includes randomness in user mobility, device transmissions, identifier rotations, and localization noise added to sniffer observations. Regenerating these inputs may result in slight variations from the figures produced in the paper. However, this variations does not change the main claims produced in the paper. They are listed below:
 
 | Paper reference | Description | Command | Output |
 |---|---|---|---|
