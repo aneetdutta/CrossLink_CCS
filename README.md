@@ -1,6 +1,6 @@
 # 🔗 CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols
 
-This repository contains the artifact for the ACM CCS paper **CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols**. CrossLink is a passive cross-protocol tracking framework that links temporary identifiers emitted by the same device over LTE, WiFi, and BLE. The artifact implements the simulation, tracing, reconstruction, and plotting pipeline used in the paper. A snapshot of the artifact is permanently and publicly available at [10.5281/zenodo.22499946](https://doi.org/10.5281/zenodo.22499946).
+This repository contains the artifact for the ACM CCS paper **CrossLink: Breaking Location Privacy by Linking Device Identifiers Across Protocols**. CrossLink is a passive cross-protocol tracking framework that links temporary identifiers emitted by the same device over LTE, WiFi, and BLE. The artifact implements the simulation, tracing, reconstruction, and plotting pipeline used in the paper. A snapshot of the artifact is permanently and publicly available at: [10.5281/zenodo.22499946](https://doi.org/10.5281/zenodo.22499946)
 
 
 ## Paper Overview
