@@ -179,7 +179,7 @@ q3:
 	python3 plot/q3_m.py; \
 	
 	@echo "======================================================================"
-	@echo "Q1 Finished"
+	@echo "Q3 Finished"
 	@echo "Output saved in /output/data/"
 	@echo "Plot saved in /output/images/privacy_leakage_q3_512_ccs.pdf"
 	@echo "Generated Figure 10 of the main paper"
@@ -219,6 +219,13 @@ q2_bounded_localization:
 	
 	python3 plot/q3_localization_m.py
 	
+	@echo "======================================================================"
+	@echo "Q2 Bounded Localization Experiment Finished"
+	@echo "Output saved in /output/data/"
+	@echo "Plot saved in /output/images/privacy_leakage_q2_512_ccs.pdf"
+	@echo "Generated Figure 9 of the main paper"
+	@echo "======================================================================"
+	
 	
 ablation_study:
 	@echo "Running abalation study..."
@@ -252,7 +259,7 @@ ablation_study:
 	python3 plot/plot_abalation_m.py; \
 	
 	@echo "======================================================================"
-	@echo "Abalation study Finished"
+	@echo "Ablation study Finished"
 	@echo "Output saved in /output/data/"
 	@echo "Plot saved in /output/images/privacy_leakage_abalation_ccs_m.pdf"
 	@echo "Generated Figure 3 of the main paper"
@@ -340,6 +347,13 @@ q2_partial:
 	python3 main.py -c scenario_result_512_sumo_partial.yml -t reconstruction; \
 	
 	python3 plot/plot_partial_m.py
+	
+	@echo "======================================================================"
+	@echo "Q2 Partial Coverage Finished"
+	@echo "Output saved in /output/data/"
+	@echo "Plot saved in /output/images/privacy_leakage_q2_512_partial_ccs.pdf"
+	@echo "Generated Figure 8 of the main paper"
+	@echo "======================================================================"
 	 
 	
 	
@@ -408,9 +422,9 @@ q1:
 	python3 plot/plot_q1_m.py; \
 	
 	@echo "======================================================================"
-	@echo "Q3 Finished"
+	@echo "Q1 Finished"
 	@echo "Output saved in /output/data/"
-	@echo "Plot saved in /output/images/privacy_leakage_q3_512_ccs_m.pdf"
+	@echo "Plot saved in /output/images/privacy_leakage_q1_512_ccs_m.pdf"
 	@echo "Generated Figure 6 of the main paper"
 	@echo "======================================================================"
 	
@@ -479,7 +493,7 @@ q4_velocity:
 	@echo "======================================================================"
 	@echo "Q4 Velocity Finished"
 	@echo "Output saved in /output/data/"
-	@echo "Plot saved in /output/images/privacy_leakage_q4_mobility_ccs_m"
+	@echo "Plot saved in /output/images/privacy_leakage_q4_mobility_ccs_m.pdf"
 	@echo "Generated Figure 11 (a) of the main paper"
 	@echo "======================================================================"
 
@@ -570,6 +584,13 @@ countermeasure:
 	
 	python3 plot/countermeasure_m.py; \
 	
+	
+	@echo "======================================================================"
+	@echo "Countermeasure Finished"
+	@echo "Plot saved in /output/images/privacy_leakage_countermeasure_m.pdf"
+	@echo "Generated Figure 13 of the main paper"
+	@echo "======================================================================"
+	
 
 	
 		
@@ -622,8 +643,6 @@ q4_density:
 	python3 main.py -c scenario_result_1536_sumo_all1.yml -t intra_filter; \
 	
 	python3 main.py -c scenario_result_1536_sumo_all1.yml -t reconstruction; \
-	
-
 	
 	python3 main.py -c scenario_result_512_graph_all1.yml -t graph_gen; \
 	
@@ -694,16 +713,31 @@ q4_density:
 	python3 main.py -c scenario_result_1536_graph_all1.yml -t reconstruction; \
 	
 	python3 analysis/mix_zone_duration.py; \
-
+	
 	python3 plot/q4_denisty_m.py; \
 	
 	python3 plot/q4_mix_m.py; \
+	
+	@echo "======================================================================"
+	@echo "Countermeasure Finished"
+	@echo "Plot saved in /output/images/privacy_leakage_countermeasure_m.pdf"
+	@echo "Generated Figure 13 of the main paper"
+	@echo "======================================================================"
+	
+	
+	
 
 example_scenario:
 	@echo "======================================================================"
 	@echo "Example Scenario"
 	python3 analysis/filter_protest.py; \
 	python3 plot/scenario_m.py; \
+	
+	@echo "======================================================================"
+	@echo "Example scenario Finished"
+	@echo "Plot saved in /output/images/privacy_leakage_duration_sf_m.pdf"
+	@echo "Generated Figure 12 of the main paper"
+	@echo "======================================================================"
 
 heavy_tail:
 	@echo "======================================================================"
